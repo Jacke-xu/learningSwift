@@ -2,7 +2,7 @@
 //  swift_NSString_Tests.swift
 //  swift(NSString)Tests
 //
-//  Created by 范云飞 on 2018/8/1.
+//  Created by 范云飞 on 2018/8/2.
 //  Copyright © 2018年 范云飞. All rights reserved.
 //
 
