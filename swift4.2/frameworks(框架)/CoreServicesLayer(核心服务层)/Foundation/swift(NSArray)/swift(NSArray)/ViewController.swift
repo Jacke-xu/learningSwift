@@ -110,12 +110,136 @@ class ViewController: UIViewController {
         print(values.index(after: 0))
         
         //MARK:formIndex(after:): replaces the given index with its successor
-        var firstElement = 10
+        var firstElement = 1
         print(values.formIndex(after: &firstElement))
-        print(values.formIndex(after: &firstElement))
+        print(values.formIndex(before: &firstElement))
+        print(values)
         
         
+        //MARK:index(_:offsetBy:):  returns an index that is the specified distance from the given index
+        //FIXME:the value passed as 'n' must not offset 'i' beyond the bounds of the collection.返回一个距离给定值长度为 n 的 Int 类型型，当 n 超过newNumbers的 count 时 newNumbers[i] 不存在报错
+        let newNumbers = [10, 20, 30, 40, 50]
+        let i = newNumbers.index(newNumbers.startIndex, offsetBy: 7)
+        print(i)
         
+        // the value passed as 'n' must not offset 'i' beyond the bounds of the collection, unless the index passed as 'limit' prevents offseting beyond those bounds
+        //如果n 的长度超过了 newNumbers的 count  方法将会返回 nil
+        let j = newNumbers.index(newNumbers.startIndex, offsetBy: 2, limitedBy: newNumbers.endIndex)
+        print(j!)
+        
+        //MARK:distance(from:to:)
+        let anotherNumbers = [1, 3, 5, 7, 8, 9]
+        print(anotherNumbers.distance(from: anotherNumbers[0], to: anotherNumbers[4]))
+        
+        
+        //MARK:subscript(_:): accesses the element at the specified position. 访问指定位置的元素
+        var streets = ["Adams", "Bryant", "Channing", "Douglas", "Evarts"]
+        streets[1] = "Butler"
+        print(streets[1])
+        
+        //MARK:subscript(bounds) accesses a contiguous subrange of the array's elements. 访问一个数组中的连续的子集(片段)
+        let anotherStreets = ["Adams", "Bryant", "Channing", "Douglas", "Evarts"]
+        let streetsSlice = anotherStreets[2 ..< anotherStreets.endIndex]
+        print(streetsSlice)
+        
+        //MARK:joined() return the elements of this sequence of sequences , concatenated.
+        
+        let ranges = [0..<3, 8..<10, 15..<17]
+        for range in ranges {
+            print(range)
+        }
+        
+        // use 'joined()' to access each element of each range:
+        print(ranges.joined())
+        
+        for index in ranges.joined() {
+            print(index)
+        }
+        
+        //MARK:joined(separator:): return the concatented elements of this sequence of sequences, inserting the given separator between each element
+        let nestedNumbers = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        let joined = nestedNumbers.joined(separator: [-1, -2])
+        print(joined)
+        print(Array(joined))
+        
+        //MARK:return a new string by concatenating the elements of the sequence , adding the given separator between each element. 返回一个新的字符串，用给定的字符，把集合中的元素重新连接起来
+        
+        let cast = ["Vivien", "Marlon", "Kim", "Karl"]
+        let list = cast.joined(separator: ", ")
+        print(list)
+        
+        //MARK: split(separator:maxSplits:omittingEmptySubsequences:)
+        let line = "BLANCHR:  I don't want realism. I want magic!"
+        
+        /**
+         separator : the element that should be split upon
+         maxSplits : the maximum number of times to split the collection
+         omittingEmptySubsequences : if 'false' , an empty subsequence is returned in the rusult for each consecutive pair of 'separator' elements in the collection and for each instance of 'separator' at the start or end of the collection. if 'true', only nonempty subsequences are returned. the default value is 'true'
+         */
+        print(line.split(separator: " "))
+        
+        print(line.split(separator: " ", maxSplits: 1))
+        
+        print(line.split(separator: " ", omittingEmptySubsequences: true))
+        
+        print(line.split(separator: " ", maxSplits: 0, omittingEmptySubsequences: false))
+
+        
+        //MARK:index(of:): return the index  where the specified value appears in the collection. 获取给定元素的对应的索引
+        var students = ["Ben", "Ivy", "Jordell", "Maxime"]
+        if let i = students.index(of: "Maxime") {
+            students[i] = "Max"
+        }
+        print(students)
+        
+        
+        //MARK: != (_:_:) return a Boolean value indicating whether two values are not equal
+        let compareArray = [1, 3, 4, 6], compareArrayB = [1, 3, 6, 4]
+        print(compareArray == compareArrayB)
+        
+        //MARK:starts(with:): return a Boolean value indicating whether the initial elements of the sequence are the same as the elements in another sequencce. 比较连个集合是否拥有相同的元素
+        
+        let a = 1...3
+        let b = 1...10
+        print(b.starts(with: a))
+        
+        
+        //MARK:elementsEqual(_:): return a Boolean value indicating whether this sequence and another sequence contain the same elements in the same order
+        print(a.elementsEqual(b))
+        print(a.elementsEqual([1, 2, 3]))
+        
+        
+        //MARK:contains(_:): return a Boolean value indicating whether the sequence contains the given element
+        print(cast.contains("Marlon"))
+        print(cast.contains("James"))
+        
+        //MARK:sorted(): return the elements of the sequence, sorted
+        let anotherStudents: Set = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
+        let sortedStudents = anotherStudents.sorted()
+        print(sortedStudents)
+        
+        
+        //MARK:mutating func sort(): sorts the collection in place
+        
+        var newStudents = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
+        newStudents.sort()
+        print(newStudents)
+        
+        
+        //MARK:min: return the minimum element in the sequence.
+        let heights: [Double] = [67.5, 65.7, 64.3, 61.1,58.5, 60.3, 64.9]
+        print(heights.min()!)
+        
+        //MARK:max: return the maximum element, if the sequence has no element, returns 'nil'
+        print(heights.max()!)
+        
+        //MARK:lexicographicallyPrecedes(_:)
+        
+        let A = [1, 2, 2, 2]
+        let B = [1, 2, 3, 4]
+        print(A.lexicographicallyPrecedes(B))
+        
+        //MARK:encode the elements of this array into the given encoder in an unkeyed container.
         
     }
     
