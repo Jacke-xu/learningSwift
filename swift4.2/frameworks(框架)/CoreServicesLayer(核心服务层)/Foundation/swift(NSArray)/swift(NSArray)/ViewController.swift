@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        //MARK:-------------------------------- extension array ---------------------------------------
         //MARK:init()
         var emptyArray = Array<Int>()
         print(emptyArray.isEmpty)//true
@@ -239,10 +239,202 @@ class ViewController: UIViewController {
         let B = [1, 2, 3, 4]
         print(A.lexicographicallyPrecedes(B))
         
-        //MARK:encode the elements of this array into the given encoder in an unkeyed container.
+        //MARK:---------------------------------- array ---------------------------------
         
+        //MARK:withUnsafeBufferPointer(_:): calls a closure with a pointer to the array's contiguous storage.
+        let anotherNums = [1, 2, 3, 4, 5]
+        let sum = anotherNums.withUnsafeBufferPointer { buffer -> Int in
+            var result = 0
+            print(stride(from: buffer.startIndex, to: buffer.endIndex, by: 2))
+            for i in stride(from: buffer.startIndex, to: buffer.endIndex, by: 2) {
+                result += buffer[i]
+            }
+            return result
+        }
+        
+        print(sum)
+        
+        //MARK:withUnsafeMutableBufferPointer(_:): call the given closure with a pointer to the array's mutable contiguous storage
+        var anotherNewNums = [1, 2, 3, 4, 5]
+        anotherNewNums.withUnsafeMutableBufferPointer { buffer in
+            for i in stride(from: buffer.startIndex, to: buffer.endIndex - 1, by: 2) {
+                buffer.swapAt(i, i + 1)
+            }
+        }
+        print(anotherNewNums)
+        
+        
+        //MARK:replaceSubrange(_:with:): replace a range of elements with the elements in the specified collection
+        var nums = [10, 20, 30, 40, 50]
+        nums.replaceSubrange(1...3, with: repeatElement(1, count: 5))
+        print(nums)
+        
+        
+        var anotherNum: [Int32] = [0, 0]
+        let byteValues: [UInt8] = [0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00]
+        anotherNum.withUnsafeMutableBytes { destBytes in
+            byteValues.withUnsafeBytes({ srcBytes in
+                destBytes.copyMemory(from: srcBytes)
+            })
+        }
+        
+        print(anotherNum)
+        
+        
+        //MARK:popLast(): removes and retruns the last element of the array
+        print(nums.popLast() as! Int)
+        
+        //MARK:dropLast(_:): return a subsequence containing all but the specified number of final element.
+        print(nums.dropLast(2))
+        
+        //MARK:func suffix(_ maxLength: Int) -> ArraySlice<Element>:
+        /**
+         1. returns a subsequence, up to the given maximum length, containing the final elements of the collection
+         2. if the maximum length exceeds the number of elements in the collection, the result contains the entire collection
+         */
+        let num1 = [1, 2, 3, 4, 5]
+        print(num1.suffix(3))
+        print(num1.suffix(from: 1))
+        print(num1.suffix(10))
+        
+        //MARK:func map<T>(_ transform: (Element) throws -> T) rethrows -> [T]:
+        /**
+         1. returns an array containing the results of mapping the given closure over the sequence's elements
+         2. in next example , 'map' is used first to convert the names in the array to lowercase strings and then to count their characters.
+         */
+        
+        let cast1 = ["Vivien", "Marlon", "Kim", "Karl"]
+        let lowercaseNames = cast1.map { $0.lowercased() }
+        print(lowercaseNames)
+        
+        let letterCounts = cast1.map { $0.count }
+        print(letterCounts)
+        
+        /**
+         a mapping closure. 'transform' accepts an element of this sequence as its parameter and returns a transformed value of the same or of a different type
+         */
+        
+        
+        //MARK:func prefix(_ maxLength: Int) -> ArraySlice<Element>:
+        /**
+         1. return a subsequence, up to the specified maximum length, containing the initial elements of the collection.
+         2. if the maximum length exceeds the number of elements in the collection, the result contains all the elements in the collection.
+         */
+        
+        let num2 = [1, 2, 3, 4, 5]
+        print(num2.prefix(2))
+        print(num2.prefix(10))
+        
+        //MARK:func prefix(upTo end: Int) -> ArraySlice<Element>
+        /**
+         1. return a subsequence from the start of the collection up to, but not including, the specified position
+         2. the resulting subsequence 'does not include ' the element at the position 'end'. the following example searches for the index of the number '40' in an array of integer, and then prints the prefix of the array up to, but not including,that index:
+         */
+        
+        let num3 = [10, 20, 30, 40, 50, 60]
+        if let i = num3.index(of: 40) {
+            print(num3.prefix(upTo: i))
+        }
+        
+        print(num3.prefix(upTo: num3.startIndex))
+        
+        if let i = num3.index(of: 40) {
+            print(num3[..<i])
+        }
+        
+        //MARK:func prefix(through position: Int) -> ArraySlice<Element>:
+        /**
+         1. return a subsequence from the start of the collection through 'end'
+         2. the following example searches for the index of the number '40' in an array of integers , and then prints the prefix of the array up to, and then prints the prefix of the array up to, and including, that index:
+         */
+        
+        let num4 = [10, 20, 30, 40, 50, 60]
+        if let i = num4.index(of: 40) {
+            print(num4.prefix(through: i))
+        }
+        
+        
+        //MARK:var last: Element? { get }
+        /**
+         the last element of the collection
+         */
+        let num5 = [10, 20, 30, 40, 50]
+        if let lastNumber = num5.last {
+            print(lastNumber)
+        }
+        
+        //MARK:func index(where predicate: (element) throw -> Bool) rethrows -> Int?
+        /**
+         returns the first index in which an element of the collection satisfies the given predicate.
+         */
+        let num6 = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
+        if let i = num6.index(where: { $0.hasPrefix("A") }){
+            print("\(num6[i]) starts with 'A'!")
+        }
+        
+        //MARK:func sorted(by areInIncreasingOrder: (Element, Element) throws -> Bool) rethrows -> [Element]
+        /**
+         return the elements of the collection, sorted using the given predicate as the comparison between elements.
+         */
+        enum HTTPResponse {
+            case ok
+            case error(Int)
+        }
+        
+        let responses: [HTTPResponse] = [.error(500), .ok, .ok, .error(404), .error(403)]
+        let sortedResponses = responses.sorted {
+            switch ($0, $1) {
+            case let (.error(aCode), .error(bCode)):
+                return aCode < bCode
+            case (.ok, .ok):
+                return false
+            case (.error, .ok):
+                return true
+            case (.ok, .error):
+                return false
+            }
+        }
+        print(sortedResponses)
+        
+        
+        let num7: Set = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
+        let descendingStudents = num7.sorted(by: >)
+        print(descendingStudents)
+        
+        print(num7.sorted())
+        
+//        let newDecending = num7.sorted(by: onSort(s1:s2:))
+//        print(newDecending)
+        var num8 = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
+        let newDecending = num8.newSorted(by:onSort(s1:s2:))
+        print("自定义的排序方法\(newDecending)")
+        
+        
+        //MARK:----------------------------------- rethrows 的使用方法 -----------------------------------
+        let ns:[Int]
+        do {
+            try! ns = num5._map(transform: squareOf)
+            print(ns)
+        } catch  {
+            
+        }
     }
     
+    enum CalculationError:Error {
+        case DivideByZero
+    }
+    
+    func squareOf(x: Int) -> Int {
+        return x * x
+    }
+    
+    func divideTenBy(x: Int) throws -> Double {
+        guard x != 0 else {
+            throw CalculationError.DivideByZero
+        }
+        return 10.0 / Double(x)
+    }
+
     func cacheImagesWithNames(names: [Any]) {
         print(names)
     }
@@ -257,12 +449,44 @@ class ViewController: UIViewController {
         }
         return values
     }
+    
+    func onSort(s1: String, s2: String) -> Bool{
+        return s1 < s2
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
+extension Array {
+    mutating func newSorted(by areInIncreasingOrder: (Element, Element) throws -> Bool) rethrows -> [Element] {
+        var sorted = [String]()
+        for n in 0..<self.count {
+            var temper = self[n]
+            for i in n+1..<self.count {
+                var next = self[i]
+                guard try !areInIncreasingOrder(temper, next) else {
+                    continue
+                }
+                swap(&temper, &next)
+                self.swapAt(n, i)
+            }
+            sorted.append(temper as! String)
+        }
+        return sorted as! [Element]
+    }
+}
+
+
+
+extension Array {
+    func _map<T>(transform: (_ element: Int) throws -> T) rethrows -> [T] {
+        var ts = [T]()
+        for e in self {
+            ts.append(try transform(e as! Int))
+        }
+        return ts
+    }
+}
