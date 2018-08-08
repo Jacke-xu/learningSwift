@@ -16,28 +16,26 @@ class ViewController: UIViewController {
         
         let num5 = [10, 20, 30, 40, 50]
         let ns:[Int]
-        do {
-            try! ns = num5._map(transform: squareOf)
-            print(ns)
-        } catch  {
-            
-        }
+        ns = num5._map(transform: squareOf)
+        print(ns)
         
         
         let num7: Set = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
         let descendingStudents = num7.sorted(by: >)
         print(descendingStudents)
-        
 //        print(num7.sorted())
-//
+        
 //        let newDecending = num7.sorted(by: onSort(s1:s2:))
 //        print(newDecending)
-//
+
         var num8 = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
         let newDecending = num8.newSorted(by:onSort(s1:s2:))
         print("自定义的排序方法\(newDecending)")
         
+        print(num8._remove(10))
+        
     }
+
 
     enum CalculationError:Error {
         case DivideByZero
@@ -108,5 +106,19 @@ extension Array {
         }
         return ts
     }
+}
+
+extension Array {
+    func _remove(_ element: Int) -> String {
+        var removeItem = String()
+        if element >= 0 && element <= self.count {
+            removeItem = self[element] as! String
+        } else {
+            print("索引不存在")
+            return ""
+        }
+        return removeItem
+    }
+
 }
 

@@ -396,28 +396,98 @@ class ViewController: UIViewController {
         }
         print(sortedResponses)
         
+        //MARK:func swapAt(_ i: Int _ j: Int):
+        /**
+         exchanges the values at the specified indices of the collection.
+         */
+        var num9 = [1, 2, 3, 4]
+        let n = num9.index(of: 2)
+        let m = num9.index(of: 3)
+        num9.swapAt(n!, m!)
+        print("num9 is \(num9)")
+    
+        //MARK:var indices: CountableRange<Int> { get }:
+        /**
+         the indices that are valid for subscripting the collection, in ascending order.
+         */
+        print("num9.indices is \(num9.indices)")
+        
+        
+        //MARK:subscript<R>(r: R) -> ArraySlice<Element> where R : RangeExpression, Array.Index == R.Bound { get }
+        /**
+         the range contiguous subrange of the collection's elements specified by a range expression
+         */
+        let streets1 = ["Adams", "Bryant", "Channing", "Douglas", "Evarts"]
+        let streetsSlice1 = streets1[2...]
+        print("streetsSlice1 is \(streetsSlice1)")
+        
+        //MARK:public convenience init<S>(_ elements:S) where S: Sequece, Element == S.Element:
+        /**
+         create a new instance of a collection containing the elements of a sequence
+         */
+        let streets2 = Array.init(streets1)
+        print("streets2 is \(streets2)")
+        
+        
+        //MARK:mutating func append<S>(contentsOf newElements:S) where S: Sequence, Element == S.Element:
+        /**
+         adds the elements of a sequence or collection to the end of this collection.
+         */
+        var num10 = [1, 2, 3, 4, 5]
+        num9.append(contentsOf: 10...15)
+        print(num10)
+        
+        
+        //MARK:mutating func insert(_ newElement: Element,at i: Int):
+        /**
+         inserts a new element into the collection at the specified position
+         */
+        var num11 = [1, 2, 3, 4, 5]
+        num11.insert(100, at: 3)
+        num11.insert(200, at: num11.endIndex)
+        print(num11)
+        
+        
+        //MARK:mutating func insert<C>(contentsOf newElement:C, at i: Int) where C: Collection, Element == C.Element:
+        /**
+         inserts the elements of a sequence into the collection at the specified position
+         */
+        
+        var num12 = [1, 2, 3, 4, 5]
+        num12.insert(contentsOf: 100...110, at: 3)
+        print(num12)
+        
+        //MARK:mutating func remove(at position: Int) -> Element:
+        /**
+         removes and returns the element at the specified position
+         */
+        var measurements1 = [1.2, 1.5, 2.9, 1.2, 1.6]
+        let removed1 = measurements1.remove(at: 2)
+        print(measurements1)
+        
+        
+        
+        //MARK:-----------------------------------throws 和 rethrows 的使用方法（配合swift中的高阶函数） -----------------------------------
+//        let ns:[Int]
+//        do {
+//            try! ns = num5._map(transform: squareOf)
+//            print(ns)
+//        } catch  {
+//
+//        }
+//
         
         let num7: Set = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
         let descendingStudents = num7.sorted(by: >)
         print(descendingStudents)
         
-        print(num7.sorted())
+//        print(num7.sorted())
         
-//        let newDecending = num7.sorted(by: onSort(s1:s2:))
-//        print(newDecending)
+        //        let newDecending = num7.sorted(by: onSort(s1:s2:))
+        //        print(newDecending)
         var num8 = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
         let newDecending = num8.newSorted(by:onSort(s1:s2:))
         print("自定义的排序方法\(newDecending)")
-        
-        
-        //MARK:----------------------------------- rethrows 的使用方法 -----------------------------------
-        let ns:[Int]
-        do {
-            try! ns = num5._map(transform: squareOf)
-            print(ns)
-        } catch  {
-            
-        }
     }
     
     enum CalculationError:Error {
