@@ -463,28 +463,305 @@ class ViewController: UIViewController {
          */
         var measurements1 = [1.2, 1.5, 2.9, 1.2, 1.6]
         let removed1 = measurements1.remove(at: 2)
+        print(removed1)
         print(measurements1)
         
+        
+        //MARK:mutating func removeSubrange(_ bounds: Range<Int>):
+        /**
+         removes the elements in the specified subrange from the collection.
+         */
+        var measuremetns2 = [1.2, 1.5, 2.9, 1.2, 1.5, 1.5, 1.5]
+        measuremetns2.removeSubrange(1..<4)
+        print(measuremetns2)
+        
+        //MARK:mutating func removeFirst(_ n: Int):
+        /**
+         removes the specified number of elements from the beginning of the collection
+         */
+        var bugs = ["Aphid", "Bumblebee", "Cicada", "Damselfly", "Earwig"]
+        bugs.removeFirst(3)
+        print(bugs)
+        
+        //MARK:mutating func removeFirst() -> Element:
+        /**
+         removes and returns the first element of the collection.
+         */
+        var bugs1 = ["Aphid", "Bumblebee", "Cicada", "Damselfly", "Earwig"]
+        print(bugs1.removeFirst())
+        
+        //MARK:mutating func removeLast(_ n: Int):
+        /**
+         removes the specified number of elements from the end of the collection. 删除从最后一个元素向前给定长度的元素
+         */
+        
+        var bugs2 = ["Aphid", "Bumblebee", "Cicada", "Damselfly", "Earwig"]
+        bugs2.removeLast(3)
+        print("bugs2 is \(bugs2)")
+        
+        
+        //MARK:mutating func reverse():
+        /**
+         reverses the elements of the collection in place.
+         */
+        var characters: [Character] = ["C", "a", "f", "e"]
+        characters.reverse()
+        print(characters)
+        
+        
+        //MARK:func reversed() -> ReversedCollection<Array<Element>>:
+        /**
+         returns a view presenting the elements of the collection in reverse order.
+         */
+        let word = "Backwards"
+        for char in word.reversed() {
+            print(char)
+        }
+        let reversedWord = String(word.reversed())
+        print(reversedWord)
+        
+        
+        //MARK:var underestimatedCount: Int { get }:
+        /**
+         returns a value less than or equal to the number of elements in the sequence, nondestructively.
+         其实就是返回一个集合中相同元素的个数
+         */
+        print("measuremetns2.underestimatedCount is \(measuremetns2.underestimatedCount)")
+        
+        
+        //MARK:func forEach(_ body: (Element) throws -> Void) rethrows:
+        /**
+         calls the given closure on each element in the sequence in the same order as a 'for' - 'in' loop.
+         */
+        
+        let numberWords = ["one", "two", "three"]
+        for word in numberWords {
+            print(word)
+        }
+        
+        numberWords.forEach { word in
+            print(word)
+        }
+        
+        
+        //MARK:func first(where predicate: (Element) throws -> Bool) rethrows -> Element?
+        /**
+         returns the first element of the sequence that satisfies the given predicate
+         */
+        let num13 = [3, 7, 4, -2, 9, -6, 10, 1]
+        if let firstNegative = num13.first(where: { $0 < 0 }) {
+            print("the first negative number is \(firstNegative)")
+        }
+        
+        //MARK:func dropFirst() -> ArraySlice<Element>:
+        /**
+         returns a subsequence containing all but the first element of the sequence.
+         */
+        let num14 = [1, 2, 3, 4, 5]
+        print("num14.dropFirst() is \(num14.dropFirst())")
+        
+        /**
+         func dropLast() -> ArraySlice<Element>
+         returns a subsequence containing all but the last element of the sequence
+         */
+        print("num14.dropLast() is \(num14.dropLast())")
+        
+        
+        //MARK:func enumerated() -> EnumeratedSequence<Array<Element>>
+        /**
+         returns a sequence of pairs (*n*, *x*), where *n* represents a consecutive integer starting at zero and *x* represent an element of the sequence
+         */
+        for (n, c) in "Swift".enumerated() {
+            print("(n,c) is \(n):\(c)")
+        }
+        
+        let names: Set = ["Sofia", "Camilla", "Martina", "Mateo", "Nicolas"]
+        var shorterIndices: [SetIndex<String>] = []
+        for (i, name) in zip(names.indices, names) {
+            if name.count <= 5 {
+                shorterIndices.append(i)
+            }
+        }
+        print(names.indices)
+        
+        for i in shorterIndices {
+            print(names[i])
+        }
+        
+        
+        //MARK:func min(by areInIncreasingOrder: (Element, Element) throws -> Bool) rethrows -> Element?
+        /**
+         returns the minimum element in the sequence, using the given preficate as the comparison between elements
+         */
+        let hues = ["Heliotrope": 296, "Coral": 16, "Aquamarine": 156]
+        let leastHue = hues.min { a, b in
+            a.value < b.value
+        }
+        print("leastHue is \(leastHue!)")
+        
+        
+        //MARK:func max(by areInIncreasingOrder: (Element, Element) throws -> Bool) rethrows -> Element?
+        /**
+         returns the maximum element in the sequence , using the given predicate as the comparison between element.
+         */
+        let greatestHue = hues.max { (a, b) -> Bool in
+            a.value < b.value
+        }
+        print("greatestHue is \(greatestHue!)")
+        
+        
+        //MARK:func starts<PossiblePrefix>(with possiblePrefix: PossiblePrefix, by areEquivalent: (Element, Element) throws -> Bool) rethrows -> where PossiblePrefix: Sequence, Element == PossiblePrefix.Element
+        /**
+         returns a Boolean value indicating whether the initial elements of the sequence are equivalent to the elements in another sequence, using the given predicate as the equivalence test.
+         */
+        let head = ["1", "3", "4", "5"]
+        let foot = ["1", "3", "4"]
+        
+        let result = head.starts(with: foot) { $0 == $1 }
+        print("head compare foot is \(result)")
+        
+        let anotherResult = foot.starts(with: head, by: { $0 == $1 })
+        print("foot compare head is \(anotherResult)")
+        
+        
+        //MARK:func elementEqual<OtherSequence>(_ other: OtherSequence, by areEquivalent: (Element, OtherSequence.Element) throws -> Bool) rethrows -> Bool where OtherSequence:Sequence
+        
+        /**
+         returns a Boolean value indicating whether this sequence and another sequence contain equivalent elements in the same order, using the given predicate as the equivalence test.
+         */
+        let newResult = head.elementsEqual(foot, by: { $0 == $1 })
+        print("newResult is \(newResult)")//false
+        
+        let antherFoot = ["1", "3", "4", "5"]
+        
+        let newResult1 = head.elementsEqual(antherFoot, by: { $0 == $1 })
+        print("newResult1 is \(newResult1)")//true
+        
+        
+        //MARK:func lexicongraphicallyPrecedes<OtherSequence>(_ other: OtherSequence, by areInIncreasingOrder: (Element, Element) throws -> Bool) rethrows -> Bool where OtherSequence: Sequence, Element == OtherSequence.Element
+        /**
+         1. returns a Boolean value indicating whether the sequence precedes another sequence in a lexicographical (dictionary) ordering, using the given predicate to compare elements.
+         2. 两个collection 按顺序比较 collection中的 element 大小
+         */
+        
+        let a1 = [1, 3, 3, 4]
+        let b1 = [1, 2, 3, 4]
+        let result1 = a1.lexicographicallyPrecedes(b1, by: { $0 > $1 })
+        print("result1 is \(result1)")
+        
+
+        //MARK:func contains(where predicate: (Element) throws -> Bool) rethrows -> Bool
+        /**
+         returns a Boolean value indicating whether the sequence contains an element that satifies the given predicate
+         */
+        
+        enum HTTPResponse1 {
+            case ok
+            case error(Int)
+        }
+        
+        let lastThreeResponses: [HTTPResponse1] = [.ok, .ok, .error(404)]
+        let hadError = lastThreeResponses.contains { (element) -> Bool in
+            if case .error = element {
+                return true
+            } else {
+                return false
+            }
+        }
+        print("hadError is \(hadError)")
+        
+        let expenses = [21.37, 55.21, 9.32, 10.18, 388.17, 11.41]
+        let hasBigPurchase = expenses.contains { $0 > 100 }
+        print("hasBigPurchase is \(hasBigPurchase)")
+
+        
+        //MARK:func reduce<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) throws -> Result) rethrows -> Result
+        /**
+         returns the result of combining the elements of the sequence using the given closure.
+         */
+        
+        /**
+         Parameters:
+         initialResult: the value to use as the initial accumulating value.
+         nextPartialResult: a closure that combines an accumulating value and an element of the sequence into a new accumulating value, to be used in the next call of the 'nextPartialResult' closure or returned to the caller.
+         */
+        
+        let num15 = [1, 2, 3, 4]
+        let numSum = num15.reduce(3, { (x, y) in
+            x + y
+        })
+        print("numSum is \(numSum)")
+        
+        
+        //MARK:func reduce<Rsult>(_ initialResult: Result, _ updateAccumulatingResult: (inout Result, Element) throws -> Result) rethrows -> Result
+        /**
+         returns the result of combning the elements of the sequence using the given closure
+         统计一个集合中 每个element出现的次数，并以element为 键 和 element 出现的次数为 值 组成一个键值对，并重新常见一个[key:value]集合
+         */
+        /**
+         Parameters:
+         initialResult: the value to use as the initial accumulating value.
+         updateAccumulatingResult: A closure that updates the accumulating value with an element of the sequence
+         */
+        let lettersNew = ["nidaye", "gunduzi", "nidaye", "gunduzi", "gunduzi", "ni", "da", "ye"]
+        let letterNewCount = lettersNew.reduce(into: [:]) { (counts, letter) in
+            counts[letter, default:0] += 1
+        }
+        print("letterNewCount is \(letterNewCount)")
+        
+        
+        //MARK:func compactMap<ElementOfResult>(_ transform: (Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]
+        /**
+         returns an array containing the non-'nil' results of calling the given transformation with each element of this sequence
+         返回一个无 nil 类型元素的 collection
+         */
+        /**
+         Parameters:
+         transform: a closure that accepts an element of this sequence as its argument and returns an optional value
+         Returns: an array of the non-'nil' results of calling 'transform' with each element of the sequence
+         */
+        
+        let possibleNum = ["1", "2", "three", "///4///", "5"]
+        let mapped: [Int?] = possibleNum.map { str in Int(str) }
+        print("mapped is \(mapped)")
+        
+        let compactMapped: [Int] = possibleNum.compactMap { (str) -> Int? in
+            Int(str)
+        }
+        
+        print("compactMapped is \(compactMapped)")
+        
+        /**
+         In this example , note the difference in the result of using 'map' and 'compactMap' with a transformation that returns an optional 'Int' value.
+         */
+        
+        
+        let flatArray = [1, 2, 3, 4, 5]
+        
+        let stringFlatArray: [String] = flatArray.compactMap { (element) -> String? in
+            String(element)
+        }
+        print(stringFlatArray)
+        
+        /**
+         @available(swift, deprecated: 4.1, remaned: "compactMap(_:), message: "Please use compactMap(_:) for the case where closure returns an optional value "")
+         */
         
         
         //MARK:-----------------------------------throws 和 rethrows 的使用方法（配合swift中的高阶函数） -----------------------------------
 //        let ns:[Int]
-//        do {
-//            try! ns = num5._map(transform: squareOf)
-//            print(ns)
-//        } catch  {
-//
-//        }
-//
+//        ns = num5._map(transform: squareOf)
+//        print(ns)
+
         
-        let num7: Set = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
-        let descendingStudents = num7.sorted(by: >)
-        print(descendingStudents)
-        
+//        let num7: Set = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
+//        let descendingStudents = num7.sorted(by: >)
+//        print(descendingStudents)
 //        print(num7.sorted())
         
-        //        let newDecending = num7.sorted(by: onSort(s1:s2:))
-        //        print(newDecending)
+//        let newDecending = num7.sorted(by: onSort(s1:s2:))
+//        print(newDecending)
+        
         var num8 = ["Kofi", "Abena", "Peter", "Kweku", "Akosua"]
         let newDecending = num8.newSorted(by:onSort(s1:s2:))
         print("自定义的排序方法\(newDecending)")
