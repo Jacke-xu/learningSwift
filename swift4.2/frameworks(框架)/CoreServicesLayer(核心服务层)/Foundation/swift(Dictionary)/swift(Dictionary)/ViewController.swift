@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         
         //MARK:--------------------------- Dictionary ------------------------------
         
-        //MARK:init(): Dictionary 的定义和声明
+        //MARK:public init()
         /**
          \~chinese
          创建一个 Dictionary 对象
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         var dict3: Dictionary<String, Any>//swift 中任意对象，通常不适用NSObject,使用AnyObject
         
         
-        //MARK:init(minimumCapacity: Int):
+        //MARK:public init(minimumCapacity: Int)
         /**
          \~chinese
          创建一个 至少大于等于给定长度的 Dictionary 对象
@@ -53,9 +53,35 @@ class ViewController: UIViewController {
         print("dict4 is \(dict4)")
         
         
-        //MARK:<#comments#>
+        //MARK:public init<S>(uniqueKeysWithValues keysAndValues: S) where S : Sequence, S.Element == (Key, Value)
+        /**
+         \~chinese:
+         创建一个新的dictionary 根据给定的一个 dictionary序列
+         
+         \~english:
+         creates a new dictionary from the key-value pairs in the given sequence
+         */
+        
+        let digitWords = ["one", "two", "three", "four", "five"]
+        let wordToValue = Dictionary(uniqueKeysWithValues: zip(digitWords, 1...5))
+        print("wordToValue is \(wordToValue)")
         
         
+        //MARK:public init<S>(_ keysAndValues: S, uniquingKeysWith combine: (Dictionary.Value, Dictionary.Value) throws -> Dictionary.Value) rethrows where S : sequence, S.Element == (key, Value)
+        
+        /**
+         \~chinese:
+         创建一个新的 dictionary 根据给定的 序列中的键值对，使用组合闭包来确定任何重复键对应的值
+         
+         \~english:
+         creates  a new dictionary from the key-value pairs in the given sequence, using a combining closure to determine the value for any duplicate keys
+         */
+        let pairsWithDuplicateKeys = [("a", 1), ("b", 2), ("a", 3), ("b", 4)]
+        let firstValues = Dictionary(pairsWithDuplicateKeys, uniquingKeysWith: { (first11, _) in first11 })
+        print("firstValues is \(firstValues)")
+        
+        let lastValues = Dictionary.init(pairsWithDuplicateKeys, uniquingKeysWith: { (_, first) in first })
+        print("lastValues is \(lastValues)")
         
         //MARK:--------------------------- Extension Dictionary --------------------
         
