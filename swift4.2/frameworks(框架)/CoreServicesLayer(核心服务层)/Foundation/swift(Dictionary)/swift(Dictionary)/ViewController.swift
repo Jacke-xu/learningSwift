@@ -191,8 +191,231 @@ class ViewController: UIViewController {
         anotherDictionary.merge(["a": 5, "c": 4], uniquingKeysWith: {(_, new) in new})
         print("anotherDictionary is \(anotherDictionary)")
         
-        //MARK:--------------------------- Extension Dictionary --------------------
+        //MARK:public func merging<S>(_ other: S, uniquingKeysWith combine: (Dictionary.Value, Dictionary.Value) throws -> Dictionary.Value) rethrows -> [Dictionary.Key : Dictionary.Value] where S : Sequence, S.Element == (Key, Value)
         
+        /**
+         \~chinese:
+         合并给定的序列中的键值对到dictionary，使用组合闭包来确定任何重复键对应的值
+         
+         \~english:
+         creates a dictionary by merging key-value pairs in a sequence into the dictionary, using a combining closure to determine the value for duplicate keys.
+         */
+        
+        let dictionary2 = ["a": 3, "b": 4]
+        let newKeyValues = zip(["c", "d"], [12, 20])
+
+        
+        let keepingCurrent = dictionary2.merging(newKeyValues) { (current, _) -> Int in
+            current
+        }
+        print("keepingCurrent is \(keepingCurrent)")
+        
+        let replacingCurrent = dictionary2.merging(newKeyValues) { (_, new) -> Int in
+            new
+        }
+        print("replacingCurrent is \(replacingCurrent)")
+        
+        
+        //MARK:public func merging(_ other: [Dictionary.Key : Dictionary.Value], uniquingKeysWith combine: (Dictionary.Value, Dictionary.Value) throws -> Dictionary.Value)
+        /**
+         \~chinese:
+         通过合并一个给定的dictionary到当前的dictionary中来创建一个新的dictionary， 使用一个组合闭包来确定拥有相同key的value
+         
+         \~english:
+         creates a dictionary by merging the given dictionary into this dictionary, using a combining closure to determine the value for duplicate keys.
+         */
+        
+        let dictionary3 = ["a": 1, "b": 2]
+        let otherDictionary = ["a": 3, "b": 4]
+        let keeping = dictionary3.merging(otherDictionary) { (current, _) -> Int in
+            current
+        }
+        print("keeping is \(keeping)")
+        
+        let replacing = dictionary3.merging(otherDictionary) { (_, new) -> Int in
+            new
+        }
+        print("replacing is \(replacing)")
+        
+        
+        //MARK:public mutating func remove(at index: Dictionary<Key, Value>.Index) -> Dictionary.Element
+        /**
+         \~chinese:
+         移除并返回特定位置的key-value
+         
+         \~english:
+         removes and returns the key-value pair at the specified index.
+         */
+        
+        
+        //MARK:public mutating func removeValue(forKey key: Dictionary.Key) -> Dictionary.Value?
+        /**
+         \~chinese:
+         从dictionary中移除给定的key和它对应的value
+         
+         \~english:
+         removes the given key and its associated value from the dictionary
+         */
+        
+        var hues3 = ["Heliotrope": 296, "Coral": 16, "Aquamarine": 156]
+//        if let value = hues3.removeValue(forKey: "Coral") {
+//            print("The value \(value) was removed.")
+//            print("hues3 is \(hues3) now")
+//        }
+        
+        //MARK:public mutating func removeAll(keepingCapacity keepCapacity: Bool = default)
+        /**
+         \~chinese:
+         移除dictionary 中所有的key-values
+         
+         \~english:
+         removes all key-value pairs from the dictionary.
+         */
+        
+        
+        //MARK:@available(swift 4.0)    public var keys: Dictionary<Key, Value>.Keys { get }
+        
+        /**
+         \~chinese:
+         一个仅仅包含一个dictionary的keys 的集合
+         
+         \~english:
+         a collection containing just the keys of the dictionary
+         */
+        
+        let countryCodes = ["BR": "Brazil", "GH": "Ghana", "JP": "Japan"]
+        print("countryCodes's all keys is \(countryCodes.keys)")
+        
+        
+        
+        
+        //MARK:@available(swift 4.0)   public var values: Dictionary<Key, Value>.Values
+        /**
+         \~chinese:
+         一个仅仅包含一个dictionary所有values 的集合
+         
+         \~english:
+         a collection containing just the values of the dictionary.
+         */
+        
+        print("countryCodes's all values is \(countryCodes.values)")
+        
+        
+        //MARK: public mutating func popFirst() -> Dictionary.Element?
+        /**
+         \~chinese:
+         移除并返回第一个key-value对，如果dictionary 不为空的话
+         
+         \~english:
+         removes and returns the first key-value pair of the dictionary if the dictionary isn't empty
+         */
+        
+        
+        
+        //MARK:public var capacity: Int { get }
+        /**
+         \~chinese:
+         字典的键-值对的总数可以包含没有分配新的存储
+         
+         \~english:
+         the total number of key-value pairs that the dictionary can contain without allocating new storage.
+         */
+        
+        
+        //MARK:public mutating func reserveCapacity(_ minimumCapacity: Int)
+        /**
+         \~chinese:
+         开辟足够的空间存储特定数量的key-value对
+         
+         \~english:
+         reserves enough space to store the specified number of key-value pairs.
+         */
+        
+        
+        //MARK:public func map<T>(_ transform: ((key: Key, value: Value)) throws -> T) rethrows -> [T]
+        
+        /* in this example , 'map' is used first to convert the names in the array to lowercase strings and than to count their characters */
+        let cast1 = ["Vivien", "Marlon", "Kim", "Karl"]
+        let element = cast1.map { $0.lowercased()
+        }
+        print("element is \(element)")
+        
+        let anotherElement = cast1.map { $0.count
+        }
+        print("anotherElement is \(anotherElement)")
+        
+        
+        //MARK:public func sorted(by areInIncreasingOrder: ((key: Key, value: Value), (key: Key, value: Value)) throws -> Bool) rethrows -> [(key: Key, value: Value)]
+        
+        /**
+         \~chinese:
+         根据给定的排序规则返回一个排序后的序列
+         
+         \~english:
+         returns the elements of the sequence, sorted using the given predicate as the comparison between elements
+         */
+        let newhues = hues3.sorted { $0 < $1 }
+        print("newhues is \(newhues)")
+        
+        //MARK:public func map<T>(_ transform: ((key: Key, value: Value)) throws -> T) rethrows -> [T]
+        /**
+         \~chinese:
+         在下面的例子中，map 被用于把dictionary 的keys转换成小写重新组成一个数组返回或者统计每个key的character的个数，重新组成一个数组返回
+         
+         \~english:
+         in this example, 'map' is used first to convert the names in the array to lowercase strings and than to count their characters
+         */
+        
+        
+        var source = ["first": 1, "seond": 2, "third": 3, "se": 2]
+        let result = source.map { $0.key.lowercased() }
+        print("result is \(result)")
+        
+        let resultKeys = source.map { $0.key }
+        print("resultKeys is \(resultKeys)")
+        
+        let resultValues = source.map { $0.value }
+        print("resultValues is \(resultValues)")
+        
+        let resultKeyCounts = source.map { $0.key.count }
+        print("resultKeyCounts is \(resultKeyCounts)")
+        
+        //MARK:public var indices: DefaultIndices<Dictionary<Key, Value>> { get }
+        
+        /**
+         \~chinese:
+         <#comments#>
+         
+         \~english:
+         the indices that are valid for subscripting the collection, in ascending order.
+         */
+        
+        let indic = source.indices
+        print("indic is \(indic)")
+        
+        
+        //MARK: public func reduce<Result>(_ initialResult: Result, _ nextPartialResult: (Result, (key: Key, value: Value)) throws -> Result) rethrows -> Result
+        /**
+         \~chinese:
+         根据给定的闭包，返回序列dictionary中元素的value相加的总和
+         
+         \~english:
+         retruns the result of combining the elements of the sequence using the given closure
+         */
+        let sum = source.reduce(0) { (x, y) in
+            x + y.value
+        }
+        print("sum is \(sum)")
+        
+        //MARK:public func reduce<Result>(into initialResult: Result, _ updateAccumulatingResult: (inout Result, (key: Key, value: Value)) throws -> ()) rethrows -> Result
+        let newSum = source.reduce(into: [:]) { (counts, letter) in
+            counts[letter.key, default: 0] += 1
+        }
+        print("newSum is \(newSum)")
+        
+        
+        //MARK:public func reversed() -> [(key: Key, value: Value)]
+        print("source.reversed() is \(source.reversed())")
     }
 
     override func didReceiveMemoryWarning() {
