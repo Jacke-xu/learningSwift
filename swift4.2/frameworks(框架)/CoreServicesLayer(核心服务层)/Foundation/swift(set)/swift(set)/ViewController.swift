@@ -399,6 +399,164 @@ class ViewController: UIViewController {
         let streetsSlice = streets[2...]
         print("streetsSlice is \(streetsSlice)")
         
+        
+        //MARK:public func forEach(_ body: (Element) throws -> Void) rethrows
+        
+        /**
+         \~chinese:
+         循环遍历序列中的每个元素
+         
+         \~english:
+         calls the given closure on each element in the sequence in the same order as a 'for-in' loop.
+         */
+        
+        let numberWords = ["one", "two", "three"]
+        for word in numberWords {
+            print(word)
+        }
+        
+        /*\chinese: 和上面的结果是一样的  \english: same as above */
+        numberWords.forEach { (word) in
+            print(word)
+        }
+        
+        //MARK:public func first(where predicate: (Element) throws -> Bool) rethrows -> Element?
+        /**
+         \~chinese:
+         返回第一个符合给定条件的元素
+         
+         \~english:
+         returns the first element of the sequence that satisfies the given predicate.
+         */
+        
+        let numbers8 = [2, 3, 7, -2, 9, -6, 10]
+        if let firstNegative = numbers8.first(where: { $0 < 0}) {
+            print("the first negative number is \(firstNegative)")
+        }
+        
+        
+        //MARK:public func dropFirst() -> Slice<Set<Element>>
+        
+        /**
+         \~chinese:
+         返回一个去除第一个元素的序列
+         
+         \~english:
+         returns a subsequence containing all but the first element of the sequence.
+         */
+        
+        let numbers9 = [1, 2, 3, 4, 5]
+        print("numbers9.dropFirst() is \(numbers9.dropFirst())")
+        
+        
+        //MARK:public func dropLast() -> Slice<Set<Element>>
+        /**
+         \~chinese:
+         返回一个去除最后一个元素的序列
+         
+         \~english:
+         returns a subsequence containing all but the last element of the sequence.
+         */
+        let numbers10 = [1, 2, 3, 4, 5]
+        print("numbers10.dropLast() is \(numbers10.dropLast())")
+        
+    
+        //MARK:public func enumerated() -> EnumeratedSequence<Set<Element>>
+        /**
+         \~chinese:
+         返回一个序列对(n, x)，其中n 一个从0开始的连续的整数，x代表给定序列中的一个元素
+         
+         \~english:
+         returns a sequence of pairs (*n*, *x*), where *n* represents a consecutive integer starting at zero and *x* represents an element of the sequence.
+         */
+        
+        for (n, c) in "swfit".enumerated() {
+            print("\(n): '\(c)'")
+        }
+        
+        let names: Set = ["Sofia", "Camilla", "Martina", "Mateo", "Nicolas"]
+        var shortIndices: [SetIndex<String>] = []
+        for (i, name) in zip(names.indices, names) {
+            if name.count <= 5 {
+                shortIndices.append(i)
+            }
+        }
+        
+        print("shortIndices is \(shortIndices)")
+        
+        for i in shortIndices {
+            print(names[i])
+        }
+        
+        
+        //MARK:public func max(by areInIncreasingOrder: (Element, Element) throws -> Bool) rethrows -> Element?
+        /**
+         \~chinese:
+         根据给定的条件返回序列中最大的一个元素
+         
+         \~english:
+         returns the maximum element in the sequence, using the given predicate as the comparison between element.
+         */
+        
+        let hues = ["Heliotrope": 296, "Coral": 16, "Aquamarine": 156]
+        let greatestHue = hues.max { (a, b) in
+            a.value < b.value
+        }
+        print("greatestHue is \(greatestHue!)")
+        
+        
+        //MARK:public func min(by areInIncreasingOrder:(Element, Element) throws -> Bool) rethrows -> Element?
+        /**
+         \~chinese:
+         根据给定的条件返回一个序列中最小的元素
+         
+         \~english:
+         returns the minimum element in the sequence , using the given predicate as the comparison between elements.
+         */
+        let leastHue = hues.min { (a, b) in
+            a.value < b.value
+        }
+        print("leastHue is \(leastHue!)")
+        
+        
+        
+        //MARK:public func starts<PossiblePrefix>(with possiblePrefix: PossiblePrefix, by areEquivalent: (Element, Element) throws -> Bool) rethrows -> Bool where PossiblePrefix : Sequence, Element == PossiblePrefix.Element
+        
+        /**
+         \~chinese:
+         返回一个Bool值，根据给定的条件判断一个序列的最初部分是否等于另外一个序列
+         
+         \~english:
+         returns a Boolean value indicating whether the initial elements of the sequence are equivalent to the elements in another sequence, using the given predicate as the equivalence test.
+         */
+        
+        let starts = [1, 2, 3, 4, 5]
+        let anotherStarts = [1, 2, 3]
+        print(starts.starts(with: anotherStarts, by: { $0 == $1 }))
+        
+        //MARK:public func elementsEqual<OtherSequence>(_ other: OtherSequence, by areEquivalent: (Element, OtherSequence.Element) throws -> Bool) rethrows -> Bool where OtherSequence : Sequence
+        
+        /**
+         \~chinese:
+         返回一个Boolean值， 按给定的条件判断一个序列是否等于另外一个序列
+         
+         \~english:
+         returns a Boolean value indicating whether this sequence and another sequence contain equivalent elements in the same order, using the given predicate as the equivalence test.
+         */
+        
+        let elementEqual = [1, 2, 4]
+        let elementEqual1 = [1, 2, 4]
+        print(elementEqual.elementsEqual(elementEqual1, by: { $0 == $1 }))
+        
+        
+        
+        let animals = ["Antelope", "Butterfly", "Camel", "Dolphin"]
+        var animalIterator = animals.makeIterator()
+        print(animalIterator.next())
+        while let animal = animalIterator.next() {
+            print(animal)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
