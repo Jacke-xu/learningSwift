@@ -549,14 +549,121 @@ class ViewController: UIViewController {
         print(elementEqual.elementsEqual(elementEqual1, by: { $0 == $1 }))
         
         
+        //MARK:public func lexicographicallyPrecedes<OtherSequence>(_ other: OtherSequence, by areInIncreasingOrder: (Element, Element) throws -> Bool) rethrows -> Bool where OtherSequence : Sequence, Element == OtherSequence.Element
+        /**
+         \~chinese:
+         返回一个Boolean值, 根据给定的条件判断当前的sequence 是否优先于另一个sequence
+         
+         \~english:
+         returns a Boolean value indicating whether the sequence precedes another sequence in a lexicographical ordering, using the given predicate to compare elements.
+         */
         
-        let animals = ["Antelope", "Butterfly", "Camel", "Dolphin"]
-        var animalIterator = animals.makeIterator()
-        print(animalIterator.next())
-        while let animal = animalIterator.next() {
-            print(animal)
+        
+        let first = [ "afda", "klkl", "W"]
+        let seconde = ["afda", "klkl", "faf", "oo"]
+        print(first.lexicographicallyPrecedes(seconde, by: { $0 > $1
+        }))
+        
+        
+        //MARK: public func contains(where predicate: (Element) throws -> Bool) rethrows -> Bool
+        /**
+         \~chinese:
+         返回一个Boolean值， 判断一个sequence中是否包含一个满足给定条件的元素
+         
+         \~english:
+         returns a Boolean value indicating whether the sequence contains an element that satisfies the given predicate.
+         */
+        
+        enum HTTPResponse {
+            case ok
+            case error(Int)
         }
         
+        let lastThreeResponses: [HTTPResponse] = [.ok, .ok, .error(404)]
+        let hadError = lastThreeResponses.contains { element in
+            if case .error = element {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        print("hadError is \(hadError)")
+        
+        let expenses = [21.37, 55.21, 9.32, 10.18, 388.77, 11.41]
+        let hasBigPurchase = expenses.contains(where: { $0 > 100})
+        print("hasBigPurchase is \(hasBigPurchase)")
+        
+        
+        //MARK:public func reduce<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) throws -> Result) rethrows -> Result
+        /**
+         \~chinese:
+         按给定的条件返回一个sequence中所有元素相结合的结果
+         
+         \~english:
+         returns the result of combining the elements of the sequence using the given closure.
+         */
+        
+        let numbersP = [1, 2, 3, 4]
+        let numberSum = numbersP.reduce(0, {
+            x, y in x + y
+        })
+        print("numbersP is \(numbersP)")
+        
+        
+        
+        //MARK:public func reduce<Result>(into initialResult: Result, _ updateAccumulatingResult: (inout Result, Element) throws -> ()) rethrows -> Result
+        /**
+         \~chinese:
+         按给定的条件返回一个sequence中所有元素相结合的结果
+         
+         \~english:
+         returns the result of combining the elements of the sequence using the given closure.
+         */
+        
+        let letters = "abracadabra"
+        let letterCount = letters.reduce(into: [:], {
+            counts , letter in counts[letter, default: 0] += 1
+        })
+        
+//        var newletter:Dictionary<String, Int> = [:]
+//        print(newletter)
+//        newletter["key", default:0] += 1
+//        print(newletter)
+//        newletter["value", default:0] += 1
+//        print(newletter)
+        
+        
+        print("letterCount is \(letterCount)")
+        
+        //MARK:public func reversed() -> [Element]
+        /**
+         \~chinese:
+         返回一个把原来的sequence中元素翻转后的sequence
+         
+         \~english:
+         returns an array containing the elements of this sequence in reverse order.
+         */
+        
+        
+        //MARK:public func compactMap<ElementOfResult>(_ transform: (Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]
+        
+        /**
+         \~chinese:
+         返回一个array， 它是不包含 nil类型元素的结果，根据给定的条件对给定的sequence中的元素进行处理后的结果
+         
+         \~english:
+         returns an array containing the non -nil results of calling the given transformation with each element of this sequence.
+         */
+        
+        let possibelNumbers = ["1", "2", "thress", "///4///", "5"]
+        let mapped: [Int?] = possibelNumbers.map { str in Int(str) }
+        print("mapped is \(mapped)")
+        
+        let compactMapped: [Int] = possibelNumbers.compactMap {
+            str in Int(str)
+        }
+        print("compactMapped is \(compactMapped)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -565,5 +672,32 @@ class ViewController: UIViewController {
     }
 
 
+}
+
+extension Sequence {
+    public func lexicographicallyPrecedes<OtherSequence: Sequence>(
+        _ other: OtherSequence,
+        by areInIncreasingOrder: (Element, Element) throws -> Bool
+        ) rethrows -> Bool
+        where OtherSequence.Element == Element {
+            var iter1 = self.makeIterator()
+            var iter2 = other.makeIterator()
+            while true {
+                if let e1 = iter1.next() {
+                    if let e2 = iter2.next() {
+                        if try areInIncreasingOrder(e1, e2) {
+                            return true
+                        }
+                        if try areInIncreasingOrder(e2, e1) {
+                            return false
+                        }
+                        continue // Equivalent
+                    }
+                    return false
+                }
+                
+                return iter2.next() != nil
+            }
+    }
 }
 
