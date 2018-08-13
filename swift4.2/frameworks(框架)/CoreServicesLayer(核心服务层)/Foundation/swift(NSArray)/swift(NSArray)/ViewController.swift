@@ -264,6 +264,32 @@ class ViewController: UIViewController {
         print(anotherNewNums)
         
         
+        //MARK:withUnsafeMutableBytes(_:)
+        /* [UInt8] 转化为 [Int32] */
+        var newNumbers1: [Int32] = [0, 0]
+        let newByteValues: [UInt8] = [0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00]
+        
+        newNumbers1.withUnsafeMutableBytes { destBytes in
+            newByteValues.withUnsafeBytes { srcBytes in
+                destBytes.copyMemory(from: srcBytes)
+                
+            }
+        }
+        print("newNumbers1 is \(newNumbers1)")
+        
+        //MARK:withUnsafeBytes(_:)
+        /* [Int32] 转化为 [UInt8] */
+        let newNumbers2: [Int32] = [1, 2, 3]
+        var byteBuffer: [UInt8] = []
+        newNumbers2.withUnsafeBytes {
+            byteBuffer.append(contentsOf: $0)
+            print($0)
+        }
+        print("byteBuffer is \(byteBuffer)")
+        
+
+        
+        
         //MARK:replaceSubrange(_:with:): replace a range of elements with the elements in the specified collection
         var nums = [10, 20, 30, 40, 50]
         nums.replaceSubrange(1...3, with: repeatElement(1, count: 5))
