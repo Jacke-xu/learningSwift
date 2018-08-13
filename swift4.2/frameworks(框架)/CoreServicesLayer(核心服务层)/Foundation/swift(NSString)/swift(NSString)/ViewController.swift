@@ -102,26 +102,26 @@ class ViewController: UIViewController {
             print(s!)
         }
         
-        /* [UInt8] 转化为 [Int32] */
-        var numbers: [Int32] = [0, 0]
-        let byteValues: [UInt8] = [0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00]
-        
-        numbers.withUnsafeMutableBytes { destBytes in
-            byteValues.withUnsafeBytes { srcBytes in
-                destBytes.copyMemory(from: srcBytes)
-                
-            }
-        }
-        print("numbers is \(numbers)")
-        
-        /* [Int32] 转化为 [UInt8] */
-        let numbers1: [Int32] = [1, 2, 3]
-        var byteBuffer: [UInt8] = []
-        numbers1.withUnsafeBytes {
-            byteBuffer.append(contentsOf: $0)
-            print($0)
-        }
-        print("numbers1 is \(byteBuffer)")
+//        /* [UInt8] 转化为 [Int32] */
+//        var numbers: [Int32] = [0, 0]
+//        let byteValues: [UInt8] = [0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00]
+//        
+//        numbers.withUnsafeMutableBytes { destBytes in
+//            byteValues.withUnsafeBytes { srcBytes in
+//                destBytes.copyMemory(from: srcBytes)
+//                
+//            }
+//        }
+//        print("numbers is \(numbers)")
+//        
+//        /* [Int32] 转化为 [UInt8] */
+//        let numbers1: [Int32] = [1, 2, 3]
+//        var byteBuffer: [UInt8] = []
+//        numbers1.withUnsafeBytes {
+//            byteBuffer.append(contentsOf: $0)
+//            print($0)
+//        }
+//        print("numbers1 is \(byteBuffer)")
 
     }
 
