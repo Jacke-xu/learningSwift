@@ -952,7 +952,616 @@ class ViewController: UIViewController {
          \~english:
          returns a Boolean value indicating whether two values are not equal.
          */
+        
+        //MARK:public var indices: DefaultIndices<String> { get }
+        /**
+         \~chinese:
+         有效的集合的索引 (按升序排列)
+         
+         \~english:
+         the indices that are valid for subscripting the collection, in ascending order.
+         */
+        
+        print("numbers.indices is \(numbers.indices)")
+        
+        
+        //MARK: public var lazy: LazySequence<String> { get }
+        /**
+         \~chinese:
+         一个序列包含和当前序列相同的元素
+         
+         \~english:
+         a sequence containing the same elements as this sequence.
+         */
+        print("numbers.lazy is \(numbers.lazy)")
+        
+        
+        //MARK:public static func ..< (minimum: String, maximum: String) -> Range<String>
+        /**
+         \~chinese:
+         返回一个半开放范围, 该区域包含其下限, 但不包括其上界。
+         
+         \~english:
+         returns a half-open range that contains ite lower bound but not its upper bound.
+         */
+        
+        let lessThanFive = 0.0..<5.0
+        print(lessThanFive.contains(3.14))
+        
+        //MARK:prefix public static func ..< (maximum: String) -> PartialRangeUpTo<String>
+        /**
+         \~chinese:
+         返回一个部分范围，但不包含其上限
+         
+         \~english:
+         Returns a partial range up to, but not including, its upper bound.
+         */
+        
+        let upToFive = ..<5
+        print("upToFive.contains(Int(3.14)) is \(upToFive.contains(Int(3.14)))")
+        print("upToFive.contains(Int(6.28)) is \(upToFive.contains(Int(6.28)))")
+        
+        
+        //MARK:prefix public static func ...(maximum: String) -> ParialRangeThrough<String>
+        /**
+         \~chinese:
+         返回一个部分范围，包含其上限
+         
+         \~english:
+         returns a paritial range up to, and including, its upper bound.
+         */
+        
+        let throughFive = ...5.0
+        print("throughFive.contains(4.0) is \(throughFive.contains(4.0))")
+        print("throughFive.contains(5.0) is \(throughFive.contains(5.0))")
+        print("throughFive.contains(6.0) is \(throughFive.contains(6.0))")
+        
+        //MARK:postfix public static func ...(minimum: String) -> PartialRangeFrom<String>
+        /**
+         \~chinese:
+         返回从下界向上延伸的部分范围
+         
+         \~english:
+         returns a partial range extending upward from a lower bound.
+         */
+        let atLeastFive = 5.0...
+        print("atLeastFive.contains(4.0) is \(atLeastFive.contains(4.0))")
+        print("atLeastFive.contains(5.0) is \(atLeastFive.contains(5.0))")
+        print("atLeastFive.contains(6.0) is \(atLeastFive.contains(6.0))")
+        
+        
+        //MARK:public subscript<R>(r:R) -> Substring where R : RangeExpression, String.Index == R.Bound { get }
+        /**
+         \~chinese:
+         访问由 range 表达式指定的集合元素的连续 subrange
+         
+         \~english:
+         accesses the contiguous subrange of the collection's elements specified by a range expression.
+         */
+        
+        let streets = ["Adams", "Bryant", "Channing", "Douglas", "Evarts"]
+        let streetSlice = streets[2...]
+        print("streetSlice is \(streetSlice)")
+        
+        
+        //MARK:public convenience init(repeating repeatedValue: Character, count: Int)
+        /**
+         \~chinese:
+         创建一个包含指定数目的单个重复值的新集合
+         
+         \~english:
+         creates a new collection containing the specified number of a single, repeated value.
+         */
+        
+        let fiveZs = Array(repeating: " nidayede", count: 10)
+        print("fiveZs is \(fiveZs)")
+        
+        //MARK:public convenience init<S>(_ elements: S) where S : Sequence, Character == S.Element.
+        /**
+         \~chinese:
+         创建一个新的集合包含一个序列中的元素
+         
+         \~english:
+         creates  a new instance of a collection containing the elements of a sequence.
+         */
+        
+        //MARK:public mutating func append(_ newElement: Character)
+        /**
+         \~chinese:
+         在一个集合的结尾添加一个元素
+         
+         \~english:
+         adds an element to the end of the collection.
+         */
+        var newNumbers = [1, 2, 3, 3, 5]
+        newNumbers.append(100)
+        print("newNumbers.append(100) is \(newNumbers)")
+        
+        
+        //MARK:public mutating func append<S>(contentsOf newElement: S) where S : Sequence, Character == S.Element
+        /**
+         \~chinese:
+         增加一个序列或集合中的元素到当前集合的尾端
+         
+         \~english:
+         adds the elements of a sequence or collection to the end of this collecion.
+         */
+        newNumbers.append(contentsOf: 10...15)
+        print("newNumbers.append(contentOf: 10...15) is \(newNumbers)")
+        
+        
+        //MARK:public mutating func insert(_ newElement: Character, at i: String.Index)
+        /**
+         \~chinese:
+         插入一个新的元素到当前集合的特定位置
+         
+         \~english:
+         inserts a new element into the collection at the specified position.
+         */
+        
+        newNumbers.insert(10000, at: 3)
+        print("newNumbers.insert(10000, at: 3) is \(newNumbers)")
+        
+        
+        //MARK:public mutating func insert<C>(contentOf newElements : C, at i:String.Index) where C : Collection, Character == C.Element.
+        /**
+         \~chinese:
+         插入一个序列到当前集合中的特定元素
+         
+         \~english:
+         inserts the elements of a sequence into the collection at the specified position.
+         */
+        
+        newNumbers.insert(contentsOf: 2000...2003, at: 3)
+        
+        print("newNumbers.insert(contentsOf: 2000...2003, at: 3) is \(newNumbers))")
+        
+        
+        //MARK:public mutating func remove(at position: String.Index) -> Character.
+        /**
+         \~chinese:
+         移除并返回一个集合中特定位置的元素
+         
+         \~english:
+         removes and returns the element at the specified position.
+         */
+        newNumbers.remove(at: newNumbers.startIndex)
+        print("newNumbers.remove(at: newNumbers.endIndex) is \(newNumbers))")
+        
+        
+        //MARK:public mutating func removeSubrange(_ bounds: Range<String.Index).
+        /**
+         \~chinese:
+         移除当前集合中特定子范围中的元素
+         
+         \~english:
+         removes the elements in the specified subrange from the collection.
+         */
+        
+        newNumbers.removeSubrange(1..<4)
+        print("newNumbers.removeSubrange(1..<4) is \(newNumbers)")
+        
+        
+        //MARK:public mutating func removeFirst(_ n: Int).
+        /**
+         \~chinese:
+         从当前集合开始位置移除特定数量的元素
+         
+         \~english:
+         removes the specified number of elements from the beginning of the collection.
+         */
+        
+        newNumbers.removeFirst(3)
+        print("newNumbers.removeFirst(3) is \(newNumbers)")
+        
+        
+        //MARK:public mutating func removeFirst() -> Character.
+        /**
+         \~chinese:
+         移除并返回当前集合的首个元素
+         
+         \~english:
+         removes and returns the first element of the collection.
+         */
+        
+        //MARK:public mutating func removeAll(keepingCapacity keepCapcity: Bool = default).
+        /**
+         \~chinese:
+         移除当前集合的所有元素
+         
+         \~english:
+         removes all elements from the collection.
+         */
+        
+        
+        //MARK:public mutating func reserveCapacity(_ n: Int)
+        /**
+         \~chinese:
+         当这样做适合于基础类型时, 准备集合以存储指定数量的元素。
+         
+         \~english:
+         prepares the collection to store the specified number of elements , when doing so is appropriate for the underlying type.
+         */
+        
+        //MARK:public mutating func replaceSubrange<C, R>(_ subrange: R, with newElements: C) where C : Collection, R : RangeExpression, Character == C.Element, String.Index == R.Bound.
+        
+        /**
+         \~chinese:
+         用给定集合替换当前集合中特定范围内的元素
+         
+         \~english:
+         replaces the specified subrange of elements with the given collection.
+         */
+        
+        newNumbers.replaceSubrange(1...3, with: [8, 8, 8, 8, 8, 8])
+        print("newNumbers.replaceSubrange(1...3, with: [8, 8, 8, 8, 8, 8]) is \(newNumbers)")
+        
+        
+        //MARK:public mutating func removeSubrange<R>(_ bound: R) where R : RangeExpression, String.Index == R.Bound.
+        /**
+         \~chinese:
+         从当前集合中移除给定范围内的元素
+         
+         \~english:
+         removes the elments in the specified subrange from the collection.
+         */
+        
+        newNumbers.removeSubrange(1..<4)
+        print("newNumbers.removeSubrange(1..<4) is \(newNumbers)")
+        
+        
+        //MARK:public mutating func removeLast() -> Character
+        /**
+         \~chinese:
+         移除并返回当前集合中的最后一个元素
+         
+         \~english:
+         removes and returns the last element of the collection.
+         */
+        
+        //MARK:public mutating func removeLast(_ n: Int).
+        /**
+         \~chinese:
+         从当前集合的最后一个元素开始向前移除并返回特定数量的元素
+         
+         \~english:
+         removes the specified number of elements from the end of the collection.
+         */
+        
+        
+        //MARK:@available(swift 4.0) public func filter(_ isIncluded: (Character) throws -> Bool) rethrows -> String
+        
+        /**
+         \~chinese:
+         返回相同类型的新集合, 其包含满足给定谓词的原始集合的元素
+         
+         \~english:
+         returns a new collection of the same type containing, in order, the elements of the original collection that satisfy the given predicate.
+         */
+        
+        let shortNames = cast.filter { (str) -> Bool in
+            str.count < 5
+        }
+        print("shortNames is \(shortNames)")
+        
+        
+        //MARK:public func reversed() -> ReversedCollection<String>
+        /**
+         \~chinese:
+         返回一个视图以倒序方式呈现当前集合的元素
+         
+         \~english:
+         returns a view presenting the elements of the collection in reverse order.
+         */
+        
+        let word = "Backwards"
+        for char in word.reversed() {
+            print(char)
+        }
+        
+        
+        //MARK:public func map<T>(_ transform: (Character) throws -> T) rethrows -> [T]
+        /**
+         \~chinese:
+         返回一个数组, 其包含当前序列元素映射给给定闭包的结果
+         
+         \~english:
+         returns an array containing the results of mapping the given closure over the sequence's elements.
+         */
+        
+        let newlowercaseNames = cast.map { (x) -> String in
+            x.lowercased()
+        }
+        print("lowercaeNames is \(newlowercaseNames)")
+        
+        let newletterCounts = cast.map { (x) -> Int in
+            x.count
+        }
+        print("newletterCounts is \(newletterCounts)")
+        
+        
+        //MARK:public var underestimatedCount: Int { get }
+        /**
+         \~chinese:
+         返回一个小于或等于序列中的元素数的值, 无损检测
+         
+         \~english:
+         returns a value less than or equal to the number of elements in the sequence, nondestructively.
+         */
+        print("newletterCounts.underestimatedCount is \(newletterCounts.underestimatedCount)")
+        
+        
+        //MARK:public func forEach(_ boby: (Character) throws -> Void) rethrows.
+        /**
+         \~chinese:
+         对当前序列中的每个元素调用给定的闭包，和for-in 循环的顺序一样
+         
+         \~english:
+         calls the given closure on each element in the sequence in the same order as a 'for'-'in' loop.
+         */
+        
+        let numberWords = ["one", "two", "three"]
+        for word in numberWords {
+            print(word)
+        }
+        
+        
+        //MARK:
+        /**
+         \~chinese:
+         返回当前序列中第一个满足给定谓词的元素
+         
+         \~english:
+         returns the first element of the sequence that satisfies the given predicate.
+         */
+        
+        let anotherNumbers = [3, 7, 4, -2, 9, -6, 10, 1]
+        if let firstNegative = anotherNumbers.first(where: { (x) -> Bool in
+            x < 0
+        }) {
+            print("the first negative numbere is \(firstNegative)")
+        }
+        
+        
+        //MARK:public func dropFirst() -> Substring
+        /**
+         \~chinese:
+         返回一个不包含当前序列中首个元素的子序列
+         
+         \~english:
+         returns a subsequence containing all but the first element of the sequence.
+         */
+        
+        print("anotherNumbers is \(anotherNumbers.dropFirst())")
+        
+        //MARK:public func dropLast() -> Substring.
+        /**
+         \~chinese:
+         返回一个不包含当前序列最后一个元素的子序列
+         
+         \~english:
+         returns a subsequence containing all but the last element of the sequence.
+         */
+        
+        print("anotherNumbers.dropLast() is \(anotherNumbers.dropLast())")
+        
+        
+        //MARK:public func enumerated() -> EnumeratedSequence<String>
+        /**
+         \~chinese:
+         返回一对 (* n * , * x *) 的序列, 其中 * n * 表示从零开始的连续整数, * x *表示序列的一个元素
+         
+         \~english:
+         returns a sequence of pairs (* n *, * x *), where * n * represents a consecutive integer starting at zero and * x * represents an element of the sequence.
+         */
+        
+        for (n, c) in "swift".enumerated() {
+            print("\(n), \(c)")
+        }
+        
+        
+        //MARK:@warn_unqualified_access  public func min(by areIncreasingOrder: (Character, Character) throws -> Bool) rethrows -> Character?
+        /**
+         \~chinese:
+         返回当前序列中最小的元素，使用给定的谓词两两元素之间进行比较
+         
+         \~english:
+         returns the minumum element in the seauence, using the given predicate as the comparison between elements
+         */
+        
+        let newHues = ["Heliotrop": 296, "Coral": 16, "Aquamarine": 156]
+        let leastHue = newHues.min { (x, y) -> Bool in
+            x.value < y.value
+        }
+        print("leastHue is \(leastHue)")
+        
+        
+        //MARK:@warn_unqualified_access  public func max(by areIncreasingOrder: (Character, Character) throws -> Bool) rethrows -> Character?
+        /**
+         \~chinese:
+         返回当前序列中最大的元素，使用给定的谓词两两元素之间进行比较
+         
+         \~english:
+         returns the maximum element in the seauence, using the given predicate as the comparison between elements
+         */
+        let leastHue1 = newHues.min { (x, y) -> Bool in
+            x.value > y.value
+        }
+        print("leastHue1 is \(leastHue1)")
+        
+        
+        //MARK:@warn_unqualified_access public func min() -> Character?
+        /**
+         \~chinese:
+         返回当前序列中最小的元素
+         
+         \~english:
+         returns the minimum element in the sequence.
+         */
+        
+        let heights = [67.5, 65.7, 64.3, 61.1, 58.5, 60.3, 64.9]
+        print("hegiths.min() is \(heights.min()!)")
+        
+        //MARK:@ware_unqualified_access public func max() -> Character?
+        /**
+         \~chinese:
+         返回当前序列中最大的一个元素
+         
+         \~english:
+         returns the maximum element in the sequence.
+         */
+        
+        print("heights.max() is \(heights.max()!)")
+        
+        
+        //MARK:
+        /**
+         \~chinese:
+         返回一个Boolean值，判断当前序列的初始的元素是否等于另外一个序列中的元素，使用给定谓词作为等于测试
+         
+         \~english:
+         returns a Boolean value indicating whether the initial elements of the sequence are equivalent to the elements in another sequence, using the given predicate as the equivalence test.
+         */
+        
+        let initial = [1, 2, 3, 4, 5, 6]
+        let anotherInitial = [1, 2, 3]
+        print("initial.starts(with: anotherInitial, by: { (x, y) -> Bool in x == y }) is \(initial.starts(with: anotherInitial, by: { (x, y) -> Bool in x == y }))")
+        
+        
+        //MARK:public func starts<PossiblePrefix>(with possiblePrefix: PossiblePrefix) -> Bool where PossiblePrefix : Sequence, Character == PossiblePrefix.Element
+        
+        /**
+         \~chinese:
+         返回一个Boolean值，判断当前序列的初始的元素是否等于另外一个序列中的元素
+         
+         \~english:
+         returns a Boolean value indicating whether the initial elements of the sequence are the same as the elements in another sequence.
+         */
+        let a = 1...3
+        let b = 1...10
+        print("b.starts(with: a) is \(b.starts(with: a))")
+        
+        
+        //MARK:public func elementsEqual<OtherSequence>(_ other: OtherSequence, by areEquivalent: (Character, OtherSequence.Elment) throws -> Bool) rethrows -> Bool where OtherSequence : Sequence
+        
+        /**
+         \~chinese:
+         返回一个布尔值, 指示此序列和另一个序列是否以相同的顺序包含等效元素, 使用给定谓词作为等价测试
+         
+         \~english:
+         returns a Boolean value indicating whether this sequence and another sequence contain equivalent elements in the same order, using the given predicate as the equivalence test.
+         */
+        
+        
+        //MARK:public func elementsEqual<OtherSequence>(_ other: OtherSequence) -> Bool where OtherSequence : Sequence, Character == OtherSequence.Element.
+        /**
+         \~chinese:
+         返回一个布尔值, 指示此序列和另一个序列是否以相同的顺序包含相同的元素
+         
+         \~english:
+         returns a Boolean value indicating whether this seauence and another sequence contain the same elements in the same order
+         */
+        
+        print("a.elementsEqual(b) is \(a.elementsEqual(b))")
+        print("a.elementsEqual([1, 2, 3]) is \(a.elementsEqual([1, 2, 3]))")
+        
+        
+        //MARK:public func lexicographicallyPrecedes<OtherSequence>(_ other: OtherSequence, by areInIncreasingOrder: (Character, Character) throws -> Bool) rethrows -> Bool where OtherSequence : Sequence, Character == OtherSequence.Element
+        /**
+         \~chinese:
+         返回一个Boolean值，判断当前序列是否以辞书的顺序在另一个序列前面， 使用给定的谓词进行比较
+         
+         \~english:
+         returns a Boolean vlaue indicating whether the sequence precedes another sequence in a lexicographical ordering, using the given predicate to compare elements.
+         */
+        let newInitial = [1, 2, 3, 4, 5, 6]
+        let anotherNewInitial = [1, 12, 11, 5, 8, 9, 10]
+        print(anotherNewInitial.lexicographicallyPrecedes(newInitial, by: { (x, y) -> Bool in
+            x == y
+        }))
+        
+        
+        //MARK:public func lexicographicallyPrecedes<OtherSequence>(_ other: OtherSequence) -> Bool where OtherSequence : Sequence, Character == OtherSequence.Element
+        /**
+         \~chinese:
+         返回一个Boolean值，判断当前序列是否以辞书的顺序在另一个序列前面， 使用给定的'<'进行比较
+         
+         \~english:
+         Returns a Boolean value indicating whether the sequence precedes another sequence in a lexicographical (dictionary) ordering, using the less-than operator (`<`) to compare elements.
+         */
+        
+        //MARK:public func contains(_ element: Character) -> Bool
+        /**
+         \~chinese:
+         返回一个Boolean 值， 判断当前序列是否包含给定的元素
+         
+         \~english:
+         returns a Boolean value indicating whether the sequence contains the given element.
+         */
+        
+        
+        //MARK:public func contains(where predicate: (Character) throws -> Bool) rethrows -> Bool
+        /**
+         \~chinese:
+         返回一个Boolean值，判断当前序列是否包含满足给定谓词的元素
+         
+         \~english:
+         returns a Boolean value indicating whether the sequence contains an element that satisfies the given predicate.
+         */
+        
+        //MARK:public func reduce<Result>(_ initalResult: Result, _ nextPartialResult: (Result, Character) throws -> Result) rethrows -> Result
+        
+        /**
+         \~chinese:
+         返回使用给定闭包组合序列元素的结果
+         
+         \~english:
+         returns the result of combining the elements of the sequence using the given closure.
+         */
+        
+        let anotherNumbers1 = [1, 2, 3, 4]
+        let numbersSum = anotherNumbers1.reduce(0) { (x, y) -> Int in
+            x + y
+        }
+        
+        print("numbersSum is \(numbersSum)")
+        
+        
+        //MARK:public func reduce<Result>(into initialResult: Result, _ updateAccumulatingResult: (inout Result, Character) throws -> ()) rethrows -> Result
+        /**
+         \~chinese:
+         返回使用给定闭包组合序列元素的结果
+         
+         \~english:
+         returns the result of combining the elements of the sequence using the given closure.
+         */
+        
+        let newLetters = "abracadabra"
+        let newLetterCount = newLetters.reduce(into: [:]) { (counts, letter) in
+            counts[letter, default: 0] += 1
+        }
+        print("newLetterCount is \(newletterCounts)")
+        
+        
+        //MARK:public func compactMap<ElementOfResult>(_ transform: (Character) throws -> ElementOfResult?) rethrows -> [ElementOfResult]
+        /**
+         \~chinese:
+         返回一个数组, 包含使用此序列的每个元素调用给定转换的非 "零" 结果
+         
+         \~english:
+         returns an array containing the non-nil results of calling the given transformation with each element of this sequence.
+         */
+        
+        let possibleNumbers = ["1", "2", "three", "///4///", "5"]
+        let mapped: [Int?] = possibleNumbers.map { str in Int(str) }
+        print("mapped is \(mapped)")
+        
+        let compactMapped: [Int] = possibleNumbers.compactMap { str in Int(str) }
+        
+        print("compactMapped is \(compactMapped)")
+        
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
