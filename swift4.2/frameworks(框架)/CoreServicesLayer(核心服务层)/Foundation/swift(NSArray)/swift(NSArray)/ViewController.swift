@@ -277,6 +277,15 @@ class ViewController: UIViewController {
         }
         print("newNumbers1 is \(newNumbers1)")
         
+        
+        newNumbers1.withUnsafeMutableBytes { destBytes in
+            newByteValues.withUnsafeBytes{ srcBytes in
+                destBytes.copyMemory(from: srcBytes)
+            }
+        }
+        
+        print(newNumbers1)
+        
         //MARK:withUnsafeBytes(_:)
         /* [Int32] 转化为 [UInt8] */
         let newNumbers2: [Int32] = [1, 2, 3]
@@ -286,8 +295,6 @@ class ViewController: UIViewController {
             print($0)
         }
         print("byteBuffer is \(byteBuffer)")
-        
-
         
         
         //MARK:replaceSubrange(_:with:): replace a range of elements with the elements in the specified collection
