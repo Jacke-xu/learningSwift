@@ -1,0 +1,11 @@
+framework module testPublicSDK {
+  umbrella header "testPublicSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module testPublicSDK.Swift {
+    header "testPublicSDK-Swift.h"
+    requires objc
+}

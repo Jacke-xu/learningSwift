@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import testOpenSDK//演示open关键字的使用
+import testPublicSDK//演示public关键字的使用
 //MARK:-------------------------- 自定义操作符 -------------------------------
 //MARK:1. 中置运算符
 /* 定义优先级组 （不是必须的） */
@@ -54,9 +56,78 @@ protocol changeSex {
     func changeSexTo (sex: Bool)
 }
 
+//MARK:---------------------- open 测试 -------------------------
+
+class subOpen: testOpen {
+    open func disorder (orders:Array<Int>) -> Array<Int> {
+        var temp = orders
+        //        var count = Int(temp.count)
+        temp.sort { (x, y) -> Bool in
+            x > y
+        }
+        return temp
+    }
+}
+
+//MARK:----------------------- 不同模块和相同模块的public 测试 ----------------------
+/* 不同模块的public */
+////Cannot inherit from non-open class 'testPulic' outside of its defining module
+//class subPublic1: testPulic {
+//    //Overriding non-open instance method outside of its defining module
+//    override func testPrint(source: String) {
+//        print(<#T##items: Any...##Any#>)
+//    }
+//}
+
+extension testPulic {
+    func test() {
+        print("hello, world")
+    }
+}
+
+/* 相同模块的public */
+
+class subPublic: publicClass {
+    override func testPrint(source: String) -> String {
+        return source
+    }
+}
+
+extension publicClass {
+    func test() {
+        print("qunidayedeba")
+    }
+}
+
+//MARK:-------------------- internal测试 ---------------------
+
+class subInternal: internalClass {
+    override func testInternal(array: [Any]) {
+        print("laozibuxiangdayinle")
+    }
+}
+
+extension internalClass {
+    
+}
+
+
+//MARK:-------------------- fileprivate--------------------
+
+//class subFileprivate: fileprivateClass {
+//
+//}
+
+
+
+//MARK:------------------- private --------------------
+//class subPrivate: privateClass {
+//
+//}
 
 
 class ViewController: UIViewController {
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -271,6 +342,78 @@ class ViewController: UIViewController {
         print("postfixOperatorResult is \(postfixOperatorResult)")
         
         
+        //MARK:-------------- 7. open/public/internal/fileprivate/private
+        /**
+         1. private: private访问级别所修饰的属性或者方法只能在当前类里面访问
+         2. fileprivate: fileprivate 访问级别所有修饰的属性或者方法在当前的swift源文件里可以访问
+         3. internal(默认访问级别，internal修饰符可写可不写)： internal访问级别所有修饰的属性或方法在源代码所在的整个模块都可以访问
+            * 如果是框架或者库代码，则在整个框架内部都可以访问，框架有外部代码所引用时，则不可访问
+            * 如果是App代码，也是在整个App代码，也是在整个App内部可以访问
+         4. public： public访问级别修饰的属性或方法可以被任何人访问，但其他module中不可以被override和继承，而在module内可以被override和继承
+         5. open： open修饰的属性和方法可以被任何人使用，包括override和继承
+         
+         open > public > internal > fileprivate > private
+         */
+        
+        //MARK:----- 7.1 open
+        /* open修饰的方法可以被访问 */
+        let disOrder = testOpen()
+        disOrder.openProperty = 1000
+        print(print(disOrder.disorder(orders: [1,2,3,4,5,6,7,8,9])))
+        print("disOrder.openProperty is \(disOrder.openProperty) now!")
+        
+        /* open修饰的方法可以被override */
+        let disorder = subOpen()
+        disorder.openProperty = 10000
+        print(print(disorder.disorder(orders: [1,2,3,4,5,6,7,8,9])))
+        print("disorder.openProperty is \(disOrder.openProperty) now!")
+        
+        //MARK:----- 7.2 public
+        let testResult = testPulic()
+        testResult.testPrint(source:"qunidayede")
+        
+        /**
+         从上面的testPublicSDK例子中可以看出：
+         不同模块用public修饰的类
+         1. 不可以继承：
+         2. 不可以重写方法：
+         3. 实例方法可以调用
+         4. 可以extension(扩展)
+         相同模块用public修饰的类型
+         1. 可以继承
+         2. 也可以重写方法
+         3. 可以extension
+         */
+        
+        let testpublic = testPulic()
+        testpublic.test()
+        
+        //MARK:----- 7.3 internal
+        /**
+         通过internalClass类可以看出
+         1. 可以继承
+         2. 也可以重写方法
+         3. 可以extension
+         */
+        
+        //MARK:----- 7.4 fileprivate
+        /**
+         通过fileprivateClass可以看出：
+         1. 不可以访问
+         */
+        
+        let testcutom = cutomClass()
+        testcutom.test()
+        
+        //MARK:----- 7.5 private
+        /**
+         通过privateClass 类可以看出
+         1. 被private修饰的类不可以访问
+         2. 被private修饰的方法不可以访问，只能在类内部访问
+         
+         */
+        
+        
         //MARK:--------------------------- 在语句中使用的关键字 ---------------------------
         //MARK:--------------------------- 在表达式和类型使用的关键字 ---------------------------
         //MARK:--------------------------- 模式中使用的关键字 ---------------------------
@@ -311,6 +454,8 @@ class ViewController: UIViewController {
          ( 、 ) 、 { 、 } 、 [ 、 ] 、 . 、 , 、 : 、 ; 、 = 、 @ 、 # 、 & （作为前缀操作符）、 -> 、 `  、 ? 和 ! (作为后缀操作符)
          */
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

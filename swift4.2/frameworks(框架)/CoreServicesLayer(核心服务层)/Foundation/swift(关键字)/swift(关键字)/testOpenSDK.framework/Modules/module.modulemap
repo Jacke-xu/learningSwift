@@ -1,0 +1,11 @@
+framework module testOpenSDK {
+  umbrella header "testOpenSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module testOpenSDK.Swift {
+    header "testOpenSDK-Swift.h"
+    requires objc
+}

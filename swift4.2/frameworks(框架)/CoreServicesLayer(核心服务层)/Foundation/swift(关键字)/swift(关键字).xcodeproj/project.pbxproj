@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FB454032125925100D81008 /* internalClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454022125925100D81008 /* internalClass.swift */; };
+		0FB454052125936F00D81008 /* fileprivateClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454042125936F00D81008 /* fileprivateClass.swift */; };
+		0FB45407212596FE00D81008 /* privateClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB45406212596FE00D81008 /* privateClass.swift */; };
 		0FD13D172123AAE1007400EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD13D162123AAE1007400EE /* AppDelegate.swift */; };
 		0FD13D192123AAE1007400EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD13D182123AAE1007400EE /* ViewController.swift */; };
 		0FD13D1C2123AAE1007400EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FD13D1A2123AAE1007400EE /* Main.storyboard */; };
@@ -14,6 +17,10 @@
 		0FD13D212123AAE3007400EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FD13D1F2123AAE3007400EE /* LaunchScreen.storyboard */; };
 		0FD13D2C2123AAE3007400EE /* swift_____Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD13D2B2123AAE3007400EE /* swift_____Tests.swift */; };
 		0FD13D372123AAE3007400EE /* swift_____UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD13D362123AAE3007400EE /* swift_____UITests.swift */; };
+		0FD13D8121256E22007400EE /* testOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD13D8021256E22007400EE /* testOpenSDK.framework */; };
+		0FD13D8321257018007400EE /* testOpenSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0FD13D8021256E22007400EE /* testOpenSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0FD13DAB21257427007400EE /* testPublicSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0FD13DAA21257426007400EE /* testPublicSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0FD13DAD21258CD3007400EE /* publicClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD13DAC21258CD3007400EE /* publicClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +40,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0FD13D8221257001007400EE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0FD13DAB21257427007400EE /* testPublicSDK.framework in CopyFiles */,
+				0FD13D8321257018007400EE /* testOpenSDK.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0FB454022125925100D81008 /* internalClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = internalClass.swift; sourceTree = "<group>"; };
+		0FB454042125936F00D81008 /* fileprivateClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fileprivateClass.swift; sourceTree = "<group>"; };
+		0FB45406212596FE00D81008 /* privateClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = privateClass.swift; sourceTree = "<group>"; };
 		0FD13D132123AAE1007400EE /* swift(关键字).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift(关键字).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD13D162123AAE1007400EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FD13D182123AAE1007400EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +71,9 @@
 		0FD13D322123AAE3007400EE /* swift(关键字)UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift(关键字)UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD13D362123AAE3007400EE /* swift_____UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "swift_____UITests.swift"; sourceTree = "<group>"; };
 		0FD13D382123AAE3007400EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FD13D8021256E22007400EE /* testOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = testOpenSDK.framework; sourceTree = "<group>"; };
+		0FD13DAA21257426007400EE /* testPublicSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = testPublicSDK.framework; path = "swift(关键字)/testPublicSDK.framework"; sourceTree = "<group>"; };
+		0FD13DAC21258CD3007400EE /* publicClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = publicClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FD13D8121256E22007400EE /* testOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +105,7 @@
 		0FD13D0A2123AAE1007400EE = {
 			isa = PBXGroup;
 			children = (
+				0FD13DAA21257426007400EE /* testPublicSDK.framework */,
 				0FD13D152123AAE1007400EE /* swift(关键字) */,
 				0FD13D2A2123AAE3007400EE /* swift(关键字)Tests */,
 				0FD13D352123AAE3007400EE /* swift(关键字)UITests */,
@@ -97,8 +126,13 @@
 		0FD13D152123AAE1007400EE /* swift(关键字) */ = {
 			isa = PBXGroup;
 			children = (
+				0FD13D8021256E22007400EE /* testOpenSDK.framework */,
 				0FD13D162123AAE1007400EE /* AppDelegate.swift */,
 				0FD13D182123AAE1007400EE /* ViewController.swift */,
+				0FD13DAC21258CD3007400EE /* publicClass.swift */,
+				0FB454022125925100D81008 /* internalClass.swift */,
+				0FB454042125936F00D81008 /* fileprivateClass.swift */,
+				0FB45406212596FE00D81008 /* privateClass.swift */,
 				0FD13D1A2123AAE1007400EE /* Main.storyboard */,
 				0FD13D1D2123AAE3007400EE /* Assets.xcassets */,
 				0FD13D1F2123AAE3007400EE /* LaunchScreen.storyboard */,
@@ -135,6 +169,7 @@
 				0FD13D0F2123AAE1007400EE /* Sources */,
 				0FD13D102123AAE1007400EE /* Frameworks */,
 				0FD13D112123AAE1007400EE /* Resources */,
+				0FD13D8221257001007400EE /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -257,6 +292,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FD13D192123AAE1007400EE /* ViewController.swift in Sources */,
+				0FB454032125925100D81008 /* internalClass.swift in Sources */,
+				0FD13DAD21258CD3007400EE /* publicClass.swift in Sources */,
+				0FB454052125936F00D81008 /* fileprivateClass.swift in Sources */,
+				0FB45407212596FE00D81008 /* privateClass.swift in Sources */,
 				0FD13D172123AAE1007400EE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +471,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4H33EPS92X;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/swift(关键字)",
+				);
 				INFOPLIST_FILE = "swift(关键字)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -450,6 +493,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4H33EPS92X;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/swift(关键字)",
+				);
 				INFOPLIST_FILE = "swift(关键字)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
