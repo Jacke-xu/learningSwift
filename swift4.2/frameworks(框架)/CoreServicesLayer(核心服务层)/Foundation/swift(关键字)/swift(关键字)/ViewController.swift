@@ -7,20 +7,39 @@
 //
 
 import UIKit
-
-infix operator ** : MultiplicationPrecedence
-
-public func ** (left: Double, right: Double) -> Double {
-    return pow(left, right)
+//MARK:-------------------------- 自定义操作符 -------------------------------
+//MARK:1. 中置运算符
+/* 定义优先级组 （不是必须的） */
+precedencegroup MyPrecedence {
+//    higherThan: AdditionPrecedence // 优先级：比加法运算搞
+    lowerThan: AdditionPrecedence //优先级：比加法运算低
+    associativity: none           // 结合方法：left, right or none
+    assignment: false             // true = 赋值运算符，false = 非赋值运算符
 }
 
-prefix operator √
-public prefix func √ (vector: Double) -> Double {
-    return sqrt(vector)
+infix operator +++ : MyPrecedence // 继承MyPrecedence 优先级组
+//infix operator +++: AddtionPrecedence //也可以直接继承加法优先级组或其他优先级组
+
+public func +++ (left: Int, right: Int) -> Int {
+    return left + right * 2
+}
+
+//MARK:2. 前置运算符
+/* 前置运算符是不继承优先级组的 */
+prefix operator ==+
+public prefix func ==+ (left: Int) -> Int {
+    return left * 2
+}
+
+//MARK:3. 后置运算符
+/* 后置运算符是不继承优先级组的 */
+postfix operator +==
+public postfix func +== (right: Int) -> Int {
+    return right * 3
 }
 
 
-
+//MARK:------------------------ 使用 typealias 合并协议 ---------------------------
 /* 协议，使用关联类型 */
 protocol TableViewCell {
     associatedtype T
@@ -233,7 +252,23 @@ class ViewController: UIViewController {
          与Objective-C 不同 ，swift 支持覆盖或创建运算符。最简单的用例应该是重新定义一些计算符。
          */
         //FIXME:当重新定义新的运算符或者覆盖已有的运算符时，需要用operator 关键字声明
-    
+        /**
+         操作符类型：
+         1. 中置运算符（infix operator）
+         2. 前置运算符（prefix operator）
+         3. 后置运算符（postfix operator）
+         */
+        //MARK:----- 6.1 infix operator 使用的例子
+        let infixOperatorResult = 2 +++ 3
+        print("infixOperatorResult is \(infixOperatorResult)")
+        
+        //MARK:----- 6.2 prefix operator 使用例子
+        let prefixOperatorResult = ==+2
+        print("prefixOperatorResult is \(prefixOperatorResult)")
+        
+        //MARK:----- 6.3 postfix operator 使用例子
+        let postfixOperatorResult = 2+==
+        print("postfixOperatorResult is \(postfixOperatorResult)")
         
         
         //MARK:--------------------------- 在语句中使用的关键字 ---------------------------
