@@ -8,7 +8,17 @@
 
 import UIKit
 
-infix operator ** : atp{ associativity left precedence 140 }
+infix operator ** : MultiplicationPrecedence
+
+public func ** (left: Double, right: Double) -> Double {
+    return pow(left, right)
+}
+
+prefix operator √
+public prefix func √ (vector: Double) -> Double {
+    return sqrt(vector)
+}
+
 
 
 /* 协议，使用关联类型 */
@@ -223,11 +233,7 @@ class ViewController: UIViewController {
          与Objective-C 不同 ，swift 支持覆盖或创建运算符。最简单的用例应该是重新定义一些计算符。
          */
         //FIXME:当重新定义新的运算符或者覆盖已有的运算符时，需要用operator 关键字声明
-//        operator infix ** { associativity left precedence 140 }
-        
-        func ** (left: Double, right: Double) -> Double {
-            return pow(left, right)
-        }
+    
         
         
         //MARK:--------------------------- 在语句中使用的关键字 ---------------------------
