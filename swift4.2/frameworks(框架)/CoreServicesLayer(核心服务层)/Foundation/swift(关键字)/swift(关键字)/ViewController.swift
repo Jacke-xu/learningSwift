@@ -9,7 +9,9 @@
 import UIKit
 import testOpenSDK//演示open关键字的使用
 import testPublicSDK//演示public关键字的使用
-//MARK:-------------------------- 自定义操作符 -------------------------------
+
+//MARK: --------------------------- 在特定上下文中被保留的关键字 ---------------------------
+//MARK:-------自定义操作符
 //MARK:1. 中置运算符
 /* 定义优先级组 （不是必须的） */
 precedencegroup MyPrecedence {
@@ -41,7 +43,8 @@ public postfix func +== (right: Int) -> Int {
 }
 
 
-//MARK:------------------------ 使用 typealias 合并协议 ---------------------------
+//MARK:--------------------------- 在声明中使用的关键字 ---------------------------
+//MARK:----- 使用 typealias 合并协议
 /* 协议，使用关联类型 */
 protocol TableViewCell {
     associatedtype T
@@ -51,12 +54,14 @@ protocol TableViewCell {
 
 protocol changeName {
     func changeNameTo(name: String)
+    
 }
 protocol changeSex {
     func changeSexTo (sex: Bool)
 }
 
-//MARK:---------------------- open 测试 -------------------------
+
+//MARK:----- open 测试
 
 class subOpen: testOpen {
     open func disorder (orders:Array<Int>) -> Array<Int> {
@@ -69,7 +74,7 @@ class subOpen: testOpen {
     }
 }
 
-//MARK:----------------------- 不同模块和相同模块的public 测试 ----------------------
+//MARK:----- public 测试
 /* 不同模块的public */
 ////Cannot inherit from non-open class 'testPulic' outside of its defining module
 //class subPublic1: testPulic {
@@ -99,7 +104,7 @@ extension publicClass {
     }
 }
 
-//MARK:-------------------- internal测试 ---------------------
+//MARK:----- internal测试
 
 class subInternal: internalClass {
     override func testInternal(array: [Any]) {
@@ -112,7 +117,7 @@ extension internalClass {
 }
 
 
-//MARK:-------------------- fileprivate--------------------
+//MARK:-----fileprivate
 
 //class subFileprivate: fileprivateClass {
 //
@@ -120,10 +125,62 @@ extension internalClass {
 
 
 
-//MARK:------------------- private --------------------
+//MARK:----- private
 //class subPrivate: privateClass {
 //
 //}
+
+//MARK:----- deinit
+class anotherDeinitClass: NSObject {
+    var test: Int = 0
+    override init() {
+        
+    }
+    func testDeinit() {
+        print("测试deinit")
+    }
+}
+class deinitClass {
+    var item: anotherDeinitClass?
+    func testDeinit() {
+        item = anotherDeinitClass()
+        print("初始化完成")
+    }
+    deinit {
+        //清理
+        self.item = nil
+    }
+}
+
+//MARK:----- static
+enum testEnum {
+    case one
+    //Class methods are only allowed within classes; use 'static' to declare a static method
+//    class func testPrint()
+    static func testPrint() {}
+    //Class properties are only allowed within classes; use 'static' to declare a static property
+//    class var test: String?
+    static var testq: String?
+}
+
+protocol testProcotol {
+    //Class methods are only allowed within classes; use 'static' to declare a static method
+//    class func testPrint()
+    static func testPrint()
+    //Class properties are only allowed within classes; use 'static' to declare a static property
+//    class var test: String?
+    static var testq: String? { get }
+}
+
+class testClass {
+    //Class stored properties not supported in classes; did you mean 'static'?
+//    class var str: String?
+    static var str: String?
+    
+    static func testPrint() {}
+    class func testPrints() {}
+    
+}
 
 
 class ViewController: UIViewController {
@@ -131,8 +188,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //MARK:----------------------------------------- swift 词汇结构 ----------------------------------------------
         
         //MARK:--------------------------- 在声明中使用的关键字 ---------------------------
         //MARK:-------------- 1. associatedtype
@@ -412,6 +467,26 @@ class ViewController: UIViewController {
          2. 被private修饰的方法不可以访问，只能在类内部访问
          
          */
+        
+        //MARK:-------------- 8. deinit
+        /**
+         类反初始化器方法
+         */
+        var testDeinit = deinitClass()
+        testDeinit.testDeinit()
+//        testDeinit = nil
+        
+        
+        //MARK:-------------- 9. static
+        /**
+         从上面的testClass/testEnum/testProcotol 三个例子可以看出：
+         1. class 中可以使用 static 和 class 声明类方法， 不能使用class 类型的存储变量，只能使用static 声明存储变量
+         2. procotol 和 enum 中只能用static 声明方法 和 属性
+         */
+    
+        //MARK:-------------- 10. import
+        //FIXME:同一个xcodeProject 不需要import， 使用另一个mudule时才需要import
+        //FIXME:使用cocoapods 导入的第三方库，必须用xcode 对工程进行编译后，才可以提示
         
         
         //MARK:--------------------------- 在语句中使用的关键字 ---------------------------
