@@ -10,8 +10,8 @@ import UIKit
 import testOpenSDK//演示open关键字的使用
 import testPublicSDK//演示public关键字的使用
 
-//MARK: --------------------------- 在特定上下文中被保留的关键字 ---------------------------
-//MARK:-------自定义操作符 ------
+//MARK: ******************************* 在特定上下文中被保留的关键字 *******************************
+//MARK:<-------自定义操作符 ------>
 //MARK:1. 中置运算符
 /* 定义优先级组 （不是必须的） */
 precedencegroup MyPrecedence {
@@ -43,8 +43,8 @@ public postfix func +== (right: Int) -> Int {
 }
 
 
-//MARK:--------------------------- 在声明中使用的关键字 ---------------------------
-//MARK:----- 使用 typealias 合并协议-----
+//MARK:******************************* 在声明中使用的关键字 *******************************
+//MARK:<----- 使用 typealias 合并协议----->
 /* 协议，使用关联类型 */
 protocol TableViewCell {
     associatedtype T
@@ -61,7 +61,7 @@ protocol changeSex {
 }
 
 
-//MARK:----- open 测试-----
+//MARK:<----- open 测试----->
 
 class subOpen: testOpen {
     open func disorder (orders:Array<Int>) -> Array<Int> {
@@ -74,7 +74,7 @@ class subOpen: testOpen {
     }
 }
 
-//MARK:----- public 测试-----
+//MARK:<----- public 测试----->
 /* 不同模块的public */
 ////Cannot inherit from non-open class 'testPulic' outside of its defining module
 //class subPublic1: testPulic {
@@ -104,7 +104,7 @@ extension publicClass {
     }
 }
 
-//MARK:----- internal测试-----
+//MARK:<----- internal测试----->
 
 class subInternal: internalClass {
     override func testInternal(array: [Any]) {
@@ -117,7 +117,7 @@ extension internalClass {
 }
 
 
-//MARK:-----fileprivate-----
+//MARK:<-----fileprivate----->
 
 //class subFileprivate: fileprivateClass {
 //
@@ -125,12 +125,12 @@ extension internalClass {
 
 
 
-//MARK:----- private-----
+//MARK:<----- private----->
 //class subPrivate: privateClass {
 //
 //}
 
-//MARK:----- deinit-----
+//MARK:<----- deinit----->
 class anotherDeinitClass: NSObject {
     var test: Int = 0
     override init() {
@@ -152,7 +152,7 @@ class deinitClass {
     }
 }
 
-//MARK:----- static-----
+//MARK:<----- static----->
 enum testEnum {
     case one
     //Class methods are only allowed within classes; use 'static' to declare a static method
@@ -182,7 +182,7 @@ class testClass {
     
 }
 
-//MARK:----- extension -----
+//MARK:<----- extension ----->
 /* 1. 添加计算型实例属性和计算性类型属性*/
 extension UIView {
     //Extensions must not contain stored properties
@@ -303,7 +303,7 @@ extension Student: StudentProtocol {
     }
 }
 
-//MARK:------ class/enum/struct-----
+//MARK:<------ class/enum/struct----->
 
 protocol BaseProtocol {
     func testPrint()
@@ -485,14 +485,51 @@ struct exampleStruct: BaseProtocol {
 //
 //}
 
+
+//MARK:******************************* 在语句中使用的关键字 *******************************
+
+//MARK:<----- where ------>
+/* 3. 与协议结合 */
+protocol aProtocol {
+    
+}
+//只给遵守aProtocol协议的UIView 添加了拓展
+extension aProtocol where Self: UIButton {
+    func getString() -> String {
+        return "string"
+    }
+}
+
+class subView: UIButton,aProtocol {
+    
+}
+
+
+class anothSubView: UILabel,aProtocol {
+    
+}
+
+/* 4. 可以再associatedtype 后面声明的类型后面追加where语句 */
+/* 标准库中Sequence 中 Element 的声明如下： */
+//protocol Sequence {
+//    associatedtype Element where Self.Element == Self.Iterator.Element
+//}
+
+//public mutating func insert<S>(contentsOf newElement: S, at i: String.Index) where S : Collection, S.Element == Character
+
+/**
+ 他限定了Sequence中Element 这个类型必须和Iterator.Element 的类型一致。
+ */
+
+
 class ViewController: UIViewController {
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //MARK:----------------------------------------------- swift 关键字讲解 ---------------------------------------------
-        //MARK:--------------------------- 在声明中使用的关键字 ---------------------------
-        //MARK:-------------- 1. associatedtype
+        //MARK:<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< swift 关键字讲解 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //MARK:******************************* 在声明中使用的关键字 *******************************
+        //MARK:<-------------- 1. associatedtype --------------->
         /**
          定义一个协议时，有的时候声明一个或多个关联类型作为协议定义的一部分将会非常有用。关联类型为协议中的某个类型提供了一个占位名，其代表的实际类型在协议被采纳时才会被指定。可以通过associatedtype 关键字来置顶关联对象。比如说：使用协议声明更新cell的方法
          */
@@ -511,7 +548,7 @@ class ViewController: UIViewController {
         }
         
         
-        //MARK:-------------- 2. typealias
+        //MARK:<-------------- 2. typealias --------------->
         /**
          typealias 使用来为已经存在的类型重新定义名字的，通过命名，可以使代码变得更加的清晰。使用的语法也很简单，使用typealias 关键字像使用普通的赋值语句一样，可以将某个已经存在的类型赋值为新的名字
          */
@@ -554,7 +591,7 @@ class ViewController: UIViewController {
          typealias OCClass = SwiftClass
          */
         
-        //MARK:-------------- 3. class
+        //MARK:<-------------- 3. class --------------->
         
         //MARK:----- 3.1 当前class 为基类
         /**
@@ -624,7 +661,7 @@ class ViewController: UIViewController {
         //FIXME:4. 当class的所有属性，在定义时显示或隐式的给出了赋值，那么当不谢当前类的初始化方，编译器会为该类生成默认的初始化方法。如果，属性定义时部分未给出默认值，也不是先类的构造方法，则编译报错
         
         
-        //MARK:-------------- 4. subscript
+        //MARK:<-------------- 4. subscript --------------->
         /**
          在swift中， class， structures ，enum 都可以定义subscript, subscript可以帮助我们更方便的访问或者设置一个集合中的某个成员
          */
@@ -656,7 +693,7 @@ class ViewController: UIViewController {
         matrix[0, 1] = 1.5
         
         
-        //MARK:-------------- 5. inout
+        //MARK:<-------------- 5. inout --------------->
         /**
          当我们需要通过一个函数来改变函数外面变量的值（以引用方式传递）时， 可以使用inout关键字来修饰。
          */
@@ -674,7 +711,7 @@ class ViewController: UIViewController {
         testMethod()
         
         
-        //MARK:-------------- 6. operator/infix/postfix/precedence/associativity
+        //MARK:<-------------- 6. operator/infix/postfix/precedence/associativity --------------->
         /**
          与Objective-C 不同 ，swift 支持覆盖或创建运算符。最简单的用例应该是重新定义一些计算符。
          */
@@ -698,7 +735,7 @@ class ViewController: UIViewController {
         print("postfixOperatorResult is \(postfixOperatorResult)")
         
         
-        //MARK:-------------- 7. open/public/internal/fileprivate/private
+        //MARK:<-------------- 7. open/public/internal/fileprivate/private --------------->
         /**
          1. private: private访问级别所修饰的属性或者方法只能在当前类里面访问
          2. fileprivate: fileprivate 访问级别所有修饰的属性或者方法在当前的swift源文件里可以访问
@@ -769,7 +806,7 @@ class ViewController: UIViewController {
          
          */
         
-        //MARK:-------------- 8. deinit
+        //MARK:<-------------- 8. deinit --------------->
         /**
          类反初始化器方法
          */
@@ -778,18 +815,18 @@ class ViewController: UIViewController {
 //        testDeinit = nil
         
         
-        //MARK:-------------- 9. static
+        //MARK:<-------------- 9. static --------------->
         /**
          从上面的testClass/testEnum/testProcotol 三个例子可以看出：
          1. class 中可以使用 static 和 class 声明类方法， 不能使用class 类型的存储变量，只能使用static 声明存储变量
          2. procotol 和 enum 中只能用static 声明方法 和 属性
          */
     
-        //MARK:-------------- 10. import
+        //MARK:<-------------- 10. import --------------->
         //FIXME:同一个xcodeProject 不需要import， 使用另一个mudule时才需要import
         //FIXME:使用cocoapods 导入的第三方库，必须用xcode 对工程进行编译后，才可以提示
         
-        //MARK:-------------- 11. extension
+        //MARK:<-------------- 11. extension --------------->
         /**
          * 添加计算实例属性和计算类型属性,不可以添加存储属性
          * 定义实例方法和类型方法
@@ -849,7 +886,7 @@ class ViewController: UIViewController {
         
         
         
-        //MARK:------------- 12. class/enum/struct
+        //MARK:<------------- 12. class/enum/struct --------------->
         /**
          通过exampleStruct/exampleEnum/exampleClass 的例子中可以看出：
          相同点：
@@ -866,8 +903,8 @@ class ViewController: UIViewController {
          */
         
         
-        //MARK:--------------------------- 在语句中使用的关键字 ---------------------------
-        //MARK:-------------- 1.guard/if
+        //MARK:******************************* 在语句中使用的关键字 *******************************
+        //MARK:<-------------- 1.guard/if --------------->
         let name: String? = "老王"
         let age: Int? = 10
         
@@ -955,7 +992,7 @@ class ViewController: UIViewController {
             }
         }
         
-        //MARK:-------------- 2. defer
+        //MARK:<-------------- 2. defer --------------->
         /* 1. defer语句 */
         /**
          延迟推迟，相当于把操作放入栈中，后加入的先执行
@@ -1071,14 +1108,136 @@ class ViewController: UIViewController {
          
          */
     
+        //MARK:<------------- 3. fallthrough/switch --------------->
+        /* fallthrough 主要应用在switch 语句中 */
+        let index = 10
+        
+        switch index {
+        case 100 :
+            print("Value of index is 100")
+        case 10,15 :
+            print("Value of index is either 10 or 15")
+        case 5 :
+            print("Value of index is 5")
+        default :
+            print("default case")
+        }
         
         
-        //MARK:--------------------------- 在表达式和类型使用的关键字 ---------------------------
-        //MARK:--------------------------- 模式中使用的关键字 ---------------------------
-        //MARK:--------------------------- 以数字符号#开头的关键字 ---------------------------
-        //MARK:--------------------------- 在特定上下文中被保留的关键字 ---------------------------
+        switch index {
+        case 100 :
+            print("Value of index is 100")
+            fallthrough
+        case 10,15 :
+            print("Value of index is either 10 or 15")
+            fallthrough
+        case 5 :
+            print("Value of index is 5")
+        default :
+            print("default case")
+        }
+        /**
+         从上面的例子中我们可以看出：如果我们不使用fallthrough语句，那么程序将在执行匹配的case语句后退出switch语句
+         */
         
-        //MARK:-------------- 1. convenience
+        //MARK:<------------- 4. repeat/while --------------->
+        
+        /* 1. while 循环 */
+        var currentLevel: Int = 0, finalLevel: Int = 5
+        let gameCompleted = true
+//        while currentLevel <= finalLevel {
+//            if gameCompleted {
+//                print("You have passed level \(currentLevel)")
+//                currentLevel += 1
+//            }
+//        }
+//        print("outside of while loop")
+        /**
+         在while循环的每次迭代中，他都会检查条件currentLevel <= finalLevel.如果条件返回true，则执行while循环中的语句，否则循环终止
+         
+         You have passed level 0
+         You have passed level 1
+         You have passed level 2
+         You have passed level 3
+         You have passed level 4
+         You have passed level 5
+         outside of while loop
+         */
+        
+        /* 2. repeat ... while */
+        repeat {
+            if gameCompleted {
+                print("You have passed level \(currentLevel)")
+                currentLevel += 1
+            }
+        } while (currentLevel <= finalLevel)
+        print("outside of while loop")
+        
+        /**
+         虽然这两个while 和 repeat while 循环具有相同的执行步骤，条件currentLevel <= finalLevel上 repeat while 循环只执行它里面的语句后执行
+         You have passed level 0
+         You have passed level 1
+         You have passed level 2
+         You have passed level 3
+         You have passed level 4
+         You have passed level 5
+         outside of while loop
+         */
+        
+        //MARK:<------------- 5. where --------------->
+        /* 1. 可以在swift，for in 语句上做些条件限制 */
+        let scores = [20, 8, 59, 60, 70, 80]
+        scores.forEach {
+            switch $0 {
+            case let x where x > 60:
+                print("及格")
+            default:
+                print("不及格")
+            }
+        }
+        
+        for score in scores where score >= 60 {
+            print("这是及格的：\(score)")
+        }
+        
+        /* 2. 在 do catch 里面使用 */
+        enum ExceptionError:Error {
+            case httpCode(Int)
+        }
+        func throwError() throws {
+            throw ExceptionError.httpCode(500)
+        }
+        do {
+            try throwError()
+        } catch ExceptionError.httpCode(let htttCode) where htttCode >= 500 {
+            print("server error")
+        } catch {
+            print("other error")
+        }
+        
+        /* 3. 与协议结合 */
+        let subview = subView()
+        subview.getString()
+        
+        let anothersubview = anothSubView()
+        //'anothSubView' is not a subtype of 'UIButton'
+//        anothersubview.getString()
+        
+        /* 4. 可以再associatedtype 后面声明的类型后面追加where语句 */
+    
+        
+        
+        
+        //MARK:******************************* 在表达式和类型使用的关键字 *******************************
+        
+        //MARK:<-------------- 1. do catch /try / throws / rethrows --------------->
+        /* do 关键字应该属于语句中使用的关键字， 由于这里个catch/ try/ throws / rethrows 等关键在实际应用中很紧密，所以在此就柔和到一块讲解 */
+        
+        //MARK:******************************* 模式中使用的关键字 *******************************
+        //MARK:******************************* 以数字符号#开头的关键字 *******************************
+        //MARK:******************************* 在特定上下文中被保留的关键字 *******************************
+        
+        //MARK:<-------------- 1. convenience --------------->
         
         /**
          1. convenience初始化方法都必须调用同一个类中的designated初始化完成设置
@@ -1121,4 +1280,6 @@ class ViewController: UIViewController {
 
 
 }
+
+
 
