@@ -303,6 +303,188 @@ extension Student: StudentProtocol {
     }
 }
 
+//MARK:------ class/enum/struct-----
+
+protocol BaseProtocol {
+    func testPrint()
+}
+
+/* 1. class */
+class exampleClass: BaseProtocol {
+    //Class stored properties not supported in classes; did you mean 'static'?
+//    class var student: Student = Student.init()
+   
+    //支持属性和初始化器
+    let testSub: String
+    var anotherSub: Int
+    init(name: String) {
+        testSub = name
+        anotherSub = 0
+    }
+
+    
+    static var student: Student {
+        set {
+            self.student = newValue
+        }
+        get {
+            return self.student
+        }
+    }
+    
+    class var subStudent: Student {
+        set {
+            self.subStudent = newValue
+        }
+        get {
+            return self.subStudent
+        }
+    }
+    
+    func testPrint() {
+        
+    }
+    
+    static func testSelf() {
+        
+    }
+    
+    class func testPrints() {
+        
+    }
+    
+    //'mutating' isn't valid on methods in classes or class-bound protocols
+//    mutating func testPrintNews() {
+//
+//    }
+}
+
+class subExampleClass {
+    
+}
+
+
+
+/* 2. enum */
+enum exampleEnum: BaseProtocol {
+    
+    case one
+    
+    //Enums must not contain stored properties
+//    let testSub: String
+    
+    var anotherSub: Int {
+        set {
+            self.anotherSub = newValue
+        }
+        get {
+            return self.anotherSub
+        }
+    }
+    
+    static var test: String {
+        set {
+            self.test = newValue
+        }
+        get {
+            return self.test
+        }
+    }
+    
+    //Class properties are only allowed within classes; use 'static' to declare a static property
+//    class var subTest: Student {
+//        set {
+//            self.subTest = newValue
+//        }
+//        get {
+//            return self.subTest
+//        }
+//    }
+    
+    func testPrint() {
+        
+    }
+    
+    public func testSelf() {
+        
+    }
+    
+    //Class methods are only allowed within classes; use 'static' to declare a static method
+//    class func testPrints () {
+//
+//    }
+    
+    static func testPrints() {
+        
+    }
+    
+    mutating func testPrintNews() {
+        
+    }
+}
+
+//'subExampleEnum' declares raw type 'exampleEnum', but does not conform to RawRepresentable and conformance could not be synthesized
+//enum subExampleEnum: exampleEnum {
+//    func testPrint() {
+//
+//    }
+//}
+
+/* 3. struct */
+struct exampleStruct: BaseProtocol {
+    let testSub: String
+    var anotherSub: Int
+    init(name: String) {
+        testSub = name
+        anotherSub = 0
+    }
+    static var test: String {
+        set {
+            self.test = newValue
+        }
+        get {
+            return self.test
+        }
+    }
+    
+    //Class properties are only allowed within classes; use 'static' to declare a static property
+//    class var subTest: Student {
+//        set {
+//            self.subTest = newValue
+//        }
+//        get {
+//            return self.subTest
+//        }
+//    }
+
+    
+    func testPrint() {
+        
+    }
+    
+    public func testSelf() {
+    
+    }
+    
+    //Class methods are only allowed within classes; use 'static' to declare a static method
+//    class func testPrints() {
+//
+//    }
+    
+    static func testPrints() {
+        
+    }
+    
+    mutating func testPrintNews() {
+        
+    }
+}
+
+//Editor placeholder in source file
+//struct subExampleStruct: exampleStruct {
+//
+//}
+
 class ViewController: UIViewController {
 
 
@@ -392,7 +574,6 @@ class ViewController: UIViewController {
                 age = 0
             }
         }
-        
         //MARK:----- 3.2 当class有父类时，指定构造器（designed）必须调用其父类的指定构造器（designed）
         class NewPerson2: NewPerson1 {
             init(name: String) {
@@ -665,6 +846,24 @@ class ViewController: UIViewController {
         
         //MARK:------ 11.6 使现有类型符合协议
         print("jack.address is \(jack.address)")
+        
+        
+        
+        //MARK:------------- 12. class/enum/struct
+        /**
+         通过exampleStruct/exampleEnum/exampleClass 的例子中可以看出：
+         相同点：
+         1. struct/enum/class: 都可以拥有出属性和方法（enum 本身不能储存属性，可以有计算属性）
+         2. 都可以拥有函数
+         3. class 和 struct 可以用 自己的初始化器
+         
+         不同点：
+         1. class 可以继承， enum 和struct 不可以继承
+         2. class 为引用类型， enum 和 struct 为值类型
+         3. class 声明类型方法， 可以使用class 和 static 关键字， enum 和static 只能用 static
+         4. class 中不能使用mutating 修饰方法， enum和static 可以
+         5. struct 使用基本数据类型
+         */
         
         
         //MARK:--------------------------- 在语句中使用的关键字 ---------------------------
