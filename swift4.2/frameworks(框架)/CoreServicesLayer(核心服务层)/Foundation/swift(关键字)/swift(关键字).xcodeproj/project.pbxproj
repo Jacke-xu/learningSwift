@@ -10,6 +10,7 @@
 		0FB454032125925100D81008 /* internalClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454022125925100D81008 /* internalClass.swift */; };
 		0FB454052125936F00D81008 /* fileprivateClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454042125936F00D81008 /* fileprivateClass.swift */; };
 		0FB45407212596FE00D81008 /* privateClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB45406212596FE00D81008 /* privateClass.swift */; };
+		0FB454882126519B00D81008 /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454872126519B00D81008 /* config.swift */; };
 		0FD13D172123AAE1007400EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD13D162123AAE1007400EE /* AppDelegate.swift */; };
 		0FD13D192123AAE1007400EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD13D182123AAE1007400EE /* ViewController.swift */; };
 		0FD13D1C2123AAE1007400EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FD13D1A2123AAE1007400EE /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		0FB454022125925100D81008 /* internalClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = internalClass.swift; sourceTree = "<group>"; };
 		0FB454042125936F00D81008 /* fileprivateClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fileprivateClass.swift; sourceTree = "<group>"; };
 		0FB45406212596FE00D81008 /* privateClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = privateClass.swift; sourceTree = "<group>"; };
+		0FB454872126519B00D81008 /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
 		0FD13D132123AAE1007400EE /* swift(关键字).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift(关键字).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD13D162123AAE1007400EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FD13D182123AAE1007400EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				0FB454022125925100D81008 /* internalClass.swift */,
 				0FB454042125936F00D81008 /* fileprivateClass.swift */,
 				0FB45406212596FE00D81008 /* privateClass.swift */,
+				0FB454872126519B00D81008 /* config.swift */,
 				0FD13D1A2123AAE1007400EE /* Main.storyboard */,
 				0FD13D1D2123AAE3007400EE /* Assets.xcassets */,
 				0FD13D1F2123AAE3007400EE /* LaunchScreen.storyboard */,
@@ -295,6 +298,7 @@
 				0FB454032125925100D81008 /* internalClass.swift in Sources */,
 				0FD13DAD21258CD3007400EE /* publicClass.swift in Sources */,
 				0FB454052125936F00D81008 /* fileprivateClass.swift in Sources */,
+				0FB454882126519B00D81008 /* config.swift in Sources */,
 				0FB45407212596FE00D81008 /* privateClass.swift in Sources */,
 				0FD13D172123AAE1007400EE /* AppDelegate.swift in Sources */,
 			);

@@ -11,7 +11,7 @@ import testOpenSDK//演示open关键字的使用
 import testPublicSDK//演示public关键字的使用
 
 //MARK: --------------------------- 在特定上下文中被保留的关键字 ---------------------------
-//MARK:-------自定义操作符
+//MARK:-------自定义操作符 ------
 //MARK:1. 中置运算符
 /* 定义优先级组 （不是必须的） */
 precedencegroup MyPrecedence {
@@ -44,7 +44,7 @@ public postfix func +== (right: Int) -> Int {
 
 
 //MARK:--------------------------- 在声明中使用的关键字 ---------------------------
-//MARK:----- 使用 typealias 合并协议
+//MARK:----- 使用 typealias 合并协议-----
 /* 协议，使用关联类型 */
 protocol TableViewCell {
     associatedtype T
@@ -61,7 +61,7 @@ protocol changeSex {
 }
 
 
-//MARK:----- open 测试
+//MARK:----- open 测试-----
 
 class subOpen: testOpen {
     open func disorder (orders:Array<Int>) -> Array<Int> {
@@ -74,7 +74,7 @@ class subOpen: testOpen {
     }
 }
 
-//MARK:----- public 测试
+//MARK:----- public 测试-----
 /* 不同模块的public */
 ////Cannot inherit from non-open class 'testPulic' outside of its defining module
 //class subPublic1: testPulic {
@@ -104,7 +104,7 @@ extension publicClass {
     }
 }
 
-//MARK:----- internal测试
+//MARK:----- internal测试-----
 
 class subInternal: internalClass {
     override func testInternal(array: [Any]) {
@@ -117,7 +117,7 @@ extension internalClass {
 }
 
 
-//MARK:-----fileprivate
+//MARK:-----fileprivate-----
 
 //class subFileprivate: fileprivateClass {
 //
@@ -125,12 +125,12 @@ extension internalClass {
 
 
 
-//MARK:----- private
+//MARK:----- private-----
 //class subPrivate: privateClass {
 //
 //}
 
-//MARK:----- deinit
+//MARK:----- deinit-----
 class anotherDeinitClass: NSObject {
     var test: Int = 0
     override init() {
@@ -152,7 +152,7 @@ class deinitClass {
     }
 }
 
-//MARK:----- static
+//MARK:----- static-----
 enum testEnum {
     case one
     //Class methods are only allowed within classes; use 'static' to declare a static method
@@ -182,6 +182,126 @@ class testClass {
     
 }
 
+//MARK:----- extension -----
+/* 1. 添加计算型实例属性和计算性类型属性*/
+extension UIView {
+    //Extensions must not contain stored properties
+//    var subClass: Int
+    
+    var x: CGFloat {
+        set {
+            self.frame.origin.x = newValue
+        }
+        get {
+            return self.frame.origin.x
+        }
+    }
+    
+    var y: CGFloat {
+        set {
+            self.frame.origin.y = newValue
+        }
+        get {
+            return self.frame.origin.y
+        }
+    }
+    
+    var width: CGFloat {
+        set {
+            self.frame.size.width = newValue
+        }
+        get {
+            return self.frame.size.width
+        }
+    }
+    
+    var height: CGFloat {
+        set {
+            self.frame.size.height = newValue
+        }
+        get {
+            return self.frame.size.height
+        }
+    }
+}
+
+/* 2. 定义实例方法和类型方法 */
+class Student {
+    var name = ""
+    var age = 1
+}
+
+extension Student {
+    func printCurrentStudentName() {
+        print("我的名字是\(self.name)")
+    }
+    
+    class func printCurrentStudentAge() {
+        print("我的年龄是")
+    }
+}
+
+/* 3. 提供新的初始化器 */
+struct Size {
+    var width = 0.0, height = 0.0
+}
+
+struct Point {
+    var x = 0.0, y = 0.0
+}
+
+struct Rect {
+    var origin = Point()
+    var size = Size()
+}
+
+extension Rect {
+    init(center: Point, size: Size) {
+        let originX = center.x - (size.width / 2)
+        let originY = center.y - (size.height / 2)
+        self.init(origin: Point(x: originX, y: originY), size: size)
+    }
+}
+
+/* 4.定义下标 */
+extension Int {
+    subscript (digitIndex: Int) -> Int {
+        var decimalBase = 1
+        for _ in 0..<digitIndex {
+            decimalBase *= 10
+        }
+        return (self / decimalBase) % 10
+    }
+}
+
+/* 5. 添加新的类型 */
+
+extension Int {
+    enum Kind {
+        case negative, zero, positive
+    }
+    var kind: Kind {
+        switch self {
+        case 0:
+            return .zero
+        case let x where x > 0:
+            return .positive
+        default:
+            return .negative
+        }
+    }
+}
+
+/* 6. 使现有类型符合协议 */
+protocol StudentProtocol {
+    var address: String { get }
+}
+
+extension Student: StudentProtocol {
+    var address: String {
+        return "address"
+    }
+}
 
 class ViewController: UIViewController {
 
@@ -472,7 +592,7 @@ class ViewController: UIViewController {
         /**
          类反初始化器方法
          */
-        var testDeinit = deinitClass()
+        let testDeinit = deinitClass()
         testDeinit.testDeinit()
 //        testDeinit = nil
         
@@ -487,6 +607,64 @@ class ViewController: UIViewController {
         //MARK:-------------- 10. import
         //FIXME:同一个xcodeProject 不需要import， 使用另一个mudule时才需要import
         //FIXME:使用cocoapods 导入的第三方库，必须用xcode 对工程进行编译后，才可以提示
+        
+        //MARK:-------------- 11. extension
+        /**
+         * 添加计算实例属性和计算类型属性,不可以添加存储属性
+         * 定义实例方法和类型方法
+         * 提供新的初始化程序
+         * 定义下标
+         * 定义和使用新的嵌套类型
+         * 使现有类型符合协议
+         */
+        //MARK:----- 11.1 添加计算实例属性和计算类型属性
+        let view = UIView.init()
+        view.width = 100
+        view.height = 40
+        view.x = 100
+        view.y = 100
+        view.backgroundColor = UIColor.black
+        self.view.addSubview(view)
+        
+        //MARK:----- 11.2 定义实例方法和类型方法
+        
+        let jack = Student()
+        jack.name = "jack"
+        jack.printCurrentStudentName()
+        
+        Student.printCurrentStudentAge()
+        
+        //MARK:----- 11.3 提供新的初始化器
+        /* 扩展前 */
+        let defaultRect = Rect()
+        let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0), size: Size(width: 5.0, height: 5.0))
+        print("membewiseRect is \(memberwiseRect)")
+        /* 扩展后 */
+        let centerRect = Rect(center: Point(x: 4.0, y: 4.0), size: Size(width: 3.0, height: 3.0))
+        print("centerRect is \(centerRect)")
+        
+        //MARK:----- 11.4 定义下标
+        /* 下面的例子就是给Int类型添加一个下标，该下标表示十进制数从右向左的第n个数字 */
+        print("78654321[5] is \(78654321[5])")
+        
+        //MARK:----- 11.5 定义和使用新的嵌套类型
+        func printIntegerKinds(_ numbers: [Int]) {
+            for number in numbers {
+                switch number.kind {
+                case .negative:
+                    print("- ", terminator: "")
+                case .zero:
+                    print("0 ", terminator: "")
+                case .positive:
+                    print("+ ", terminator: "")
+                }
+            }
+            print("")
+        }
+        printIntegerKinds([3, 19, -27, 0, -6, 0, 7])
+        
+        //MARK:------ 11.6 使现有类型符合协议
+        print("jack.address is \(jack.address)")
         
         
         //MARK:--------------------------- 在语句中使用的关键字 ---------------------------
@@ -528,6 +706,7 @@ class ViewController: UIViewController {
         /**
          ( 、 ) 、 { 、 } 、 [ 、 ] 、 . 、 , 、 : 、 ; 、 = 、 @ 、 # 、 & （作为前缀操作符）、 -> 、 `  、 ? 和 ! (作为后缀操作符)
          */
+        
     }
     
     
