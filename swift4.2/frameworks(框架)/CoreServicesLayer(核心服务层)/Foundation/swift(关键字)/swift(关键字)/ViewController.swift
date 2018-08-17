@@ -490,7 +490,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //MARK:----------------------------------------------- swift 关键字讲解 ---------------------------------------------
         //MARK:--------------------------- 在声明中使用的关键字 ---------------------------
         //MARK:-------------- 1. associatedtype
         /**
@@ -867,6 +867,212 @@ class ViewController: UIViewController {
         
         
         //MARK:--------------------------- 在语句中使用的关键字 ---------------------------
+        //MARK:-------------- 1.guard/if
+        let name: String? = "老王"
+        let age: Int? = 10
+        
+        /* 1. if 与 if let */
+        //1. 如果常量是可选项（Optianl）, if 判断后仍然要解包（!）
+        if name != nil && age != nil {
+            print(name! + String(age!))
+        }
+        
+        //2. 如果常量是可选项（Optional）,if let 判断后不需要解包（!）,{}内一定有值
+        if let nanmeNew = name, let ageNew = age {
+            // 进入分支后，nameNew 和 ageNew 一定有值
+            print(nanmeNew + String(ageNew))
+        }
+        
+        //3. if var 和 if let 的区别就是在可以自 { } 内修改变量的值
+        if var nameNew = name, let ageNew = age {
+            nameNew = "老李"
+            print(nameNew + String(ageNew))
+        }
+        
+        /* 2. guard let 用法 */
+        /**
+         guard let 和  if let 刚好相反，guard let 守护一定有值，如果没有，直接返回
+         */
+        guard let nameNew = name, let ageNew = age else {
+            print("姓名 或 年龄 为 nil")
+            return
+        }
+        //代码执行至此，nameNew 和 ageNew 一定有值
+        print(nameNew + String(ageNew))
+        
+        
+        /* 3. guard 与 if  */
+        func apply () -> Bool {
+            if let image = UIImage(named: "some") {
+                print(image)
+            } else {
+                return false
+            }
+            return true
+        }
+        
+        
+        func applyNew () -> Bool {
+            guard let image = UIImage(named: "some") else {
+                return false
+            }
+            print(image)
+            return true
+        }
+        
+        /* 从上面的两个例子似乎看不出guard 和 if 的优劣势， 我们在看下面的例子 */
+        
+        func handleJSON (data: [String: [String: String]]) -> String? {
+            if let item = data["app"] {
+                if let name = item["name"] {
+                    if name == "swift" {
+                        if let age = item["age"] {
+                            return age
+                        } else {
+                            return nil
+                        }
+                    } else {
+                        return nil
+                    }
+                } else {
+                    return nil
+                }
+            } else {
+                return nil
+            }
+        }
+        
+        func handleJSONNew(data: [String: [String : String]]) -> String? {
+            guard let item = data["app"] else { return nil }
+            
+            guard let name = item["name"] else { return nil }
+            
+            if name == "swift" {
+                guard let age = item["age"] else { return nil }
+                return age
+            } else {
+                return nil
+            }
+        }
+        
+        //MARK:-------------- 2. defer
+        /* 1. defer语句 */
+        /**
+         延迟推迟，相当于把操作放入栈中，后加入的先执行
+         */
+        /*
+         分析代码:
+
+         定位到目录并打开指定文件夹,倘若打开文件夹失败则结束函数。
+         
+         主要到defer的用法,这条语句并不会马上执行,而是被推入栈中,直到函数结束时才再次被调用。
+         
+         打开文件,倘若失败则结束函数。
+         
+         defer内容关闭文件,这条语句一样不会被马上执行,而是推入栈中,此时它位于defer{closeDirectory()}语句的上方,直到函数结束时才再次被调用。
+         
+         倘若一切都顺利,函数运行到最后了,开始从栈中依次弹出方才推入的defer语句,首先是closeFile(),其次是closeDirectory()。确实当我们处理完文件,需要先关闭文件,再关闭文件夹。如果文件打开失败,则直接执行关闭文件夹
+
+         func doSthWithDefer() {
+         openDirectory()
+         defer {closeDirectory() }
+         openFile()
+         defer { closeFile() }
+         }
+         */
+        
+        
+        
+        /* 2. 关于defer的作用域 */
+        /**
+         并不是函数结束时开始执行defer 栈推出操作，而是每当一个作用域结束就进行该作用域defer执行
+         */
+        func lookforSth(name:String) {
+            //作用域1整个函数是作用域
+            
+            print("1-1")
+            
+            if name == "" {
+                //作用域2 if作用域
+                print("2-1")
+                
+                defer {
+                    print("2-2")
+                }
+                print("2-3")
+            }
+            
+            print("1-2")
+            
+            defer {
+                print("1-3")
+            }
+            
+            print("1-4")
+            
+            if name == "hello" {
+                //作用域3
+                print("3-1")
+                
+                defer {
+                    print("3-2")
+                }
+                
+                print("3-3")
+                
+                defer {
+                    print("3-4")
+                }
+            }
+            
+            print("1-5")
+            
+            defer {
+                print("1-6")
+            }
+        }
+        
+//        lookforSth(name: "")
+        
+        func firstProcesses(_ isOpen: Bool) {
+            
+            //作用域1 整个函数作用域
+            defer{
+                print("推迟操作🐢")
+            }
+            
+            print("😳")
+            
+            if isOpen == true {
+                //作用域2 if的作用域
+                defer{
+                    print("推迟操作🐌")
+                }
+                print("😁")
+            }
+        }
+        
+//        firstProcesses(false)
+        /*
+         
+         😳
+         推迟操作🐢
+         
+         */
+        
+        
+        firstProcesses(true)
+        /*
+         
+         😳
+         😁
+         推迟操作🐌
+         推迟操作🐢
+         
+         */
+    
+        
+        
         //MARK:--------------------------- 在表达式和类型使用的关键字 ---------------------------
         //MARK:--------------------------- 模式中使用的关键字 ---------------------------
         //MARK:--------------------------- 以数字符号#开头的关键字 ---------------------------
@@ -908,8 +1114,6 @@ class ViewController: UIViewController {
         
     }
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
