@@ -521,6 +521,83 @@ class anothSubView: UILabel,aProtocol {
  他限定了Sequence中Element 这个类型必须和Iterator.Element 的类型一致。
  */
 
+//MARK:******************************* 在表达式和类型使用的关键字 *******************************
+
+//MARK:<------------ 1.2 throws 和 rethrows ------------>
+extension Array {
+    func _map<T>(transform: (_ element: Int) throws -> T)  -> [T] {
+        var ts = [T]()
+        for e in self {
+           // Call can throw but is not marked with 'try'
+//            ts.append(transform(e as! Int))
+            ts.append( try! transform(e as! Int))
+        }
+        return ts
+    }
+}
+
+enum VendingMachineError: Error {
+    case invalidSelection
+    case insufficientFunds(coinsNeeded: Int)
+    case outOfStock
+}
+
+struct Item {
+    var price: Int
+    var count: Int
+}
+
+class VendingMachine {
+    var inventory = [
+        "Candy Bar": Item(price: 12, count: 7),
+        "Chips": Item(price: 10, count: 4),
+        "Pretzels": Item(price: 7, count: 11)
+    ]
+    var coinsDeposited = 0
+    
+    func vend(itemNamed name: String) throws {
+        guard let item = inventory[name] else {
+            throw VendingMachineError.invalidSelection
+        }
+        
+        guard item.count > 0 else {
+            throw VendingMachineError.outOfStock
+        }
+        
+        guard item.price <= coinsDeposited else {
+            throw VendingMachineError.insufficientFunds(coinsNeeded: item.price - coinsDeposited)
+        }
+        
+        coinsDeposited -= item.price
+        
+        var newItem = item
+        newItem.count -= 1
+        inventory[name] = newItem
+        
+        print("Dispensing \(name)")
+    }
+}
+
+let favoriteSnacks = [
+    "Alice": "Chips",
+    "Bob": "Licorice",
+    "Eve": "Pretzels",
+]
+
+func buyFavoriteSnack(person: String, vendingMachine: VendingMachine) throws {
+    let snackName = favoriteSnacks[person] ?? "Candy Bar"
+    try vendingMachine.vend(itemNamed: snackName)
+}
+
+
+struct PurchaseSanck {
+    let name: String
+    init(name: String, vendingMachine: VendingMachine) throws {
+        try vendingMachine.vend(itemNamed: name)
+        self.name = name
+    }
+}
+
 
 class ViewController: UIViewController {
 
@@ -1232,6 +1309,125 @@ class ViewController: UIViewController {
         
         //MARK:<-------------- 1. do catch /try / throws / rethrows --------------->
         /* do 关键字应该属于语句中使用的关键字， 由于这里个catch/ try/ throws / rethrows 等关键在实际应用中很紧密，所以在此就柔和到一块讲解 */
+        //MARK:----- 1.1 do - catch & try 语法
+        /*
+        do {
+            try //throws error 语句
+        } catch  {
+            //错误处理语句
+        }
+        */
+        //自定义错误类型枚举
+        enum TError: Error {
+            case err1
+            case err2
+            case err3
+        }
+        
+        //有抛出错误的方法
+        func getNetwordData () throws {
+            //抛出错误
+            throw TError.err1
+        }
+        
+        //调用函数
+        func myMethod () {
+            do {
+                try getNetwordData()
+            } catch let error {
+                print("error: \(error)")
+            }
+        }
+        
+        myMethod()
+        
+        /**
+         1. 可以抛出错误的方法必须在方法声明的后面加上throws 关键字，表示该方法可以抛出错误
+         */
+//        func throwMethod1 () throws {
+//            return TError.err1
+//        }
+//
+//        func throwMethod2(_ parameter: Int8) throws -> (Bool) {
+//
+//        }
+        /* 2. try? 和 try! */
+        /**
+         使用 try? 和 try!, 则可以不用do-catch 语句包裹 try? 和try!, try后面的可以抛出错误的局域不用do - catch 包裹：
+         1. 其中，try? 修饰的时候，如果throws 方法抛出错误，则方法返回nil, 反之如果没有发送错误则返回可选值
+         2. try! 修饰的时候，可以打断错误传播链，throws方法的错误不传播给调用者，这样的话一定要去确保程序不发送错误，否则程序会在发生错误时推出
+         */
+        let jsonSting = "{\"name\": \"zhang\"}"
+        let data = jsonSting.data(using: .utf8)
+        
+        do {
+            let json3 = try JSONSerialization.jsonObject(with: data!, options: [])
+            print(json3)
+        } catch let error {
+            print(error)
+        }
+        
+        /**
+         上面是一个反序列化的的例子: 反序列化 throw 抛出异常
+         方法一： 推荐try?, 如果解析成功，就有值，否则，为nil
+         let json = try? JSONSerialLization.jsonObject(with:data!, oprions:[])
+         
+         方法二： 强烈不推荐 try!, 如果解析成功，就有值，否则崩溃，有风险
+         let json = try! JSONSerialization,jsonObject(with:data!, options: [])
+         
+         方法三： 处理异常，能够接受大错误，并且输出错误， 如果用 try catch 一旦不平衡，就会出现内存泄漏
+         */
+        
+        //MARK:----- 1.2 throws 和 rethrows
+        /**
+         public func map<T>(@noescape transform: (Self.Generator.Element) throws -> T) rethrows -> [T]
+         */
+        enum CalculationError: Error {
+            case DivideByZero
+        }
+        
+        func squareOf(x: Int) -> Int {return x*x}
+        
+        func divideTenBy(x: Int) throws -> Double {
+            guard x != 0 else {
+                throw CalculationError.DivideByZero
+            }
+            return 10.0 / Double(x)
+        }
+
+        
+        let num5 = [10, 20, 30, 40, 50]
+        let ns:[Int]
+        ns = num5._map(transform: squareOf)
+        print(ns)
+        
+        
+        let ns3: [Double]
+        try ns3 = num5._map(transform: divideTenBy)
+        print(ns3)
+        
+        /**
+         从上面的_map方法可以看出，在有异常抛出的地方就一定需要使用try 语法。
+         _map 如果抛出异常，仅可能因为传递给它的闭包的调用导致了异常。如果闭包的调用没有导致异常，编译器就知道这个函数不会抛出异常。
+         */
+        
+        let vendingMachine = VendingMachine()
+        vendingMachine.coinsDeposited = 8
+        
+        do {
+            //Errors thrown from here are not handled because the enclosing catch is not exhaustive
+            try buyFavoriteSnack(person: "alice", vendingMachine: vendingMachine)
+            // Enjoy delicious snack
+        } catch VendingMachineError.invalidSelection {
+            print("Invalid Selection.")
+        } catch VendingMachineError.outOfStock {
+            print("Out of Stock.")
+        } catch VendingMachineError.insufficientFunds(let coinsNeeded) {
+            print("Insufficient funds. Please insert an additional \(coinsNeeded) coins.")
+        } catch {
+            print("other error")
+        }
+
         
         //MARK:******************************* 模式中使用的关键字 *******************************
         //MARK:******************************* 以数字符号#开头的关键字 *******************************
