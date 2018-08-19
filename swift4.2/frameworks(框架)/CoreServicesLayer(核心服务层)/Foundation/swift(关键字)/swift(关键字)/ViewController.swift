@@ -493,7 +493,7 @@ struct exampleStruct: BaseProtocol {
 protocol aProtocol {
     
 }
-//只给遵守aProtocol协议的UIView 添加了拓展
+//只给遵守aProtocol协议的UIButton子类 添加了拓展
 extension aProtocol where Self: UIButton {
     func getString() -> String {
         return "string"
@@ -595,6 +595,74 @@ struct PurchaseSanck {
     init(name: String, vendingMachine: VendingMachine) throws {
         try vendingMachine.vend(itemNamed: name)
         self.name = name
+    }
+}
+
+class MyClass: NSCopying {
+    func copy(with zone: NSZone? = nil) -> Any {
+        return self
+    }
+    
+    
+    var num = 1
+    
+    func copy() -> Self {
+        let result = type(of: self).init()
+        result.num = num
+        return result
+    }
+    
+    //swift 中 构建一个Self 类型的对象的话，需要有required 关键字修饰的初始化方法，这是因为swift 保证当前类和子类都能响应这个init方法
+    required init() {
+        
+    }
+}
+
+protocol Copyable {
+    func copy() -> Self
+    func clamp(intervalToClamp: Self) -> Self
+}
+
+
+
+class A: Copyable {
+    var num = 1
+    
+    required init() {
+        
+    }
+    
+    func copy() -> Self {
+        let type1 = type(of: self)
+        print(type1)
+        let result = type1.init()
+        result.num = num
+        return result
+    }
+    
+    func clamp(intervalToClamp: A) -> Self {
+        let result = type(of: self).init()
+        result.num = num
+        return result
+    }
+    
+    class func calssFunc() -> Self {
+        let type = self
+        print(type)
+        let result = type.init()
+        return result
+    }
+}
+
+/**
+ 在 A 中的实例方法中 self表示当前实例， 在类方法中self 表示当前类的类型
+ */
+
+class B: A {
+    func clamp(intervalToClamp: B) -> Self {
+        let result = type(of: self).init()
+        result.num = num
+        return result
     }
 }
 
@@ -1301,13 +1369,82 @@ class ViewController: UIViewController {
 //        anothersubview.getString()
         
         /* 4. 可以再associatedtype 后面声明的类型后面追加where语句 */
+        
+        //MARK:<------------- 6. default -------------->
+        /**
+         swift 的方法是支持默认参数的，也就是说在声明方法时，可以给某个参数指定一个默认的使用的值。在调用该方法时要是传入了这个参数，则使用传入的值，如果缺少这个参数，那么直接使用设定的默认值进行调用。
+         */
+        func sayHello1(str1: String = "Hello", str2: String, str3: String) {
+            print(str1 + str2 + str3)
+        }
+        
+        func sayHello2(str1: String, str2: String = "qunidayede", str3: String = "World") {
+            
+            print(str1 + str2 + str3)
+        }
+        
+        /* 其他不少语言只能使用后面一种写法，将默认参数作为方法的最后一个参数 */
+        sayHello1(str2: " ", str3: "World")
+        sayHello2(str1: "Hello", str3: " ")
+        
     
+        
+        //MARK:<------------- 7. break/continue/return -------------->
+        //MARK:----- 7.1 break
+        var a = 0
+        var b: Bool = false
+        func testBreak() {
+            for i in 0..<10 {
+                if i == 5 {
+                    break//满足条件直接跳出循环框架， 不在执行本轮下面的 a = a + 1, 直接执行框架外面的语句
+                }
+                a = a + 1
+            }
+            b = true
+        }
+        testBreak()
+        print("testBreak() a == \(a)")
+        print("testBreak() b == \(b)")
+        
+        //MARK:----- 7.2 retrun
+        var a1 = 0
+        var b1: Bool = false
+        func testRetrun() {
+            for i in 0..<10 {
+                if i == 5 {
+                    return//满足条件直接跳出本方法，次轮下面的 a = a + 1和 for 循环外面  b = true 都不执行
+                }
+                a1 = a1 + 1
+            }
+            b1 = true
+        }
+        
+        testRetrun()
+        print("testRetrun() a1 == \(a1)")
+        print("testRetrun() b1 == \(b1)")
+        //MARK:------ 7.3 continue
+        
+        var a2 = 0
+        var b2: Bool = false
+        
+        func testContinue() {
+            for i in 0..<10 {
+                if i == 5 {
+                    continue// 满足条件，本次不执行a = a + 1
+                }
+                a2 = a2 + 1
+            }
+            b2 = true
+        }
+        testContinue()
+        print("testContinue() a2 == \(a2)")
+        print("testContinue() b2 == \(b2)")
         
         
         
         //MARK:******************************* 在表达式和类型使用的关键字 *******************************
         
-        //MARK:<-------------- 1. do catch /try / throws / rethrows --------------->
+        //MARK:<-------------- 1. do catch /try / throw /throws / rethrows --------------->
         /* do 关键字应该属于语句中使用的关键字， 由于这里个catch/ try/ throws / rethrows 等关键在实际应用中很紧密，所以在此就柔和到一块讲解 */
         //MARK:----- 1.1 do - catch & try 语法
         /*
@@ -1428,9 +1565,82 @@ class ViewController: UIViewController {
             print("other error")
         }
 
+        //MARK:<------------- 2. Any 和 AnyObject ------------->
+        /**
+         AnyObject 可以代表任何class 类型的实例
+         Any 可以表示任意类型，甚至包括方法（func） 类型
+         
+         
+         如果我们在代码中里大量使用这两者的话，往往意味着代码可能在结构和设计上存在问题。最好避免依赖和使用这两者，应当明确地指出确定的类型
+         */
+        
+        //MARK:<------------- 3. as/ as!/ as? ------------------------- >
+        //MARK:----- 3.1 as
+        /* 从派生类转换为基类，向上转型 */
+        class Animal {}
+        class Cat: Animal {}
+        let cat = Cat()
+        let animal = cat as Animal
+        
+        //MARK:----- 3.2 as!
+        /* 向下转型时使用，由于是强制类型转换，如果转换失败会报 runtime 运行错误 */
+        let animal1: Animal = Cat()
+        let cat1 = animal as! Cat
+        
+        //MARK:----- 3.3 as?
+        /* as? 和 as！转换规则完全一样。但是 as?如果转换不成功的时候变灰返回一个nil 对象。 */
+        if let cat =  animal as? Cat {
+            print("cat is not nil")
+        } else {
+            print("cat is nil")
+        }
+        
+        //MARK:<------------- 4. self 和 Self ----------------->
+        /**
+         //'Self' is only available in a protocol or as the result of a method in a class; did you mean 'A'?
+         1.Self可以用于协议(protocol)中限制相关的类型
+         2.Self可以用于类(Class)中来充当方法的返回值类型
+         */
+        let obect = MyClass()
+        obect.num = 100
+        
+        let newObject = obect.copy()
+        obect.num = 1
+        print(obect.num)
+        print(newObject.num)
+        
+        /**
+         从上面Copyable的定义来看， 接受实现该接口的自身的类型，并返回一个同样的类型
+         
+         A的实例方法中self表示当前实例，利用type(of: self)获取当前对象的类型，
+         A的类方法中self就表示当前类的类型，而Self则只能用来表示返回值的类型。
+         对比A和B所实现的协议的方法可以看出在协议中的方法接收的参数类型必须换成各自类的类型，否则会报'Self' is only available in a protocol or as the result of a method in a class; did you mean 'A'?
+         
+         */
         
         //MARK:******************************* 模式中使用的关键字 *******************************
+        
+        //MARK:<-------------- 1. 关键字 ‘_’ -------------->
+        //MARK:----- 1.1 格式化数字字面量
+        let paddedDouble = 123_000_000
+        
+        //MARK:----- 1.2 忽略元组的元素值
+        let http404Error = (404, "Not Found")
+        let (_ , errorMessage) = http404Error
+        
+        //MARK:----- 1.3 忽略区间值
+        let power = 10
+        for _ in 1...power {
+            
+        }
+        
+        //MARK:----- 1.4 忽略外部参数名
+        func incrementBy(amount: Int, _ numberOfTimes: Int) {
+            
+        }
+        
         //MARK:******************************* 以数字符号#开头的关键字 *******************************
+        
         //MARK:******************************* 在特定上下文中被保留的关键字 *******************************
         
         //MARK:<-------------- 1. convenience --------------->
@@ -1461,6 +1671,10 @@ class ViewController: UIViewController {
         let anObj = ClassB(bigNum: true)
         print("anObj.numA is \(anObj.numA), anObj.numB is \(anObj.numB)")
         
+        
+        //MARK:******************************* 其他的关键字 *******************************
+        //MARK:<------------ 1. @escaping/@nonescaping-------------->
+        //MARK:<------------ 2. closure/autoclosure ---------------->
         
         //FIXME:以下标记被当做保留符号，不能用于自定义操作符
         /**
