@@ -1017,7 +1017,7 @@ class ViewController: UIViewController {
          */
         //MARK:----- 11.1 添加计算实例属性和计算类型属性
         let view = UIView.init()
-        view.width = 100
+        view.width = 200
         view.height = 40
         view.x = 100
         view.y = 100
@@ -1905,6 +1905,84 @@ class ViewController: UIViewController {
         
         let anObj = ClassB(bigNum: true)
         print("anObj.numA is \(anObj.numA), anObj.numB is \(anObj.numB)")
+        
+        //MARK:<-------------- 2. set/get(计算属性), willSet/didSet(属性观察者) --------------->
+        //MARK:----- 2.1 willSet/didSet
+        /**
+         利用属性观察我们可以在当前类型内监视对于属性的设定，并作出一些响应。swift 中为我们提供了两个属性观察的方法，它们分别是willSet 和 didSet.
+         */
+        class SelfClass {
+            let oneYearInSecond: TimeInterval = 365 * 24 * 60 * 60
+            init() {
+                date = NSDate()
+            }
+            
+            var date: NSDate {
+                willSet {
+                    let d = date
+                    print("即将将日期从\(d) 设定至\(newValue)")
+                }
+                didSet {
+                    if (date.timeIntervalSinceNow > oneYearInSecond) {
+                        print("设定的时间太晚了")
+                        date = NSDate.init().addingTimeInterval(oneYearInSecond)
+                    }
+                    print("已经将日期从\(oldValue) 设定至\(date)")
+                }
+            }
+        }
+        
+        let foo = SelfClass()
+        foo.date = foo.date.addingTimeInterval(1000_000_000)
+        
+        //MARK:----- 2.2 set/get
+        /**
+         在同一个类型中，属性观察和计算属性是不能同时共存的。我们可以通过子类化这个类，并且重写它的属性。在子类的重载属性中我们可以对父类的属性任意地添加属性观察
+         */
+        
+        class testA {
+            var number: Int {
+                get {
+                    print("get")
+                    return 1
+                }
+                set(newValue) {
+                    print("set")
+                    print("set newValue is \(newValue)")
+                }
+            }
+        }
+        
+        class testB: testA {
+            override var number: Int {
+                willSet {
+                    print("willSet")
+                    print("willSet newValue is \(newValue)")
+                }
+                didSet {
+                    print("didSet")
+                    print("didSet oldValue is \(oldValue)")
+                }
+            }
+        }
+        
+        let sub = testB()
+        sub.number = 0
+        
+        print(sub.number)
+        
+        /**
+         在 willSet 和 didSet 中我们分别可以使用newValue 和 oldValue 来获取将要设定的和已经设定的值
+         */
+        
+        // 输出
+        // get
+        // willSet
+        // set
+        // didSet
+        /**
+         这里注意的是get首先被调用了一次。这是因为我们事先了 didSet, didSet中会用到oldValue,而这个值需要在整个set动作之前进行获取并存储待用，否则将无法确保正确性。如果我们不识闲didSet 的话，这次get操作也将不存在
+         */
         
         
         //MARK:******************************* 其他的关键字 *******************************
