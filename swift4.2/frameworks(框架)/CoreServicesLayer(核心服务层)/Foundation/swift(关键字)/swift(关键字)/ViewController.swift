@@ -666,6 +666,41 @@ class B: A {
     }
 }
 
+//MARK:******************************* 以数字符号#开头的关键字 *******************************
+//MARK:<------------- 1. @available 和 #available --------------->
+//MARK:------ 1.1 @available
+/* 1.存储属性是不能够使用@available */
+//Stored properties cannot be marked potentially unavailable with '@available'
+//        @available (iOS 7.0, *)
+//        var property: String?
+
+/* 2. 计算属性可以使用@available */
+let number1 = 1
+let number2 = 2
+@available (iOS 7.0, *)
+var sum: Int {
+    get {
+        return number1 + number2
+    }
+}
+
+/* 3. 结构体 */
+@available (iOS 7.0, *)
+struct MyStruct {}
+
+/* 4. 枚举 */
+@available (iOS 7.0, *)
+enum MyEnum {}
+
+/* 5. 协议 */
+@available (iOS 7.0, *)
+protocol MyProtocol {}
+
+/* 6. 类型 */
+@available (iOS 7.0, *)
+class MyNewClass {}
+
+
 
 class ViewController: UIViewController {
 
@@ -1640,6 +1675,206 @@ class ViewController: UIViewController {
         }
         
         //MARK:******************************* 以数字符号#开头的关键字 *******************************
+        //MARK:<------------- 1. @available 和 #available --------------->
+        //MARK:------ 1.1 @available
+        /**
+         可用来标识计算属性、函数、类、协议、结构体、枚举等类型的声明周期。依赖于特定平台版本或swift版本
+         */
+//        /* 1.存储属性是不能够使用@available */
+//        //Stored properties cannot be marked potentially unavailable with '@available'
+//        @available (iOS 7.0, *)
+//        var property: String?
+//
+//        /* 2. 计算属性可以使用@available */
+//        let number1 = 1
+//        let number2 = 2
+//        @available (iOS 7.0, *)
+//        var sum: Int {
+//            get {
+//                return number1 + number2
+//            }
+//        }
+//
+//        /* 3. 结构体 */
+//        @available (iOS 7.0, *)
+//        struct MyStruct {}
+//
+//        /* 4. 枚举 */
+//        @available (iOS 7.0, *)
+//        enum MyEnum {}
+//
+//        /* 5. 协议 */
+//        @available (iOS 7.0, *)
+//        protocol MyProtocol {}
+//
+//        /* 6. 类型 */
+//        @available (iOS 7.0, *)
+//        class MyClass {}
+//
+        /**
+         @available(iOS 7, *):
+         1. 至少包含2个特性参数，iOS 7.0 标识必须在iOS7.0 版本以上才可用，* 表示包含了所有平台：
+            * iOS
+            * iOSApplicationExtension
+            * OSX
+            * OSXApplicationExtension
+            * watchOS
+            * watchOSApplicationExtension
+            * tvOS
+            * tvOSApplicationExtension
+         
+         2. 全写形式是@available(iOS, introduced = 7.0),还有其他参数可以使用分别是：
+            * deprecated = 版本号：从指定品台某个版本开始过期该声明
+            * obsoleted = 版本号： 从指定平台某个版本开始废弃（注意和过期的区别，deprecated 是还可以继续使用，只不过是不推荐了， obsoleted 是调用就会编译错误）
+            * message = 信息内容： 给出一些附加信息
+            * unavailable: 指定平台上是无效的
+            * renamed = 新名字： 重命名声明
+            如下面的例子：
+         */
+        
+        @available(iOS, introduced: 7.0, deprecated: 10.0, message: "Please Use newFunction instead")
+        func oldFunction() { }
+        
+        func newFunction() { }
+        
+        oldFunction()
+        
+        newFunction()
+        
+        //MARK:----- 1.2 #available
+        /* #available 用在条件语句代码块中，判断不同平台下，做不同的逻辑处理 */
+        
+        if #available(iOS 8, *) {
+            
+        }
+        
+        guard #available(iOS 8, *) else {
+            return
+        }
+        
+        //MARK:<------------- 2. #colorLiteral/#fileLiteral/#imageLiteral/ (即视功能)---------------->
+        let label = UILabel.init()
+        label.backgroundColor = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)//label.backgroundColor =  colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
+        
+        let image = UIImageView.init()
+//        image.image = #imageLiteral(resourceName: <#T##String#>) // image.image =  imageLiteral(resourceName: <#T##String#>)
+        
+        
+        //MARK:<------------- 3. #file、#column 、#line、#function ----------------->
+        /**
+         1. #file : String , 它出现的位置的文件名 <==> 类似于OC中 __FILE__
+         2. #line : Int, 它出现的位置的行数       <==> 类似于OC中 __LINE__
+         3. #column : Int, 它出现的位置的行数     <==> 类似于OC中 __COLUMN__
+         4. #function : String, 它出现的声明     <==> 类似于OC中 _cmd
+         */
+        class SomeClass {
+            func logLiteral(fileName: String = #file, methodName: String = #function, lineNumber: Int = #line, column: Int = #column) {
+                print("\(fileName as NSString) -> \(methodName) -> \(lineNumber) -> \(column)")
+            }
+            func excuteLog() {
+                logLiteral()
+            }
+        }
+        
+        SomeClass().excuteLog()
+        ///Users/fanyunfei/github/learningSwift/swift4.2/frameworks(框架)/CoreServicesLayer(核心服务层)/Foundation/swift(关键字)/swift(关键字)/ViewController.swift -> excuteLog() -> 1769 -> 27
+        
+        //MARK:<------------ 4. #sourceLocation(行控制语句) ---------------->
+        /* 行控制语句可以为编译的源代码指定行号和文件名，从而改变源代码的定位信息 */
+        /**
+         行控制语句的形式：
+         1. #sourceLocation(file: 文件名， line: 行号)：
+            改变该语句之后的代码中的字面量表达式#line 和 #file所表示的值。
+         2. #sourceLocation()：
+            会将源代码的定位信息重置回默认的行号和文件名
+         */
+        
+        print("a")
+        #sourceLocation(file: "/Users/fanyunfei/github/learningSwift/swift4.2/frameworks(框架)/CoreServicesLayer(核心服务层)/Foundation/swift(关键字)/swift(关键字)/ViewController.swift", line: 1820 )
+        print("b")
+        
+        #sourceLocation()
+        print("c")
+        print("d")
+        
+        
+        //MARK:<------------ 5 #if/#else/#elseif/#endif ------------->
+        
+        /* #if, #else , #elseif , #endif被称为编译配置语句，书写形式如下：*/
+        /**
+         #if <condition>
+         
+         #elseif <condition>
+         
+         #else
+         
+         #endif
+         
+         其中 #elseif 和 #else 是可选的， conditon并不是任意的，swift内建了集中平台和架构的组合：
+         os(): OSX,iOS
+         arch(): x86_64, arm, arm64,i386
+         */
+        
+        #if os(OSX)
+        typealias Color = NSColor
+        
+        #else
+        typealias Color = UIColor
+        
+        #endif
+        
+        
+        //MARK:<------------ 6 #selector/Selector---------->
+        
+        //MARK:--------6.1 #selector / Selector 都能使用的场景
+        /**
+         在OC中，我们可以使用@selector 讲一个方法转换并赋值给一个SEL类型，SEL就是对方法的一种封装,@slector 就是取类方法的编号，它的行为基本可以等同C语言中函数指针：
+         
+         
+         - (void)testMethod {
+         
+         }
+         
+         - (void)testMethodWithName:(NSString *) name {
+         
+         }
+         
+         SEL method1 = @selector(testMethod);
+         SEL method2 = @selector(testMethodWithName:);
+         
+         //也可以使用 NSSelectorFromString
+         SEL method3 = NSSelectorFromString(@"testMethod");
+         SEL method4 = NSSelectorFromString(@"testMethodWithName:");
+
+         */
+        
+        /**
+         Selector 与 #selector
+         在swift 中SEL 也通过结构体Selector 来替代, 我们更推荐使用#selector : 使用 #selector 的好处是不再需要使用字符串来构造。因为当使用字符串构造时，若传入的字符串没有对应的方法名，那么程序在执行时就会直接崩溃。unrecognized selector sent to instance
+         */
+        
+        let testMethod1 = Selector("testMehtod1")
+        let testMethod2 = #selector(testMethodWithBtn(btn:))
+        let testMethod3 = #selector(testMethodWithBtn(str:))
+        
+        let btn = UIButton(frame: CGRect(x:100,y:300,width:200,height:50))
+        btn.backgroundColor = UIColor.red
+        btn.setTitle("#selector", for: .normal)
+        btn.addTarget(self, action: testMethod2, for: .touchUpInside)
+        self.view.addSubview(btn)
+        
+        //MARK:----- 6.2 只能使用Selector 的场景
+        /* 在访问 UIViewController的 extension 中私有方法时，必须使用Selector  */
+//        let testMethod4 = #selector(privateMethod)
+        
+        let testMethod5 = Selector("privateMethod1")
+        let btn1 = UIButton(frame: CGRect(x:100,y:400,width:200,height:50))
+        btn1.backgroundColor = UIColor.red
+        btn1.setTitle("selector", for: .normal)
+        btn1.addTarget(self, action: testMethod5, for: .touchUpInside)
+        self.view.addSubview(btn1)
+        
+        //MARK:<------------ 7 #error/#warning -------------->
         
         //MARK:******************************* 在特定上下文中被保留的关键字 *******************************
         
@@ -1676,6 +1911,8 @@ class ViewController: UIViewController {
         //MARK:<------------ 1. @escaping/@nonescaping-------------->
         //MARK:<------------ 2. closure/autoclosure ---------------->
         
+        //MARK:<-------------3. objc ------------------------------->
+        
         //FIXME:以下标记被当做保留符号，不能用于自定义操作符
         /**
          ( 、 ) 、 { 、 } 、 [ 、 ] 、 . 、 , 、 : 、 ; 、 = 、 @ 、 # 、 & （作为前缀操作符）、 -> 、 `  、 ? 和 ! (作为后缀操作符)
@@ -1692,4 +1929,25 @@ class ViewController: UIViewController {
 }
 
 
+extension ViewController {
+    
+    func testMethod1() {
+        print(#function)
+    }
+    //存在歧义的相同方法名时，可以使用强制类型转换来解决。
+    @objc func testMethodWithBtn(btn: UIButton) {
+        print(btn.titleLabel?.text)
+    }
+    
+    @objc func testMethodWithBtn(str: String) {
+        print(str)
+    }
+
+}
+
+extension UIViewController {
+    @objc private func privateMethod() {
+        print(#function)
+    }
+}
 
