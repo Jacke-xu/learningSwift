@@ -2564,9 +2564,81 @@ class ViewController: UIViewController {
          }
          */
         
-        //MARK:******************************* 其他的关键字 *******************************
+        
+        //MARK:<------------ 10. indirect ------------------------->
+        /**
+         如果你想定义一个递归的数据结构，可以使用 indirect
+         */
+        
+        enum ArithmeticExpression {
+            case Number(Int)
+            indirect case Addition(ArithmeticExpression, ArithmeticExpression)
+            indirect case Mutiplication(ArithmeticExpression, ArithmeticExpression)
+        }
+        /**
+         你也可以在枚举的前面标记indirect：
+         indirect enum ArithmeticExpression {
+         
+         case Number(Int)
+         
+         case Addition(ArithmeticExpression, ArithmeticExpression)
+         
+         case Multiplication(ArithmeticExpression, ArithmeticExpression)
+         
+         }
+
+         */
+        
+        let five = ArithmeticExpression.Number(5)
+        let four = ArithmeticExpression.Number(4)
+
+        let sum = ArithmeticExpression.Addition(five, four)
+        print("sum is \(sum)")
+        
+        let product = ArithmeticExpression.Mutiplication(sum, ArithmeticExpression.Number(2))
+        print("product is \(product)")
+        
+        func evaluate(expression: ArithmeticExpression) -> Int {
+            switch expression {
+            case let .Number(value):
+                return value
+            case let .Addition(left, right):
+                return evaluate(expression: left) + evaluate(expression: right)
+            case let .Mutiplication(left, right):
+                return evaluate(expression: left) * evaluate(expression: right)
+            }
+        }
+        
+        print("evaluate(expression: sum) is \(evaluate(expression: sum))")
+        print("evaluate(expression: product) is \(evaluate(expression: product))")
+        
+        
+        //MARK:******************************* Attributes *******************************
         //MARK:<------------ 1. @escaping/@nonescaping-------------->
+        
+        
+        /**
+         swift中的闭包是一个包含某个功能的代码块，可以在代码中传递和使用。和Objective-C 中block 类似
+         */
+        
+        //FIXME:详情请见：swift(closure)工程
+        
+        
         //MARK:<------------ 2. closure/autoclosure ---------------->
+        
+        /**
+         自动闭包是一种自动创建的用来把作为实际参数传递给函数的表达式打包的闭包。它不接受任何实际参数，并且当它被调用时，它会返回内部打包的表达式的值。这个语法的好处在于通过写普通表达式代替显式闭包而使你省略包围函数形式参数的括号
+         */
+        func logIfTrue(_ predicate: @autoclosure () -> Bool) {
+            if predicate () {
+                print("true")
+            } else {
+                print("false")
+            }
+        }
+        
+        logIfTrue(2 < 1)
+        
         
         
         //FIXME:以下标记被当做保留符号，不能用于自定义操作符
