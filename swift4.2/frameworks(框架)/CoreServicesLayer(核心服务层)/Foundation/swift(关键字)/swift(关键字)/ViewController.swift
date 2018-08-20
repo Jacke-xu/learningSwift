@@ -770,6 +770,135 @@ struct MyCar: Vehicle {
 //    }
 }
 
+//MARK:<---------------- 6 required/convenience ----------------->
+//MARK:----- 6.1
+/* 对于某些我们希望子类中一定实现的指定初始化方法，我们可以通过添加required 关键字进行限制，强制子类对这个方法重写 */
+class People {
+    var name: String
+    required init(name: String) {
+        self.name = name
+    }
+}
+
+extension People {
+    convenience init(smallName: String) {
+        self.init(name: smallName)
+    }
+}
+
+class Teacher: People {
+    var course: String
+    init(name: String, course: String) {
+        self.course = course
+        super.init(name: name)
+    }
+    
+    
+    required init(name: String) {
+        self.course = "math"
+        super.init(name: name)
+    }
+}
+
+//MARK:----- 6.2 convenience
+
+/**
+ 1. 增加init 的初始化方法
+ 2. 必须调用swift 同一个类中designated 初始化完成设置
+ 3. convenience 的初始化方法不能被子类重写或者是从子类中以super的方式调用
+ */
+
+class ChinesePeople {
+    var name: String
+    init(name: String) {
+        self.name = name
+    }
+}
+
+extension ChinesePeople {
+    convenience init(smallName: String) {
+        self.init(name: smallName)
+    }
+}
+
+class StudentA: ChinesePeople {
+    var grade: Int
+    init(name: String, grade: Int) {
+        self.grade = grade
+        super.init(name: name)
+        //'super.init' called multiple times in initializer
+//        super.init(smallName: name)
+    }
+    
+    override init(name: String) {
+        grade = 1
+        super.init(name: name)
+    }
+    
+//    override init(smallName: String) {
+//        grade = 1
+//        //Must call a designated initializer of the superclass 'ChinesePeople'
+//        super.init(smallName: smallName)
+//    }
+}
+
+//MARK:<--------------- 9. unowened 和 weak ------------------->
+
+//MARK:----- 9.2 delegate
+//RequestManager.swift
+class RequestManager: RequestHandler {
+    @objc func requestFinished() {
+        print("请求完成")
+    }
+    
+    func sendRequest() {
+        let req = Request()
+        req.delegate = self
+        req.send()
+    }
+}
+
+//Request.swift
+@objc protocol RequestHandler {
+    @objc optional func requestFinished ()
+}
+
+class Request {
+    weak var delegate: RequestHandler!
+    func send() {
+        //发送请求
+    }
+    func gotResponse () {
+        //请求返回
+        delegate.requestFinished!()
+    }
+}
+
+//MARK:----- 9.3 closure
+
+class Person {
+    let name: String
+//    lazy var printName: () -> () = {
+//        print("The name is \(self.name)")
+//    }
+    
+    lazy var printName:() -> () = {
+        [weak self] in
+        if let strongSelf = self {
+            print("The name is \(strongSelf.name)")
+        }
+    }
+    
+    init(personName: String) {
+        name = personName
+    }
+    
+    deinit {
+        print("Person deinit \(self.name)")
+    }
+}
+
+
 class ViewController: UIViewController {
 
 
@@ -2177,6 +2306,263 @@ class ViewController: UIViewController {
          2. procotol, struct, enum 中的方法默认都是nonmutating 的，想要修改属性，必须显式地使用mutating关键字声明
          */
         
+        //MARK:<------------ 5. lazy ----------------->
+        /**
+         1. 在OC中懒加载的书写形式：
+         // ClassA.h
+         @property (nonatomic, copy) NSString *testString;
+         
+         // ClassA.m
+         - (NSString *)testString {
+         if (!_testString) {
+         _testString = @"Hello";
+         NSLog(@"只在首次访问输出");
+         }
+         return _testString;
+         }
+         
+         2. 在swift中，我们使用在变量属性前加lazy关键字的方式，来简单地指定延时加载。比如上面的代码我们在swift中重写
+         */
+        
+        class lazyClass {
+            
+            lazy var str2: String = "hello"//我们可以对这个lazy的属性直接写赋值语句
+            
+            
+            lazy var str: String = {
+                let str = "Hello"
+                print("只在首次访问输出")
+                return str
+            }()
+        }
+        
+        let lazyclass = lazyClass.init()
+        print(lazyclass.str)
+        print(lazyclass.str)
+//        只在首次访问输出
+//        Hello
+//        Hello
+        
+        /**
+         在swift标准库中，有一组lazy方法：
+         func lazy<S : SequenceType>(s: S) -> LazySequence<S>
+         
+         func lazy<S : CollectionType where S.Index : RandomAccessIndexType>(s: S)
+         -> LazyRandomAccessCollection<S>
+         
+         func lazy<S : CollectionType where S.Index : BidirectionalIndexType>(s: S)
+         -> LazyBidirectionalCollection<S>
+         
+         func lazy<S : CollectionType where S.Index : ForwardIndexType>(s: S)
+         -> LazyForwardCollection<S>
+         
+         
+          这些方法可以配合像map或者filter 这类接受闭包并进行运行的方法一起，让整个行为编程延时进行
+         */
+        
+        let data1 = 1...3
+//        let result = data1.map { (i) -> Int in
+//            print("正在处理\(i)")
+//            return i * 2
+//        }
+//
+//        print("准备访问结果")
+//
+//        for i in result {
+//            print("操作后结果为 \(i)")
+//        }
+//
+//        print("操作完毕")
+//        正在处理1
+//        正在处理2
+//        正在处理3
+//        准备访问结果
+//        操作后结果为 2
+//        操作后结果为 4
+//        操作后结果为 6
+//        操作完毕
+
+        let result = data1.lazy.map { (i) -> Int in
+            print("正在处理\(i)")
+            return i * 2
+        }
+        
+        print("准备访问结果")
+        
+        for i in result {
+            print("操作后结果为 \(i)")
+        }
+        
+        print("操作完毕")
+//        准备访问结果
+//        正在处理1
+//        操作后结果为 2
+//        正在处理2
+//        操作后结果为 4
+//        正在处理3
+//        操作后结果为 6
+//        操作完毕
+        
+        //MARK:<---------------- 6 required ----------------->
+        /* 对于某些我们希望子类中一定实现的指定初始化方法，我们可以通过添加required 关键字进行限制，强制子类对这个方法重写 */
+        class People {
+            var name: String
+            required init(name: String) {
+                self.name = name
+            }
+        }
+        
+        
+        //MARK:<---------------- 7. final ------------------>
+        /**
+         swift 中 final 修饰符可以防止类被继承，还可以防止子类重写父类的属性，方法，以及下标。final修饰符只能用于类，不能修饰struct 和 enum，因为struct 和 enum 只能遵循protocol,不能重写协议中的任何成员
+         */
+        
+        final class Train {
+            
+        }
+        //Inheritance from a final class 'Train'
+//        class MagLevTrain: Train {
+//
+//        }
+        
+        class Train1 {
+            final func method() {
+                
+            }
+        }
+        
+        class Maglev: Train1 {
+            
+            //Instance method overrides a 'final' instance method
+//            override func method() {
+//
+//            }
+        }
+        
+        
+        //MARK:<----------------- 8. Type/ Protocol -------------->
+        
+        //MARK:----- 8.1 Type
+        typealias AnyClass = AnyObject.Type
+        /**
+         通过AnyObject.Type 这种方式所得到的是一个元类型。我们可以声明一个元类型来存储AnyObject这个类型本身，而在从AnyObject中取出其类型时，我们需要使用到.self
+         */
+        print("Student.Type.self is \(Student.Type.self)")
+        print("Student.self is \(Student.self)")
+        
+        /**
+         如上面的例子中，.self 可以用在类型后面取得类型本身，也可以在某个实例后面取得这个实例本身。
+         */
+        
+        class subA {
+            class func method() {
+                print("hello")
+            }
+        }
+        
+        let TypeA: subA.Type = subA.self
+        TypeA.method()
+        
+        /* 我们再看下面的一些例子 */
+        
+        /**
+         比如我们想要传递一些类型的时候，就不需要不断地去改动代码了
+         */
+        class MusicViewController: UIViewController {
+            
+        }
+        
+        class AlbumViewController: UIViewController {
+            
+        }
+        
+        let usingVCTypes: [AnyClass] = [MusicViewController.self, AlbumViewController.self]
+        
+        func setupViewControllers(vcTypes: [AnyClass]) {
+            for vcType in vcTypes {
+                if vcType is UIViewController.Type {
+                    let vc = (vcType as! UIViewController.Type).init()
+                    print(vc)
+                }
+            }
+        }
+        
+        setupViewControllers(vcTypes: usingVCTypes)
+        
+        /**
+         例如在注册 tableView 的 cell 的类型的时候
+         
+         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "myCell")
+         */
+        
+        //MARK:----- 8.2 Protocol
+        /* swift中，除了class，struct,enum 这三个类型外， 我们可以定义protocol, 这时我们可以在某个protocol的名字后面使用.Protocol 来获取，protocol 类型，使用的方法和.Type 是类似的。 */
+        print("BaseProtocol.Protocol.self is \(BaseProtocol.Protocol.self)")
+        
+       
+        //MARK:<--------------- 9. unowened 和 weak ------------------->
+        
+        //MARK:----- 9.1 循环引用
+//        class subClassB {
+//            var a: subClassA? = nil
+//            deinit {
+//                print("subClassB deinit")
+//            }
+//        }
+        class subClassA {
+            let b: subClassB
+            init() {
+                b = subClassB.init()
+                b.a = self
+            }
+            
+            deinit {
+                print("subClassA deinit")
+            }
+        }
+        
+        class subClassB {
+            weak var a: subClassA? = nil
+            deinit {
+                print("subClassB deinit")
+            }
+        }
+        
+        var ojb: subClassA? = subClassA.init()
+        ojb = nil//内存并没有释放
+        
+        /* 当我们把subClassB中 a 属性用weak 修饰后， 在进行ojb = nil，发现subClassA和subClassB 都释放了*/
+        
+        /**
+         swift中除了weak 以外，好友一个unowned 关键字。更像Objective-C 中 unsafe_unretained, 就是设置unowned之后虽然引用的内容已经被释放了，它仍然会保持对被释放了的对象一个 ‘无效的’引用，他不是Optional值，也不会指向nil。如果尝试访问成员属性或方法，程序就会崩溃。而weak则友好一些，在引用被释放后，标记为weak的成员将会自动地编程nil
+         */
+        
+        //MARK:----- 9.2 设置delegate时
+        /* 下面的例子是一个负责网路请求的类 */
+
+        //MARK:----- 9.3 在self属性存储为闭包时， 其中拥有对self引用时
+        
+        var xiaoMing: Person? = Person(personName: "XiaoMing")
+        xiaoMing?.printName()
+        xiaoMing = nil
+        
+        /**
+         这种在闭包参数的位置进行标注的语法结构是将要标注的内容放在原来参数的前面，并使用中括号括起来。如果有多个需要标注的元素的话，在同一个中括号内用都好隔开，举个例子：
+         
+         
+         // 标注前
+         { (number: Int) -> Bool in
+         //...
+         return true
+         }
+         
+         // 标注后
+         { [unowned self, weak someObject] (number: Int) -> Bool in
+         //...
+         return true
+         }
+         */
         
         //MARK:******************************* 其他的关键字 *******************************
         //MARK:<------------ 1. @escaping/@nonescaping-------------->
