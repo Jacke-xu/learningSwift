@@ -2639,6 +2639,87 @@ class ViewController: UIViewController {
         
         logIfTrue(2 < 1)
         
+        //MARK:<------------- 3. override ------------------>
+        
+        class Super {
+            var name: String
+            var age: Int
+            init(name: String) {
+                self.name = name
+                self.age = 1
+            }
+            
+            convenience init(name: String, age: Int) {
+                self.init(name: name)
+                self.name = name
+                self.age = age
+                
+            }
+            
+            func doThing() {
+                print("")
+            }
+        }
+        
+        class Sub: Super {
+            override init(name: String) {
+                super.init(name: name)
+                
+            }
+        }
+        
+        
+        //MARK:<------------- 4. @discardableResult --------------->
+        /**
+         该特性用于函数或方法的声明，用以抑制编译器中函数或方法被调用而没有使用其结果的警告
+         */
+        class WaringClass {
+            @discardableResult
+            func someWarningMehtod () -> Bool {
+                return true
+            }
+        }
+        
+        let waring = WaringClass.init()
+        waring.someWarningMehtod()
+        
+        
+        //MARK:<------------- 5. @convention ------------->
+        /**
+         我们经常将一个函数作为参数传入另一个函数中， 在iOS开发中能作为一个函数参数的东西如下：
+         1. C的函数指针
+         2. OC的block
+         3. swift的闭包（closures）
+         
+         而今天我们要说的是swift中的@convention，它是用来修饰闭包的，
+         1. @convention(swift): 表明这个是一个swift的闭包
+         2. @convention(block): 表明这个是一个兼容OC的block的闭包
+         3. @convention(c): 表明这个是兼容C的函数指针的闭包
+         */
+        
+        class SuperMan: NSObject {
+            func doAction(action: @convention(swift) (String) -> Void, arg: String) {
+                action(arg)
+            }
+        }
+        
+        let saySomething_c: @convention(c) (String) -> Void = {
+            print("i said:\($0)")
+        }
+        
+        let saySomething_oc: @convention(block) (String) -> Void = {
+            print("i said:\($0)")
+        }
+        
+        let saySomething_swift: @convention(swift) (String) -> Void = {
+            print("i said:\($0)")
+        }
+        
+        let superman = SuperMan.init()
+        superman.doAction(action: saySomething_c, arg: "hello, world , c")
+        superman.doAction(action: saySomething_oc, arg: "hello, world, OC")
+        superman.doAction(action: saySomething_swift, arg: "hello, world, swift")
+        
         
         
         //FIXME:以下标记被当做保留符号，不能用于自定义操作符
