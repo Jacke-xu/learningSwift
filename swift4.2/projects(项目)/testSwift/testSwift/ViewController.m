@@ -20,6 +20,12 @@
     // Do any additional setup after loading the view, typically from a nib.
     testSwiftObj * testswiftobj = [[testSwiftObj alloc]init];
     [testswiftobj testPrint];
+    
+    DynamicSwiftClass * dynamicSwiftClass = [[DynamicSwiftClass alloc]init];
+    NSLog(@"%ld", (long)dynamicSwiftClass.first);
+    
+    [dynamicSwiftClass dynamicFunc];
+    
 }
 
 

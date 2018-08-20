@@ -700,7 +700,75 @@ protocol MyProtocol {}
 @available (iOS 7.0, *)
 class MyNewClass {}
 
+//MARK:<-------------3. @objc 和 Dynamic ------------------------------->
+/**
+ 1. 由于和Objective-C的兼容，apple采用的做法允许我们在同一个项目中同时使用swift 和 Objective-C 来进行开发。通过添加 {product-module-name}-Bridging-Header.h桥接文件，并在其中填写使用头文件，就可以在swift中使用Objective-C代码了
+ 2. 想要在Objective-C 中使用swift 的类型的时候，事情就复杂一些。需要在我们的Objective-C中导入 {product-module-name}-Swift.h来完成。由于Objective-C 对象是基于运行时的（在运行时调用时在决定实际调用的具体实现），而swift类型的成员或者方法在编译时就已经决定。那么我们如果实现Objective-C 调用swift，解决办法：
+ * 我们需要将暴露给Objective-C 使用的任何地方（包括类，属性和方法）的声明前面加上@objc 修饰符（这个步骤只需要对那些不是继承自NSObject的类型进行，如果是继承自NSObject的话，swift 会默认自动为所有的非private的类和成员加上@objc，这就是说，对于一个继承自NSObject的swift 类型，你只需要导入头文件就可以在Objective-C中使用这个类了）
+ */
+//MARK:----- 3.1 @objc
+/**
+ 可以使用@objc 修饰的类型包括：
+ * 未嵌套的类
+ * 协议
+ * 非泛型枚举
+ * 类和协议中的属性和方法
+ * 构造器和析构器
+ * 下标
+ */
+/* 1. 修饰类 */
+@objc class MyHelper:NSObject {
+    
+}
 
+@objc class MyViewController: UIViewController {
+    
+}
+
+/**
+ swift中类名，可以使用中文命名，而Objective-C 中却只能使用ASCII码，在使用@objc时，需要指定Objective-C中使用的ASCII名称。这个知识点请
+ */
+@objc(fanyunfei)
+class 我的类: NSObject {
+    @objc(greeting:)
+    func 打招呼(名字: String) {
+        print("哈喽, \(名字)")
+    }
+}
+
+/* 2. 协议 */
+/* @objc修饰的协议与修饰类一样，需要注意的是，如果协议中由optional修饰的方法，就必须使用@objc来修饰： */
+@objc protocol counterDataSource {
+    @objc optional func incrementForCount(count: Int) -> Int
+    @objc optional var fixedincrement: Int { get }
+}
+
+//MARK:<------------- 4. mutating 和 nonmutating ------------->
+//MARK:---- 4.1
+protocol Vehicle {
+    var numberOfWheels: Int { get }
+    var color: UIColor { get set }
+//    nonmutating func nonchangeColor()
+    mutating func changeColor()
+}
+
+struct MyCar: Vehicle {
+    //Cannot assign to property: 'self' is immutable, 协议中方法默认就是nonmutating类型的
+//    nonmutating func nonchangeColor() {
+//        color = UIColor.brown
+//    }
+
+    
+    mutating func changeColor() {
+        color = UIColor.red
+    }
+    
+    let numberOfWheels = 4
+    var color: UIColor = UIColor.blue
+//    mutating func changeColor() {
+//        color = UIColor.red
+//    }
+}
 
 class ViewController: UIViewController {
 
@@ -1960,6 +2028,7 @@ class ViewController: UIViewController {
                     print("willSet newValue is \(newValue)")
                 }
                 didSet {
+                    //和OC相比较，我们可以在didSet里面执行一些改变UI的操作。
                     print("didSet")
                     print("didSet oldValue is \(oldValue)")
                 }
@@ -1983,19 +2052,146 @@ class ViewController: UIViewController {
         /**
          这里注意的是get首先被调用了一次。这是因为我们事先了 didSet, didSet中会用到oldValue,而这个值需要在整个set动作之前进行获取并存储待用，否则将无法确保正确性。如果我们不识闲didSet 的话，这次get操作也将不存在
          */
+        //MARK:<-------------3. @objc 和 Dynamic ------------------------------->
+        /**
+         1. 由于和Objective-C的兼容，apple采用的做法允许我们在同一个项目中同时使用swift 和 Objective-C 来进行开发。通过添加 {product-module-name}-Bridging-Header.h桥接文件，并在其中填写使用头文件，就可以在swift中使用Objective-C代码了
+         2. 想要在Objective-C 中使用swift 的类型的时候，事情就复杂一些。需要在我们的Objective-C中导入 {product-module-name}-Swift.h来完成。由于Objective-C 对象是基于运行时的（在运行时调用时在决定实际调用的具体实现），而swift类型的成员或者方法在编译时就已经决定。那么我们如果实现Objective-C 调用swift，解决办法：
+            * 我们需要将暴露给Objective-C 使用的任何地方（包括类，属性和方法）的声明前面加上@objc 修饰符（这个步骤只需要对那些不是继承自NSObject的类型进行，如果是继承自NSObject的话，swift 会默认自动为所有的非private的类和成员加上@objc，这就是说，对于一个继承自NSObject的swift 类型，你只需要导入头文件就可以在Objective-C中使用这个类了）
+         */
+        //MARK:----- 3.1 @objc
+        /**
+         可以使用@objc 修饰的类型包括：
+          * 未嵌套的类
+          * 协议
+          * 非泛型枚举
+          * 类和协议中的属性和方法
+          * 构造器和析构器
+          * 下标
+         */
+        /* 1. 修饰类 */
+//        @objc class MyHelper:NSObject {
+//
+//        }
+//
+//        @objc class MyViewController: UIViewController {
+//
+//        }
+        
+        /**
+         swift中类名，可以使用中文命名，而Objective-C 中却只能使用ASCII码，在使用@objc时，需要指定Objective-C中使用的ASCII名称。这个知识点请
+         */
+//        @objc(fanyunfei)
+//        class 我的类: NSObject {
+//            @objc(greeting:)
+//            func 打招呼(名字: String) {
+//                print("哈喽, \(名字)")
+//            }
+//        }
+        
+        let f = 我的类.init()
+        f.打招呼(名字: "范云飞")
+        
+        /* 2. 协议 */
+        /* @objc修饰的协议与修饰类一样，需要注意的是，如果协议中由optional修饰的方法，就必须使用@objc来修饰： */
+//        @objc protocol counterDataSource {
+//            @objc optional func incrementForCount(count: Int) -> Int
+//            @objc optional var fixedincrement: Int { get }
+//        }
+        
+        /* 3. 枚举 */
+        /**
+         Objective-C 中还是传统的枚举类型，必须使用整形作为原始值。这样看来swift中的枚举类型如果要被@objc修饰，则需要满足原始值是整形的限制条件。不然就会报错。
+         */
+        //'@objc' enum must declare an integer raw type
+        @objc enum Bear: Int {
+            case Black, Grizzly, Polar
+        }
+        
+        class Example: NSObject {
+            var enabled: Bool {
+                get {
+                    return true
+                }
+            }
+        }
+        
+        /* 如果类中方法或者属性被@objc 修饰，那么类就必须被@objc修饰 */
+        
+        /* 4. swift中private 方法，通过@objc修饰后可以在运行时，通过OC的消息机制被调用 */
+//        @objc private func composeStatus() {
+//            print("撰写微博")
+//        }
+        
+        //MARK:------ 3.2 dynamic
+        /**
+         1. 上面我们讲到了@objc， 但是需要注意的是，添加 @objc 修饰符并不意味着这个方法或者属性会变成动态派发，Swift 依然可能会将其优化为静态调用。如果你需要和 Objective-C 里动态调用时相同的运行时特性的话，你需要使用的修饰符是 dynamic。
+         2. Swift 中的函数是静态调用，静态调用会更快。Swift的代码直接被编译优化成静态调用的时候，就不能从Objective-C 中的SEL字符串来查找到对应的IMP了。这样就需要在 Swift 中添加一个关键字 dynamic，告诉编译器这个方法是可能被动态调用的，需要将其添加到查找表中。
+         纯swift类没有动态性，但在方法、属性前添加dynamic修饰可以获得动态性。
+         */
+        
+        class DynamicSwiftClass{
+            var zero = 0
+            @objc dynamic var first = 1
+            @objc func dynamicFunc() {
+                
+            }
+            
+//            Property cannot be marked @objc because its type cannot be represented in Objective-C
+//            @objc dynamic var adddd = (0, 0)
+
+//            Method cannot be marked @objc because its result type cannot be represented in Objective-C
+//            @objc dynamic func someMethod(value: Int) -> (Int, Int) {
+//                return (1, 1)
+//            }
+        }
+        /* 若方法的参数，属性类型为swift特有，无法映射到Objective-C 的类型（如： Character, Tuple）,则此方法，属性无法添加dynamic修饰 */
+        
+        
+        
+        //MARK:<------------- 4. nonmutating 和 mutating ---------------->
+        //MARK:----- 4.1 mutating
+        /* 1. struct 和 enum 中的用法 */
+        /**
+         swift 中的木他听 关键字修饰方法是为了能在该方法中修改struct或者是enum的变量，所以如果你没在接口方法里写mutating的话，别人如果用struct或者enum 来实现这个接口的话，就不能再方法里改变自己的变量了
+         */
+        
+        struct User {
+            var age: Int
+            var weight: Int
+            var height: Int
+            
+            //Left side of mutating operator isn't mutable: 'self' is immutable
+//            func gainWeight(newWeight: Int) {
+//                weight += newWeight
+//            }
+            
+            mutating func gainWeight(newWeight: Int) {
+                weight += newWeight
+            }
+        }
+        
+        /* 2. 可以将protocol 的方法声明为mutating */
+        
+        /**
+         1. 在使用class 来实现带有mutating 的方法的接口时， 具体实现的前面是不需要加mutating 修饰的，因为class 可以随意更改自己的成员变量。
+         2. procotol, struct, enum 中的方法默认都是nonmutating 的，想要修改属性，必须显式地使用mutating关键字声明
+         */
         
         
         //MARK:******************************* 其他的关键字 *******************************
         //MARK:<------------ 1. @escaping/@nonescaping-------------->
         //MARK:<------------ 2. closure/autoclosure ---------------->
         
-        //MARK:<-------------3. objc ------------------------------->
         
         //FIXME:以下标记被当做保留符号，不能用于自定义操作符
         /**
          ( 、 ) 、 { 、 } 、 [ 、 ] 、 . 、 , 、 : 、 ; 、 = 、 @ 、 # 、 & （作为前缀操作符）、 -> 、 `  、 ? 和 ! (作为后缀操作符)
          */
         
+    }
+    
+    @objc private func composeStatus() {
+        print("撰写微博")
     }
     
     override func didReceiveMemoryWarning() {
