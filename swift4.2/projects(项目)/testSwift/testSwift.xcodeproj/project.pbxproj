@@ -17,6 +17,8 @@
 		0FB454772125D8E400D81008 /* testSwiftUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454762125D8E400D81008 /* testSwiftUITests.m */; };
 		0FB454862125D90100D81008 /* testSwiftObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454852125D90100D81008 /* testSwiftObj.swift */; };
 		0FB4548F212A5E7B00D81008 /* DynamicSwiftClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4548E212A5E7B00D81008 /* DynamicSwiftClass.swift */; };
+		0FB454CB212BA86B00D81008 /* testNonobjcClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454CA212BA86B00D81008 /* testNonobjcClass.swift */; };
+		0FB454CD212BA95500D81008 /* nonobjcClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB454CC212BA95500D81008 /* nonobjcClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		0FB454842125D90000D81008 /* testSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "testSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		0FB454852125D90100D81008 /* testSwiftObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testSwiftObj.swift; sourceTree = "<group>"; };
 		0FB4548E212A5E7B00D81008 /* DynamicSwiftClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSwiftClass.swift; sourceTree = "<group>"; };
+		0FB454CA212BA86B00D81008 /* testNonobjcClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testNonobjcClass.swift; sourceTree = "<group>"; };
+		0FB454CC212BA95500D81008 /* nonobjcClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nonobjcClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,8 @@
 				0FB454562125D8E300D81008 /* ViewController.m */,
 				0FB454852125D90100D81008 /* testSwiftObj.swift */,
 				0FB4548E212A5E7B00D81008 /* DynamicSwiftClass.swift */,
+				0FB454CA212BA86B00D81008 /* testNonobjcClass.swift */,
+				0FB454CC212BA95500D81008 /* nonobjcClass.swift */,
 				0FB454582125D8E300D81008 /* Main.storyboard */,
 				0FB4545B2125D8E300D81008 /* Assets.xcassets */,
 				0FB4545D2125D8E300D81008 /* LaunchScreen.storyboard */,
@@ -271,8 +277,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FB454CB212BA86B00D81008 /* testNonobjcClass.swift in Sources */,
 				0FB454572125D8E300D81008 /* ViewController.m in Sources */,
 				0FB454862125D90100D81008 /* testSwiftObj.swift in Sources */,
+				0FB454CD212BA95500D81008 /* nonobjcClass.swift in Sources */,
 				0FB454622125D8E300D81008 /* main.m in Sources */,
 				0FB454542125D8E300D81008 /* AppDelegate.m in Sources */,
 				0FB4548F212A5E7B00D81008 /* DynamicSwiftClass.swift in Sources */,

@@ -899,6 +899,33 @@ class Person {
 }
 
 
+//MARK:******************************* Attributes *******************************
+
+//MARK:<-------------- 6.@inlinable 和 @usableFromInline ---------------->
+extension Sequence where Element: Equatable {
+//    @inlinablelinein
+    public func allEqual() -> Bool {
+        var iterator = makeIterator()
+        guard let first = iterator.next() else {
+            return true
+        }
+        
+        while let next = iterator.next() {
+            if first != next {
+                return false
+            }
+        }
+        return true
+    }
+}
+
+//MARK:<------------------ 9 @NSManaged--------------------->
+
+//class MyModel: NSManagedObject {
+//    @NSManaged var title: String
+//}
+
+
 class ViewController: UIViewController {
 
 
@@ -2719,6 +2746,62 @@ class ViewController: UIViewController {
         superman.doAction(action: saySomething_c, arg: "hello, world , c")
         superman.doAction(action: saySomething_oc, arg: "hello, world, OC")
         superman.doAction(action: saySomething_swift, arg: "hello, world, swift")
+        
+        
+        //MARK:<-------------- 6.@inlinable 和 @usableFromInline ---------------->
+        
+        //MARK:<-------------- 7. @nonobjc/@objcMembers ------------------->
+        
+        /**
+        1. @objc 和 @nonobjc 显式地声明了一个函数是否能被Objective-C的运行时捕获到，使用@objc 的典型例子就是给selector 一个命名空间@objc(methodname)，让这个函数可以被Objective-C 的运行时调用，@nonobjc 会改变派发的方式，可以用来进制消息机制派发这个函数，不让这个函数注册到Objective-C的运行时里，和 final关键字的功能和使用场景很相似
+        2. 如果你需要一个类连同它的所有extensions，及其子类和子类的extensions可以在Objective-C中被访问到，你需要使用关键字@objcMembers对这个类进行标识.
+         
+         详情参考 testSwift 工程
+         */
+        //FIXME:但是目前发现不添加@objcMembers 标记好像也可以实现一个类连同它的所有extensions，及其子类和子类的extensions可以在Objective-C中被访问到
+        
+        //MARK:<---------------- 8. testable ----------------->
+        /**
+         当你想要在测试类中导入某些模块以进行单元测试时就会用到这个注解。在一般情况下，被声明为internal的方法和属性是模块内部访问的，在模块之外是不可以被访问的。然而，单元测试要求我们能访问到internal的方法或属性，因此我们可以在单元测试文件中import需要测试的模块前添加@testable。不过，被声明为private、fileprivate的内容依然不能被访问。
+         
+         形式如下：
+         @testable import CoreKit
+         */
+        
+        
+        //MARK:<------------------ 9 @NSManaged--------------------->
+        
+        
+        /**
+         在Objective-C 中 @dynamic 都是在和 Core Data 打交道的时候使用。如果我们将某个属性实现为@dynamic, 意味着告诉编译器我们不会再编译时就确定这个属性行为实现。
+         
+         
+         // MyModel.h
+         @interface MyModel : NSManagedObject
+         
+         @property (nonatomic, copy) NSString * title;
+         
+         @end
+         
+         // MyModel.m
+         #import "MyModel.h"
+         @implementation MyModel
+         
+         @dynamic title;
+         
+         @end
+         */
+        
+        /**
+         swift 中 和Core Data 打交道时，我们加入了一个特殊的标注来处理动态代码，那就是@NSManaged，我们只需要在NSManagedObject 的子类的成员的字段上加上@NSManaged 就可以了：
+
+         class MyModel: NSManagedObject {
+         @NSManaged var title: String
+         }
+         */
+        
+        //FIXME:apple 在文档中指出 @NSManaged 是专门用来解决Core Data 中动态代码的问题的，因此最好只在NSManagedObject 的子类中使用它。（虽然@NSManaged 写到其他的类中，也是能够编译通过的）
+        
         
         
         
