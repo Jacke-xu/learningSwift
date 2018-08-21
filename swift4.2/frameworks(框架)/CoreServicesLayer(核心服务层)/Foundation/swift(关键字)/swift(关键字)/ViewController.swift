@@ -2750,6 +2750,7 @@ class ViewController: UIViewController {
         
         //MARK:<-------------- 6.@inlinable 和 @usableFromInline ---------------->
         
+        
         //MARK:<-------------- 7. @nonobjc/@objcMembers ------------------->
         
         /**
@@ -2803,6 +2804,31 @@ class ViewController: UIViewController {
         //FIXME:apple 在文档中指出 @NSManaged 是专门用来解决Core Data 中动态代码的问题的，因此最好只在NSManagedObject 的子类中使用它。（虽然@NSManaged 写到其他的类中，也是能够编译通过的）
         
         
+        //MARK:<------------------ 10.@NSCopying --------------------->
+        
+        class MyModel: NSObject, NSCopying {
+            func copy(with zone: NSZone? = nil) -> Any {
+                let coypedModel = type(of: self).init()
+                return coypedModel
+            }
+            required override init() {
+                
+            }
+        }
+        
+        let model1 = MyModel.init()
+        
+        let model2 = model1.copy()
+        //(lldb) po model1
+        //<_TtCFC16swift_ÂÖ≥ÈîÆÂ≠ó_14ViewController11viewDidLoadFT_T_L_7MyModel: 0x60000001c280>
+        
+        //(lldb) po model2
+        //<_TtCFC16swift_ÂÖ≥ÈîÆÂ≠ó_14ViewController11viewDidLoadFT_T_L_7MyModel: 0x60000001c290>
+        
+        //MARK:<------------------ 11. @UIApplicationMain, @NSApplicationMain ---------------->
+        /**
+         这两个属性使被标记的类作为本应用的代理。通常来说，这个代理类都是系统自动创建的AppDelegte.swift 文件。如果你不想用@UIApplicationMain或者NSApplicationMain来注解，你可以自动手动创建一个main.swift 文件（不建议这么做）
+         */
         
         
         //FIXME:以下标记被当做保留符号，不能用于自定义操作符
