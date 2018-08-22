@@ -1,15 +1,15 @@
 //
-//  swift_NSAttributedString_Tests.swift
-//  swift(NSAttributedString)Tests
+//  swift_NSAttributedString_NSMutableAttributedString_Tests.swift
+//  swift(NSAttributedString和NSMutableAttributedString)Tests
 //
-//  Created by 范云飞 on 2018/8/21.
+//  Created by 范云飞 on 2018/8/22.
 //  Copyright © 2018年 范云飞. All rights reserved.
 //
 
 import XCTest
-@testable import swift_NSAttributedString_
+@testable import swift_NSAttributedString_NSMutableAttributedString_
 
-class swift_NSAttributedString_Tests: XCTestCase {
+class swift_NSAttributedString_NSMutableAttributedString_Tests: XCTestCase {
     
     override func setUp() {
         super.setUp()

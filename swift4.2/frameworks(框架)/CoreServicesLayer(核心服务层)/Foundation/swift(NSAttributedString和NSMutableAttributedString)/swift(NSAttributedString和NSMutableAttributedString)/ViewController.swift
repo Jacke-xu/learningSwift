@@ -1,8 +1,8 @@
 //
 //  ViewController.swift
-//  swift(NSAttributedString)
+//  swift(NSAttributedString和NSMutableAttributedString)
 //
-//  Created by 范云飞 on 2018/8/21.
+//  Created by 范云飞 on 2018/8/22.
 //  Copyright © 2018年 范云飞. All rights reserved.
 //
 
@@ -13,9 +13,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        var attributedString = NSAttributedString(string: "去你大爷的")
-        
     }
 
     override func didReceiveMemoryWarning() {
