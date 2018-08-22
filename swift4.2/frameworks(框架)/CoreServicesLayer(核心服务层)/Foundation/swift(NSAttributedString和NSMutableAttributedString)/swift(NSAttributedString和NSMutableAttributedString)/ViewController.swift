@@ -13,16 +13,15 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         /**
          AttributedString可以分为NSAttributedString和NSMutableAttributedString两种。
          在使用中通过将AttributedString赋值给控件的 attributedText 属性来添加文字样式。
          可设置的控件有UILabel、UITextField和UITextView。
          */
         
-
+    //MARK:----------------------- UILabel -----------------------------------
         
-        //MARK:********************** NSAttributedString ***************************
+        //MARK:<------ NSAttributedString ----->
         
         /*
          1. NSAttributedString 的初始化方法：
@@ -44,7 +43,7 @@ class ViewController: UIViewController {
 AttributedString可以分为NSAttributedString和NSMutableAttributedString两种。在使用中通过将AttributedString赋值给控件的 attributedText 属性来添加文字样式。可设置的控件有UILabel、UITextField和UITextView。
 """
         
-        //MARK:--------------- 一般情况下的UILabel高度自适应的处理办法 ---------------------------
+        //MARK:---- 一般情况下的UILabel高度自适应的处理办法
 //        label.text = str1
 //
 //        /* 设置attributes */
@@ -60,26 +59,30 @@ AttributedString可以分为NSAttributedString和NSMutableAttributedString两种
         
         //FIXME:上面的方法有很严中的bug,当text为单行时，text中的文字距离上下边距比较大，在UI渲染时误差也会比较大
         
-        //MARK:---------------- 进一步优化的处理方法 ---------------------------
+        //MARK:---- 进一步优化的处理方法
         
         let height = label.setSpace(labelText: str1, font: UIFont.boldSystemFont(ofSize: 15), lineSpace: 10, worldSpace: 1.5, width: self.view.frame.size.width - 40)
         label.frame = CGRect(x: 20, y: 100, width: self.view.frame.size.width - 40, height: height)
         
         
-        //MARK:****************** NSMutableAttributedString **********************
-//        let label2 = UILabel(frame: CGRect(x: 100, y: label.frame.origin.y + 60, width: 150, height: 30))
-//        label2.center.x = self.view.center.x
-//        label2.backgroundColor = UIColor.red
-//        label2.textAlignment = NSTextAlignment.center
-//        self.view.addSubview(label2)
-//
-//        let mutableAttributedString = NSMutableAttributedString(string: "Hello Label")
-//        mutableAttributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSMakeRange(0, 5))
-//        mutableAttributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.init(name: "Chalkduster", size: 30.0) as Any, range: NSMakeRange(6, 5))
-//        label2.attributedText = mutableAttributedString
-//
+        //MARK:<------ NSMutableAttributedString ------>
+        let label2 = UILabel(frame: CGRect(x: 100, y: label.frame.origin.y + label.frame.size.height + 30, width: 150, height: 30))
+        label2.center.x = self.view.center.x
+        label2.backgroundColor = UIColor.red
+        label2.textAlignment = NSTextAlignment.center
+        self.view.addSubview(label2)
+
+        let mutableAttributedString = NSMutableAttributedString(string: "Hello Label")
+        mutableAttributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSMakeRange(0, 5))
+        mutableAttributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.init(name: "Chalkduster", size: 30.0) as Any, range: NSMakeRange(6, 5))
+        label2.attributedText = mutableAttributedString
+
     }
     
+    //MARK:----------------------- UITextField --------------------------------
+    
+    
+    //MARK:----------------------- UITextView ---------------------------------
     
 
     override func didReceiveMemoryWarning() {
