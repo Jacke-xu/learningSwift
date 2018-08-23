@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_swift_NSAttributedString_NSMutableAttributedString_UITests : NSObject
+@end
+@implementation PodsDummy_Pods_swift_NSAttributedString_NSMutableAttributedString_UITests
+@end

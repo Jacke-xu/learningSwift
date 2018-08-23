@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Accelerate
+import SnapKit
 
 class ViewController: UIViewController {
 
@@ -17,6 +17,8 @@ class ViewController: UIViewController {
          AttributedString可以分为NSAttributedString和NSMutableAttributedString两种。
          在使用中通过将AttributedString赋值给控件的 attributedText 属性来添加文字样式。
          可设置的控件有UILabel、UITextField和UITextView。
+         
+         目前封装比较好的框架:https://github.com/ibireme/YYKit
          */
         
     //MARK:----------------------- UILabel -----------------------------------
@@ -39,8 +41,21 @@ class ViewController: UIViewController {
         label.numberOfLines = 0
         self.view.addSubview(label)
         
+        
+        label.snp.makeConstraints { (make) in
+            make.top.equalTo(100)
+            make.left.equalTo(20)
+            make.width.lessThanOrEqualTo(self.view.frame.size.width - 40)
+        }
+        
+        /* 单行测试 */
+//        let str1 = """
+//AttributedString
+//"""
+        
+        /* 多行测试 */
         let str1 = """
-AttributedString可以分为NSAttributedString和NSMutableAttributedString两种。在使用中通过将AttributedString赋值给控件的 attributedText 属性来添加文字样式。可设置的控件有UILabel、UITextField和UITextView。
+AttributedString可以分为NSAttributedString和NSMutableAttributedString两种。在使用中通过将AttributedString赋值给控件的 attributedText 属性来添加文字样式。可设置的控件有UILabel、UITextField和UITextView,☺☺是不是很强大🌹
 """
         
         //MARK:---- 一般情况下的UILabel高度自适应的处理办法
@@ -61,21 +76,31 @@ AttributedString可以分为NSAttributedString和NSMutableAttributedString两种
         
         //MARK:---- 进一步优化的处理方法
         
-        let height = label.setSpace(labelText: str1, font: UIFont.boldSystemFont(ofSize: 15), lineSpace: 10, worldSpace: 1.5, width: self.view.frame.size.width - 40)
-        label.frame = CGRect(x: 20, y: 100, width: self.view.frame.size.width - 40, height: height)
+        label.setSpace(labelText: str1, font: UIFont.boldSystemFont(ofSize: 15), lineSpace: 2.5, worldSpace: 1.5, width: self.view.frame.size.width - 40)
         
         
         //MARK:<------ NSMutableAttributedString ------>
-        let label2 = UILabel(frame: CGRect(x: 100, y: label.frame.origin.y + label.frame.size.height + 30, width: 150, height: 30))
+        let label2 = UILabel.init()
         label2.center.x = self.view.center.x
         label2.backgroundColor = UIColor.red
+        label2.numberOfLines = 0
         label2.textAlignment = NSTextAlignment.center
         self.view.addSubview(label2)
+        
+        label2.snp.makeConstraints { (make) in
+            make.top.equalTo(label.snp.bottom).offset(30)
+            make.left.equalTo(20)
+            make.width.lessThanOrEqualTo(self.view.frame.size.width - 40)
+//            make.height.equalTo(30)
+        }
+
+        
 
         let mutableAttributedString = NSMutableAttributedString(string: "Hello Label")
         mutableAttributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSMakeRange(0, 5))
         mutableAttributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.init(name: "Chalkduster", size: 30.0) as Any, range: NSMakeRange(6, 5))
         label2.attributedText = mutableAttributedString
+
 
     }
     
@@ -94,8 +119,8 @@ AttributedString可以分为NSAttributedString和NSMutableAttributedString两种
 
 
 extension UILabel {
-    @discardableResult
-    func setSpace(labelText: String, font: UIFont, lineSpace: CGFloat, worldSpace: CGFloat, width: CGFloat) -> CGFloat {
+    
+    func setSpace(labelText: String, font: UIFont, lineSpace: CGFloat, worldSpace: CGFloat, width: CGFloat) -> Void {
         let paraStyle = NSMutableParagraphStyle.init()
         paraStyle.lineBreakMode = NSLineBreakMode.byCharWrapping
         paraStyle.alignment = NSTextAlignment.left
@@ -127,7 +152,7 @@ extension UILabel {
         self.attributedText = attributedStr
         
         let size = (labelText as NSString).boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions(rawValue: NSStringDrawingOptions.RawValue(UInt8(NSStringDrawingOptions.usesLineFragmentOrigin.rawValue) | UInt8(NSStringDrawingOptions.usesFontLeading.rawValue))), attributes: (dic as! [NSAttributedStringKey: Any]), context: nil)
-        return size.height
+        self.frame = CGRect(x: 20, y: 100, width: size.width, height: size.height)
     }
     
     @discardableResult

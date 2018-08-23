@@ -1,0 +1,6 @@
+framework module Pods_swift_NSAttributedString_NSMutableAttributedString_Tests {
+  umbrella header "Pods-swift(NSAttributedString和NSMutableAttributedString)Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

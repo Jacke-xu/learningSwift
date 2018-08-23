@@ -14,6 +14,9 @@
 		0FB45547212D01A100D81008 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB45545212D01A100D81008 /* LaunchScreen.storyboard */; };
 		0FB45552212D01A100D81008 /* swift_NSAttributedString_NSMutableAttributedString_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB45551212D01A100D81008 /* swift_NSAttributedString_NSMutableAttributedString_Tests.swift */; };
 		0FB4555D212D01A100D81008 /* swift_NSAttributedString_NSMutableAttributedString_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4555C212D01A100D81008 /* swift_NSAttributedString_NSMutableAttributedString_UITests.swift */; };
+		3D943D6D986523F2A39487D1 /* Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 879DCC6DBE6D0E13A294C6BA /* Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework */; };
+		A2B9B8E1F39CA332997DC183 /* Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EA82E39093BE52D52390A2 /* Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework */; };
+		F320FE3C4AC5E04EBB43FA38 /* Pods_swift_NSAttributedString_NSMutableAttributedString_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2BD5141394625ED7B175CA9 /* Pods_swift_NSAttributedString_NSMutableAttributedString_.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,15 @@
 		0FB45558212D01A100D81008 /* swift(NSAttributedString和NSMutableAttributedString)UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift(NSAttributedString和NSMutableAttributedString)UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FB4555C212D01A100D81008 /* swift_NSAttributedString_NSMutableAttributedString_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_NSAttributedString_NSMutableAttributedString_UITests.swift; sourceTree = "<group>"; };
 		0FB4555E212D01A100D81008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C7507FA2D7719EFDFCB97A9 /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		1FE1567E91E6CC8C0E832F57 /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.release.xcconfig"; sourceTree = "<group>"; };
+		2BEE54C2EFFFA014BA5368BB /* Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.release.xcconfig"; sourceTree = "<group>"; };
+		31655D3478DBCAF34A12524B /* Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		5ABFAFC1966ADA9BE40D892A /* Pods-swift(NSAttributedString和NSMutableAttributedString).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift(NSAttributedString和NSMutableAttributedString).debug.xcconfig"; path = "Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Pods-swift(NSAttributedString和NSMutableAttributedString).debug.xcconfig"; sourceTree = "<group>"; };
+		71EA82E39093BE52D52390A2 /* Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		879DCC6DBE6D0E13A294C6BA /* Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2BD5141394625ED7B175CA9 /* Pods_swift_NSAttributedString_NSMutableAttributedString_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_NSAttributedString_NSMutableAttributedString_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDA14D78E89A7BA218FFE005 /* Pods-swift(NSAttributedString和NSMutableAttributedString).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift(NSAttributedString和NSMutableAttributedString).release.xcconfig"; path = "Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Pods-swift(NSAttributedString和NSMutableAttributedString).release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F320FE3C4AC5E04EBB43FA38 /* Pods_swift_NSAttributedString_NSMutableAttributedString_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2B9B8E1F39CA332997DC183 /* Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D943D6D986523F2A39487D1 /* Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +96,8 @@
 				0FB45550212D01A100D81008 /* swift(NSAttributedString和NSMutableAttributedString)Tests */,
 				0FB4555B212D01A100D81008 /* swift(NSAttributedString和NSMutableAttributedString)UITests */,
 				0FB4553A212D01A000D81008 /* Products */,
+				2045B539EFC5FA4ACA5FF8C7 /* Pods */,
+				C36F3CE877706EDC597C1757 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +142,29 @@
 			path = "swift(NSAttributedString和NSMutableAttributedString)UITests";
 			sourceTree = "<group>";
 		};
+		2045B539EFC5FA4ACA5FF8C7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5ABFAFC1966ADA9BE40D892A /* Pods-swift(NSAttributedString和NSMutableAttributedString).debug.xcconfig */,
+				EDA14D78E89A7BA218FFE005 /* Pods-swift(NSAttributedString和NSMutableAttributedString).release.xcconfig */,
+				31655D3478DBCAF34A12524B /* Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.debug.xcconfig */,
+				2BEE54C2EFFFA014BA5368BB /* Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.release.xcconfig */,
+				1C7507FA2D7719EFDFCB97A9 /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.debug.xcconfig */,
+				1FE1567E91E6CC8C0E832F57 /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C36F3CE877706EDC597C1757 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A2BD5141394625ED7B175CA9 /* Pods_swift_NSAttributedString_NSMutableAttributedString_.framework */,
+				71EA82E39093BE52D52390A2 /* Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework */,
+				879DCC6DBE6D0E13A294C6BA /* Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +172,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0FB45561212D01A100D81008 /* Build configuration list for PBXNativeTarget "swift(NSAttributedString和NSMutableAttributedString)" */;
 			buildPhases = (
+				45FE91905DA1B5D30104F2BE /* [CP] Check Pods Manifest.lock */,
 				0FB45535212D01A000D81008 /* Sources */,
 				0FB45536212D01A000D81008 /* Frameworks */,
 				0FB45537212D01A000D81008 /* Resources */,
+				FB8D4CC516B4B9D6E286E112 /* [CP] Embed Pods Frameworks */,
+				6885BD139AC15F501163645C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0FB45564212D01A100D81008 /* Build configuration list for PBXNativeTarget "swift(NSAttributedString和NSMutableAttributedString)Tests" */;
 			buildPhases = (
+				A270E65AB70A9930874C10D0 /* [CP] Check Pods Manifest.lock */,
 				0FB45549212D01A100D81008 /* Sources */,
 				0FB4554A212D01A100D81008 /* Frameworks */,
 				0FB4554B212D01A100D81008 /* Resources */,
+				54716480048B1E24423CE191 /* [CP] Embed Pods Frameworks */,
+				BFB58D48A9CEB0DF286E470C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +213,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0FB45567212D01A100D81008 /* Build configuration list for PBXNativeTarget "swift(NSAttributedString和NSMutableAttributedString)UITests" */;
 			buildPhases = (
+				0EF0EE0CBDCA7009319A4540 /* [CP] Check Pods Manifest.lock */,
 				0FB45554212D01A100D81008 /* Sources */,
 				0FB45555212D01A100D81008 /* Frameworks */,
 				0FB45556212D01A100D81008 /* Resources */,
+				139332CE95C81ED70CD9F39E /* [CP] Embed Pods Frameworks */,
+				4E83CDE4E81AADC18F229889 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +299,156 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0EF0EE0CBDCA7009319A4540 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		139332CE95C81ED70CD9F39E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		45FE91905DA1B5D30104F2BE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-swift(NSAttributedString和NSMutableAttributedString)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4E83CDE4E81AADC18F229889 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		54716480048B1E24423CE191 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6885BD139AC15F501163645C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Pods-swift(NSAttributedString和NSMutableAttributedString)-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A270E65AB70A9930874C10D0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BFB58D48A9CEB0DF286E470C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB8D4CC516B4B9D6E286E112 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Pods-swift(NSAttributedString和NSMutableAttributedString)-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Pods-swift(NSAttributedString和NSMutableAttributedString)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0FB45535212D01A000D81008 /* Sources */ = {
@@ -428,6 +627,7 @@
 		};
 		0FB45562212D01A100D81008 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5ABFAFC1966ADA9BE40D892A /* Pods-swift(NSAttributedString和NSMutableAttributedString).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -446,6 +646,7 @@
 		};
 		0FB45563212D01A100D81008 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDA14D78E89A7BA218FFE005 /* Pods-swift(NSAttributedString和NSMutableAttributedString).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -464,6 +665,7 @@
 		};
 		0FB45565212D01A100D81008 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31655D3478DBCAF34A12524B /* Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -485,6 +687,7 @@
 		};
 		0FB45566212D01A100D81008 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BEE54C2EFFFA014BA5368BB /* Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -506,6 +709,7 @@
 		};
 		0FB45568212D01A100D81008 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C7507FA2D7719EFDFCB97A9 /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -526,6 +730,7 @@
 		};
 		0FB45569212D01A100D81008 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FE1567E91E6CC8C0E832F57 /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
