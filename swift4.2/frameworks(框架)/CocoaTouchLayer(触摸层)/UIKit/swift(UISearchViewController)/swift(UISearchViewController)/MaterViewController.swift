@@ -145,6 +145,7 @@ class MaterViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
+    //MARK:--- Filter content that matches your search
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         filteredCandies = candies.filter({ (candy: Candy) -> Bool in
             let doesCategoryMatch = (scope == "All") || (candy.category == scope)
@@ -159,10 +160,12 @@ class MaterViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.reloadData()
     }
     
+    //MARK:--- Determine if the search box is empty
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
+    //MARK:--- is filter
     func isFiltering() -> Bool {
         let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
         return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)

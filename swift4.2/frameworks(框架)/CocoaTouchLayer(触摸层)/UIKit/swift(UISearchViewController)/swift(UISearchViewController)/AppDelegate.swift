@@ -17,22 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow.init()
-        
-//        let splitViewController = UISplitViewController.init()
-//        let navigationController = UINavigationController.init(rootViewController: splitViewController)
-//        window?.rootViewController = splitViewController
-    
-//        navigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-//        splitViewController.preferredDisplayMode = .allVisible
-//        splitViewController.delegate = self
-//
-        
+  
         let masterViewController = MaterViewController.init()
         let navigationController = UINavigationController.init(rootViewController: masterViewController)
         window?.rootViewController = navigationController
         
         UISearchBar.appearance().tintColor = .candyGreen
         UINavigationBar.appearance().tintColor = .candyGreen
+        
+        sleep(UInt32(3.0))
         
         return true
     }
