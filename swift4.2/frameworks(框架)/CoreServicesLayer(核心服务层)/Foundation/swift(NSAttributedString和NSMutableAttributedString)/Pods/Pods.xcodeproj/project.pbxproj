@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -90,16 +90,16 @@
 		58F6FDB28149E35702F71488E7D5A877 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5BD891375E6DA0E5DED32B9EBDBED0CE /* Pods-swift(NSAttributedString和NSMutableAttributedString)Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		5C0204BB31E671B159A83B0CF2CA62C2 /* Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C0204BB31E671B159A83B0CF2CA62C2 /* Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_NSAttributedString_NSMutableAttributedString_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8DEF5AFBDF5EDEEC1728476281A871 /* Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5EEA970EC690694F848975825DDF68EF /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-resources.sh"; sourceTree = "<group>"; };
 		5FAC0AC855EFDB998E84AB91F91FC4CA /* ConstraintInsetTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintInsetTarget.swift; path = Source/ConstraintInsetTarget.swift; sourceTree = "<group>"; };
-		610A24A199D12500FC535EBE7237D438 /* Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		610A24A199D12500FC535EBE7237D438 /* Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_NSAttributedString_NSMutableAttributedString_UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		618BA51B32ACF0F8F31A11BACEF95396 /* ConstraintMultiplierTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMultiplierTarget.swift; path = Source/ConstraintMultiplierTarget.swift; sourceTree = "<group>"; };
 		63DC73E7C0D23CE6F9ADE020B4B07EEB /* Pods-swift(NSAttributedString和NSMutableAttributedString)-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)-dummy.m"; sourceTree = "<group>"; };
 		645061FD8BF394AC613CF4F0D51EEE0B /* ConstraintDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintDSL.swift; path = Source/ConstraintDSL.swift; sourceTree = "<group>"; };
 		6E96ED1E25B055E96F3C8115328F8BED /* Pods-swift(NSAttributedString和NSMutableAttributedString)-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)-frameworks.sh"; sourceTree = "<group>"; };
-		85F6195A8FB9B712AEE5565D82298DFE /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SnapKit.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85F6195A8FB9B712AEE5565D82298DFE /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		867B607B58A4CEFD571DDBC7768AD46B /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-dummy.m"; sourceTree = "<group>"; };
 		8A0A4D5D85B4FAEB4C7AF868A3E48121 /* ConstraintMakerPriortizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerPriortizable.swift; path = Source/ConstraintMakerPriortizable.swift; sourceTree = "<group>"; };
 		8C938529305D7ED88A87C6C092C05A57 /* Pods-swift(NSAttributedString和NSMutableAttributedString)-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		9297EFDA2A228BE0D126B13FEC2B2AC1 /* ConstraintInsets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintInsets.swift; path = Source/ConstraintInsets.swift; sourceTree = "<group>"; };
 		92A77355839C0AF0C8372DBC9FFB1A22 /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.release.xcconfig"; sourceTree = "<group>"; };
 		92EC67A9344FB011AC6B0CB0B1706C1C /* ConstraintLayoutSupportDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutSupportDSL.swift; path = Source/ConstraintLayoutSupportDSL.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		957D963D25DDC8F1769CA88BD359AE5B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		963F6C8A9FC2F68477BFB32F90DA85DF /* Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-swift(NSAttributedString和NSMutableAttributedString)UITests-frameworks.sh"; sourceTree = "<group>"; };
 		98345C7D51A3BBDB0B5021583D530A0C /* Pods-swift(NSAttributedString和NSMutableAttributedString).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-swift(NSAttributedString和NSMutableAttributedString).release.xcconfig"; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		B73C67F9EFC99A11440EE4069211B84A /* SnapKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapKit-umbrella.h"; sourceTree = "<group>"; };
 		B8BDCD0CDEC036E08EBEFEBDB5217C5A /* ConstraintView+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ConstraintView+Extensions.swift"; path = "Source/ConstraintView+Extensions.swift"; sourceTree = "<group>"; };
 		C120AE883CE4E7AFF34B069DFD5A454D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C41C170095F34F3B87CF9C011303E259 /* Pods_swift_NSAttributedString_NSMutableAttributedString_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_swift_NSAttributedString_NSMutableAttributedString_.framework; path = "Pods-swift(NSAttributedString和NSMutableAttributedString).framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C41C170095F34F3B87CF9C011303E259 /* Pods_swift_NSAttributedString_NSMutableAttributedString_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_swift_NSAttributedString_NSMutableAttributedString_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09C8BFD80A7988D3B139768116EE2A7 /* ConstraintMakerRelatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerRelatable.swift; path = Source/ConstraintMakerRelatable.swift; sourceTree = "<group>"; };
 		D3463E11A1205B5C35B599F4A19C31C3 /* ConstraintOffsetTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintOffsetTarget.swift; path = Source/ConstraintOffsetTarget.swift; sourceTree = "<group>"; };
 		D35E795A4705B4FB474FF417682335F1 /* ConstraintMakerExtendable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerExtendable.swift; path = Source/ConstraintMakerExtendable.swift; sourceTree = "<group>"; };
@@ -335,7 +335,6 @@
 				45908992EEDBCFF12244DAE9912F7228 /* UILayoutSupport+Extensions.swift */,
 				432313F4618A6E0D54282078B6A48A1B /* Support Files */,
 			);
-			name = SnapKit;
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
@@ -461,7 +460,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -616,6 +615,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -637,11 +637,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -674,11 +670,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -711,11 +703,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Pods-swift(NSAttributedString和NSMutableAttributedString).modulemap";
 				OTHER_LDFLAGS = "";
@@ -750,11 +738,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests/Pods-swift(NSAttributedString和NSMutableAttributedString)Tests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -788,11 +772,7 @@
 				INFOPLIST_FILE = "Target Support Files/SnapKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SnapKit/SnapKit.modulemap";
 				PRODUCT_NAME = SnapKit;
 				SDKROOT = iphoneos;
@@ -824,11 +804,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests/Pods-swift(NSAttributedString和NSMutableAttributedString)UITests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -862,11 +838,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-swift(NSAttributedString和NSMutableAttributedString)/Pods-swift(NSAttributedString和NSMutableAttributedString).modulemap";
 				OTHER_LDFLAGS = "";
@@ -964,11 +936,7 @@
 				INFOPLIST_FILE = "Target Support Files/SnapKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SnapKit/SnapKit.modulemap";
 				PRODUCT_NAME = SnapKit;
 				SDKROOT = iphoneos;

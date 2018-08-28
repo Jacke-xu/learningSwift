@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import SnapKit
 
 class ViewController: UIViewController {
@@ -18,10 +19,12 @@ class ViewController: UIViewController {
          在使用中通过将AttributedString赋值给控件的 attributedText 属性来添加文字样式。
          可设置的控件有UILabel、UITextField和UITextView。
          
-         目前封装比较好的框架:https://github.com/ibireme/YYKit
+         目前封装比较好的框架:https://github.com/ibireme/YYKit（富文本的显示和编辑）
+         原理讲解的博客:  https://imtangqi.com/2016/02/18/the-notes-of-learning-text-kit/
+                        http://ggghub.com/2015/10/26/iOS%E5%AF%8C%E6%96%87%E6%9C%AC%EF%BC%88%E4%B8%80%EF%BC%89%E5%B1%9E%E6%80%A7%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2/
          */
         
-    //MARK:----------------------- UILabel -----------------------------------
+    //MARK:----------------------- UILabel(主要用来展示富文本) -----------------------------------
         
         //MARK:<------ NSAttributedString ----->
         
@@ -104,10 +107,8 @@ AttributedString可以分为NSAttributedString和NSMutableAttributedString两种
 
     }
     
-    //MARK:----------------------- UITextField --------------------------------
-    
-    
-    //MARK:----------------------- UITextView ---------------------------------
+    //MARK:----------------------- UITextField/UITextView(主要用来编辑富文本上传服务器) --------------------------------
+
     
 
     override func didReceiveMemoryWarning() {
@@ -152,7 +153,7 @@ extension UILabel {
         self.attributedText = attributedStr
         
         let size = (labelText as NSString).boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions(rawValue: NSStringDrawingOptions.RawValue(UInt8(NSStringDrawingOptions.usesLineFragmentOrigin.rawValue) | UInt8(NSStringDrawingOptions.usesFontLeading.rawValue))), attributes: (dic as! [NSAttributedStringKey: Any]), context: nil)
-        self.frame = CGRect(x: 20, y: 100, width: size.width, height: size.height)
+        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: size.width, height: size.height)
     }
     
     @discardableResult
