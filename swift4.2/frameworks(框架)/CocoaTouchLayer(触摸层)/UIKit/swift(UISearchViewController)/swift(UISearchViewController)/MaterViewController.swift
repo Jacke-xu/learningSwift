@@ -22,6 +22,7 @@ class MaterViewController: UIViewController, UITableViewDataSource, UITableViewD
     //MARK:--- View Setup
     override func viewDidLoad() { 
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
         
         let image = UIImage(named: "Inline-Logo")
         let width: CGFloat = (image?.size.width)!
