@@ -233,6 +233,12 @@ class ViewController: UIViewController {
         
         print(try! RegexHelper("^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$").match(input: "www.baidu.com"))
         
+        
+        
+        //MARK:----------------- NSTextCheckResult ----------------
+        /**
+         在分析文本块期间发现的文本内容的出现，例如匹配正则表达式时。
+         */
     }
 
     override func didReceiveMemoryWarning() {
