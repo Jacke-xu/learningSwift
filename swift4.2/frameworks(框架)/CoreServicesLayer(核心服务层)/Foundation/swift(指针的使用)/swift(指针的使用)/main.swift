@@ -73,6 +73,7 @@ var count = 100
 let voidPtr = withUnsafePointer(to: &count) { (a: UnsafePointer<Int>) -> UnsafePointer<Void> in
     return unsafeBitCast(a, to: UnsafePointer<Void>.self)
 }
+
 //voidPtr 是 UnsafePointer<Void> ， 相当于C 中的 void *
 
 let intPtr1 = unsafeBitCast(voidPtr, to: UnsafePointer<Int>.self)
