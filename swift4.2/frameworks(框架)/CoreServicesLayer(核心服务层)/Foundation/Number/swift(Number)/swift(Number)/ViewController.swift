@@ -914,13 +914,188 @@ class ViewController: UIViewController {
         //MARK:**************************** NSGeometry **************************
         
         //MARK:----- 1. CGPoint
+//        extension CGPoint {
+//            public static var zero: CGPoint {
+//                return CGPoint(x: CGFloat(0), y: CGFloat(0))
+//            }
+//
+//            public init(x: Int, y: Int) {
+//                self.init(x: CGFloat(x), y: CGFloat(y))
+//            }
+//
+//            public init(x: Double, y: Double) {
+//                self.init(x: CGFloat(x), y: CGFloat(y))
+//            }
+//        }
+        
         //MARK:----- 2. CGSize
+//        public struct CGSize {
+//            public var width: CGFloat
+//            public var height: CGFloat
+//            public init() {
+//                self.init(width: CGFloat(), height: CGFloat())
+//            }
+//            public init(width: CGFloat, height: CGFloat) {
+//                self.width = width
+//                self.height = height
+//            }
+//        }
+        
         //MARK:----- 3. CGRect
+//        extension CGRect {
+//            public static var zero: CGRect {
+//                return CGRect(origin: CGPoint(), size: CGSize())
+//            }
+//
+//            public init(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) {
+//                self.init(origin: CGPoint(x: x, y: y), size: CGSize(width: width, height: height))
+//            }
+//
+//            public init(x: Double, y: Double, width: Double, height: Double) {
+//                self.init(origin: CGPoint(x: x, y: y), size: CGSize(width: width, height: height))
+//            }
+//
+//            public init(x: Int, y: Int, width: Int, height: Int) {
+//                self.init(origin: CGPoint(x: x, y: y), size: CGSize(width: width, height: height))
+//            }
+//        }
+        
+        let view = UIView(frame: CGRect(x: 50, y: 100, width: 80, height: 30))
+        view.backgroundColor = UIColor.red
+        self.view.addSubview(view)
+        
+        let cgpoint = CGPoint(x: 60, y: view.frame.maxY + 30)
+        let cgsize = CGSize(width: 60, height: 20)
+        let label = UILabel(frame: CGRect(origin: cgpoint, size: cgsize))
+        label.text = "CGPoint"
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.backgroundColor = UIColor.gray
+        self.view.addSubview(label)
+        
         //MARK:----- 4. NSEdgeInsets
-        //MARK:----- 5. AlignmentOptions
-        //MARK:----- 6. extension NSValue
+//        public struct NSEdgeInsets {
+//            public var top: CGFloat
+//            public var left: CGFloat
+//            public var bottom: CGFloat
+//            public var right: CGFloat
+//
+//            public init() {
+//                self.init(top: CGFloat(), left: CGFloat(), bottom: CGFloat(), right: CGFloat())
+//            }
+//
+//            public init(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) {
+//                self.top = top
+//                self.left = left
+//                self.bottom = bottom
+//                self.right = right
+//            }
+//        }
+        
+        //MARK:--- 4.1 水平布局
+        
+        /**
+         首先我们要知道button默认布局是image在左，title在右，两者之间无间隙
+         */
+        let btnW : CGFloat = 100
+        let btnH : CGFloat = 40
+        let imgW : CGFloat = 20
+        let titleW : CGFloat = 50
+        let marginW : CGFloat = 6
+        
+        let button = UIButton(frame: CGRect(x: 50, y: label.frame.maxY + 30, width: btnW, height: btnH))
+        button.backgroundColor = UIColor.gray
+        button.setTitle("button", for: .normal)
+        button.setImage(UIImage.init(named: "icon_push"), for: .normal)
+        button.addTarget(self, action: #selector(click(_:)), for: .touchUpInside)
+        button.tag = 0
+        self.view.addSubview(button)
+        
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, titleW + marginW, 0, -titleW - marginW)
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, -(imgW + marginW), 0, (imgW + marginW))
+        
+        /**
+         if (btnW < imgW){图像会被压缩，文字不显示}
+         
+         if (btnW < imgW + titleW){图像正常显示，文字显示不全}
+         
+         if (btnW >=  imgW + titleW){图像和文字都居中显示，imageView在左，label在右，中间没有空隙}
+         */
+        
+        //FIXME:marginW是文字跟图片间的间隔，imgW是图片的实际宽度，也就是UI切图出来的图片宽度，并不是你想要图片的宽度, btnW应该大于imgW + titleW + marginW 之和，否则会造成文字无法显示完全
+        
+        //MARK:--- 4.2 垂直布局
+        
+        let btnW1 : CGFloat = 80
+        let btnH1 : CGFloat = 80
+        let imgH : CGFloat = 30
+        let titleH : CGFloat = 20
+        let marginH : CGFloat = 10
+        
+        let button1 = UIButton(frame: CGRect(x: 50, y: button.frame.maxY + 30, width: btnW1, height: btnH1))
+        button1.backgroundColor = UIColor.gray
+        button1.setTitle("button", for: .normal)
+        button1.setImage(UIImage.init(named: "icon_push"), for: .normal)
+        self.view.addSubview(button1)
+        
+        button1.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        button1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        button1.addTarget(self, action: #selector(click(_:)), for: .touchUpInside)
+        button1.tag = 1
+        
+        button1.imageEdgeInsets = UIEdgeInsetsMake(marginH, (btnW1 - imgH)/2, btnH1 - imgH - marginH, 0);
+        //刚开始据下Y=(btnH - titleH)/2 = 90,现在调整为据下20，为70*2 = 140
+        button1.titleEdgeInsets = UIEdgeInsetsMake(marginH + imgH + marginH, -marginH*2, marginH, 0);
+
+        
+        
+        //MARK:----- 5. extension NSValue
+//        extension NSValue {
+//            public convenience init(point: NSPoint) {
+//                self.init()
+//                self._concreteValue = NSSpecialValue(point)
+//            }
+//
+//            public convenience init(size: NSSize) {
+//                self.init()
+//                self._concreteValue = NSSpecialValue(size)
+//            }
+//
+//            public convenience init(rect: NSRect) {
+//                self.init()
+//                self._concreteValue = NSSpecialValue(rect)
+//            }
+//
+//            public convenience init(edgeInsets insets: NSEdgeInsets) {
+//                self.init()
+//                self._concreteValue = NSSpecialValue(insets)
+//            }
+//
+//            public var pointValue: NSPoint {
+//                let specialValue = self._concreteValue as! NSSpecialValue
+//                return specialValue._value as! NSPoint
+//            }
+//
+//            public var sizeValue: NSSize {
+//                let specialValue = self._concreteValue as! NSSpecialValue
+//                return specialValue._value as! NSSize
+//            }
+//
+//            public var rectValue: NSRect {
+//                let specialValue = self._concreteValue as! NSSpecialValue
+//                return specialValue._value as! NSRect
+//            }
+//
+//            public var edgeInsetsValue: NSEdgeInsets {
+//                let specialValue = self._concreteValue as! NSSpecialValue
+//                return specialValue._value as! NSEdgeInsets
+//            }
+//        }
         
         //MARK:**************************** CGFloat *****************************
+        
         
         //MARK:**************************** AffineTransform *********************
         
@@ -941,6 +1116,14 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @objc func click(_ sender : UIButton) {
+        if sender.tag == 0 {
+            print("水平布局")
+        } else {
+            print("垂直布局")
+        }
     }
 
 
