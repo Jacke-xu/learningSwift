@@ -435,7 +435,6 @@ class ViewController: UIViewController {
         /**
          枚举的别名，用于指定可能的舍入模式
          
-         
          extension NSDecimalNumber {
          
          
@@ -451,6 +450,14 @@ class ViewController: UIViewController {
          
          case bankers
          }
+         
+         Rounding policies :
+         Original
+         value    1.2  1.21  1.25  1.35  1.27
+         Plain    1.2  1.2   1.3   1.4   1.3
+         Down     1.2  1.2   1.2   1.3   1.2
+         Up       1.2  1.3   1.3   1.4   1.3
+         Bankers  1.2  1.2   1.2   1.4   1.3
          
          
          public enum CalculationError : UInt {
@@ -631,8 +638,287 @@ class ViewController: UIViewController {
         
         //MARK:**************************** NSDecimalNumber ********************
         
+        //MARK:----- 1. NSEXceptionName
+        
+        //MARK:public init (rawValue: String)
+        /**
+         public private(set) var rawValue: String
+         
+         public init(_ rawValue: String) {
+         self.rawValue = rawValue
+         }
+         
+         public init(rawValue: String) {
+         self.rawValue = rawValue
+         }
+         */
+        
+        let exception404 = NSExceptionName.init("not found 404")
+        let exception500 = NSExceptionName.init("server error 500")
+        print("exception404 == exception500  is \(exception404 == exception500 )")
+        
+        //MARK:extension NSExceptionName
+        /**
+         extension NSExceptionName {
+         public static let decimalNumberExactnessException = NSExceptionName(rawValue: "NSDecimalNumberExactnessException")
+         //如果存在严格性错误，则会引发异常
+         public static let decimalNumberOverflowException = NSExceptionName(rawValue: "NSDecimalNumberOverflowException")
+         //溢出时引发异常
+         public static let decimalNumberUnderflowException = NSExceptionName(rawValue: "NSDecimalNumberUnderflowException")
+         //下溢引发的例外情况
+         public static let decimalNumberDivideByZeroException = NSExceptionName(rawValue: "NSDecimalNumberDivideByZeroException")
+         //划分为零的例外情况
+         }
+         */
+
+        //MARK:----- 2. NSDecimalNumberHandler
+        /**
+         NSDecimalNumber 的处理程序
+         */
+        
+        //MARK:class var default: NSDecimalNumberHandler { get } //返回默认实例
+        
+        print("NSDecimalNumberHandler.default is \(NSDecimalNumberHandler.default)")
+        
+        //MARK:init(roundingMode: NSDecimalNumber.RoundingMode, scale: Int16, raiseOnExactness exact: Bool, raiseOnOverflow overflow: Bool, raiseOnUnderflow underflow: Bool, raiseOnDivideByZero divideByZero: Bool)
+        /**
+         parameters:
+         
+         
+         roundinMode: .plain , .down , .up , bankers
+         public enum RoundingMode : UInt {
+         case plain // Round up on a tie
+         case down // Always down == truncate
+         case up // Always up
+         case bankers // on a tie round so last digit is even
+         }
+
+         scale:Int16 舍入值在其小数点后应具有的位数
+         
+         rainseOnExactness:Bool, 如果为true ， 在出现精确错误的情况下，处理程序将引发异常
+         
+         raiseOnOverflow:Bool，如果为true， 在溢出错误的情况下，处理程序将引发异常
+         
+         rainseOnUnderflow:Bool， 如果为true，在发生下溢错误的情况下，处理程序将引发异常
+         
+         raiseOnDivideByZero:Bool， 如果为true，在除以零错误的情况下，处理程序将引发异常
+
+         */
+        
+        let decimalNumberHandler = NSDecimalNumberHandler.init(roundingMode: .plain, scale: 3, raiseOnExactness: true, raiseOnOverflow: true, raiseOnUnderflow: true, raiseOnDivideByZero: true)
+        print("decimalNumberHandler.description is \(decimalNumberHandler.description)")
+        
+        //MARK:----- 3. NSDecimalNumber
+        
+        //MARK:--- 3.1 创建十进制数
+        //MARK:@NSCopying class var one: NSDecimalNumber { get } //十进制数，相当于数字1.0
+        print("NSDecimalNumber.one is \(NSDecimalNumber.one)")
+        
+        //MARK:@NSCopying class var zero: NSDecimalNumber { get } // 一个等于数字0.0的十进制数
+        print("NSDecimalNumber.zero is \(NSDecimalNumber.zero)")
+        
+        //MARK:@NSCopying class var notANumber: NSDecimalNumber { get } // 十进制数，指定无数字
+        print("NSDecimalNumber.notANumber is \(NSDecimalNumber.notANumber)")
+        
+        
+        //MARK:--- 3.2 初始化十进制数
+        //MARK:init(decimal dcm: Decimal) // 初始化十进制数用以表示给定的小数
+        
+        let dcm = Decimal.init(100.001)
+        let dcmNumber = NSDecimalNumber.init(decimal: dcm)
+        print("dcmNumber is \(dcmNumber)")
+        
+        //MARK:convenience init(mantissa: UInt64, exponent: Int16, isNegative flag: Bool)
+        /**
+         使用给定的尾数，指数和符号初始化十进制数
+         */
+        
+        let dcmNumber1 = NSDecimalNumber.init(mantissa: 12, exponent: 2, isNegative: true)
+        print("dcmNumber1 is \(dcmNumber1)")
+        
+        //MARK:convenience init(string numberValue: String?)
+        /**
+         初始化十进制数， 使其值等于给定数字字符串中的值
+         */
+        
+        let stringDcmNumber = NSDecimalNumber.init(string: "123s")
+        print("stringDcmNumber is \(String(describing: stringDcmNumber))")
+        
+        //MARK:convenience init(string numberValue: String?, locale: Any?)
+        /**
+         初始化十进制数，使其值等于给定数字字符串中的值，使用给定的语言环境进行解释。
+         */
+        
+        let localeDcmNumber = NSDecimalNumber.init(string: "234ooo", locale: NSLocale.autoupdatingCurrent)
+        print("localeDcmNumber is \(localeDcmNumber)")
+        
+        
+        //MARK:--- 3.3 执行算术
+        //MARK:func adding(_ decimalNumber: NSDecimalNumber) -> NSDecimalNumber // 将当前的数字和另一个给定的数字相加
+        
+        let currentDecimalNumber = NSDecimalNumber.init(value: 10.2)
+        let otherDecimalNumber = NSDecimalNumber.init(value: 13.9)
+        var resultDecimalNumber = currentDecimalNumber.adding(otherDecimalNumber)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK:func subtracting(_ decimalNumber: NSDecimalNumber) -> NSDecimalNumber
+        
+        resultDecimalNumber = currentDecimalNumber.subtracting(otherDecimalNumber)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK:func multiplying(by decimalNumber: NSDecimalNumber) -> NSDecimalNumber
+        /**
+         将该数字乘以另一个给定的数字
+         */
+        
+        resultDecimalNumber = currentDecimalNumber.multiplying(by: otherDecimalNumber)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK:func dividing(by: decimalNumber : NSDecimalNumber) -> NSDecimalNumber
+        /**
+         将当前数字除以另一个给定数字
+         */
+        resultDecimalNumber = currentDecimalNumber.dividing(by: otherDecimalNumber)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK:func raising(toPower power: Int) -> NSDecimalNumber
+        /**
+         将当前的数字提高到给定的倍数
+         */
+        
+        resultDecimalNumber = currentDecimalNumber.raising(toPower: 2)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK:func adding(byPowerOf10 power: Int16) -> NSDecimalNumber
+        /**
+         将数字乘以10到给定的倍数
+         */
+        
+        resultDecimalNumber = currentDecimalNumber.multiplying(byPowerOf10: 2)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK:func adding(_ decimalNumber: NSDecimalNumber, withBehavior behavior: NSDecimalNumberBehaviors?) -> NSDecimalNumber
+        /**
+         使用指定的行为将此数字添加到另一个给定的数字
+         */
+        let decimalNumberBehavior = NSDecimalNumber.defaultBehavior
+        resultDecimalNumber = currentDecimalNumber.adding(otherDecimalNumber, withBehavior: decimalNumberBehavior)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK:func subtracting(_ decimalNumber: NSDecimalNumber, withBeahavior behavior: NSDecimalNumberBehaviors?) -> NSDecimalNumber
+        
+        /**
+         使用指定的行为从当前数字减去给定数字
+         */
+        resultDecimalNumber = currentDecimalNumber.subtracting(otherDecimalNumber, withBehavior: NSDecimalNumber.defaultBehavior)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK: func multiplying(by decimalNumber: NSDecimalNumber, withBehavior behavior: NSDeicmalNumberBehaviors?) -> NSDecimalNumber
+        /**
+         使用指定的行为将此数字乘以另一个给定的数字
+         */
+        
+        resultDecimalNumber = currentDecimalNumber.multiplying(by: otherDecimalNumber, withBehavior: NSDecimalNumber.defaultBehavior)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK: func dividing(by decimalNumber: NSDecimalNumber, withBehavior behavior: NSDeicmalNumberBehaviors?) -> NSDecimalNumber
+        /**
+         使用指定的行为将此数字除以另一个给定的数字
+         */
+        
+        resultDecimalNumber = currentDecimalNumber.dividing(by: otherDecimalNumber, withBehavior: NSDecimalNumber.defaultBehavior)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        
+        //MARK:func raising(toPower power: Int, withBehavior behavior: NSDecimalNumberBehaviors?) -> NSDecimalNumber
+        /**
+         使用指定的行为将数字增加到给定的功率
+         */
+        resultDecimalNumber = currentDecimalNumber.raising(toPower: 30, withBehavior: NSDecimalNumber.defaultBehavior)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        
+        //MARK:func multiplying(byPowerOf10 power: Int16, withBehavior behavior: NSDecimalNumberBehaviors?) -> NSDecimalNumber
+        /**
+         使用指定的行为将数字乘以10提升到给定的功率
+         */
+        
+        resultDecimalNumber = currentDecimalNumber.multiplying(byPowerOf10: 3, withBehavior: NSDecimalNumber.defaultBehavior)
+        print("resultDecimalNumber is \(resultDecimalNumber)")
+        
+        //MARK:--- 3.4 四舍五入
+        
+        //MARK:func rounding(accordingToBehavior behavior: NSDecimalNumberBehaviors?) -> NSDecimalNumber
+        let roundingDecimalNumber = currentDecimalNumber.rounding(accordingToBehavior: NSDecimalNumber.defaultBehavior)
+        print("roundingDecimalNumber is \(roundingDecimalNumber)")
+        
+        
+        //MARK:--- 3.5 管理行为
+        //MARK:class var defaultBehavior: NSDecimalNumberBehaviors { get set }
+        /**
+         默认的算术方法四舍五入和处理错误条件的方式
+         */
+        print("NSDecimalNumber.defaultBehavior is \(NSDecimalNumber.defaultBehavior)")
+        
+        //MARK:protocol NSDecimalNumberBehaviors
+        /**
+         一种协议，声明控制使用十进制数的自由裁量方面的三种方法
+         */
+        
+        //MARK:class NSDecimalNumberHandler
+        /**
+         采用十进制数行为协议的类
+         */
+        
+        
+        //MARK:--- 3.6 获取value
+        
+        //MARK: var decimalValue: Decimal { get }// 十进制数的值，表示为Decimal结构
+        print("currentDecimalNumber.decimalValue is \(currentDecimalNumber.decimalValue)")
+        
+        //MARK:var doubleValue: Double { get } // 十进制数的最接近的近似值 double
+        print("currentDecimalNumber.doubleValue is \(currentDecimalNumber.doubleValue)")
+        
+        //MARK:func decription(withLocale locale: Any?) -> String //返回适合指定语言环境的十进制数字符串表示形式
+        print("currentDecimalNumber.description(withLocale: NSLocale.autoupdatingCurrent) is \(currentDecimalNumber.description(withLocale: NSLocale.autoupdatingCurrent))")
+        
+        //MARK:var objCType: UnsafePointer<Int8> // 包含十进制数对象中包含的数据的Objective-C类型的AC字符串
+        print("currentDecimalNumber.objCType is \(currentDecimalNumber.objCType)")
+        
+        
+        //MARK:--- 3.7 比较十进制数
+        
+        //MARK:func compare(_ decimalNumber: NSNumber) -> ComparisonResult
+        /**
+         比较这个十进制数和另一个
+         */
+        
+        print("currentDecimalNumber.compare(otherDecimalNumber) is \(currentDecimalNumber.compare(otherDecimalNumber))")
+        
+        
+        //MARK:--- 3.8 获取最大和最小可能值
+        //MARK:class var maximum: NSDecimalNumber { get }
+        /**
+         返回十进制数的最大可能值
+         */
+        
+        print("NSDecimalNumber.maximum is \(NSDecimalNumber.maximum)")
+        
+        //MARK:class var minimum: NSDecimalNumber { get }
+        /**
+         返回十进制数的最小可能值
+         */
+        print("NSDecimalNumber.minimum is \(NSDecimalNumber.minimum)")
+        
         
         //MARK:**************************** NSGeometry **************************
+        
+        //MARK:----- 1. CGPoint
+        //MARK:----- 2. CGSize
+        //MARK:----- 3. CGRect
+        //MARK:----- 4. NSEdgeInsets
+        //MARK:----- 5. AlignmentOptions
+        //MARK:----- 6. extension NSValue
         
         //MARK:**************************** CGFloat *****************************
         
