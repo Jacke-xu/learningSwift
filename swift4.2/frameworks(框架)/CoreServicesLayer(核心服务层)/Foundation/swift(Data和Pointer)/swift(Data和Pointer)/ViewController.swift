@@ -26,7 +26,8 @@ class ViewController: UIViewController {
         
         //MARK:------------------- Pointer ----------------
         /**
-         参考资料： http://www.swiftyper.com/2017/01/15/unsafe-swift/
+         参考资料：http://www.swiftyper.com/2017/01/15/unsafe-swift/
+                 https://academy.realm.io/cn/posts/nate-cook-tryswift-tokyo-unsafe-swift-and-pointer-types/
          */
         
         //MARK:<------ MemoryLayout ------>

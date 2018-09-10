@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreGraphics
 
 class ViewController: UIViewController {
 
@@ -1095,23 +1096,143 @@ class ViewController: UIViewController {
 //        }
         
         //MARK:**************************** CGFloat *****************************
+        /**
+         此类型的大小和精度取决于CPU架构：
+         1. 构建64位CPU时，CGFloat类型是64位IEEE双精度浮点类型，等同于Double类型。
+         2. 构建32位CPU时，CGFloat类型是32位IEEE单精度浮点类型，等同于Float类型。
+         */
         
         
         //MARK:**************************** AffineTransform *********************
+        /**
+         图形坐标转换(struct 类型)
+         
+         AffineTransform 表示以下形式的仿射变换矩阵:
+         [ m11  m12  0 ]
+         [ m21  m22  0 ]
+         [  tX   tY  1 ]
+         */
         
         //MARK:**************************** NSNumber ****************************
+        /**
+         原始标量数值的对象包装器
+         
+         */
         
-        //MARK:**************************** NSCFBoolean *************************
-        
-        //MARK:**************************** NSConcreteValue *********************
-        
-        //MARK:**************************** NSSpecialValue **********************
+//        open class NSNumber : NSValue {
+//
+//
+//            public init?(coder aDecoder: NSCoder)
+//
+//            public init(value: Int8)
+//
+//            public init(value: UInt8)
+//
+//            public init(value: Int16)
+//
+//            public init(value: UInt16)
+//
+//            public init(value: Int32)
+//
+//            public init(value: UInt32)
+//
+//
+//            public init(value: Int64)
+//
+//            public init(value: UInt64)
+//
+//            public init(value: Float)
+//
+//            public init(value: Double)
+//
+//            public init(value: Bool)
+//
+//            @available(iOS 2.0, *)
+//            public init(value: Int)
+//
+//            @available(iOS 2.0, *)
+//            public init(value: UInt)
+//
+//
+//            open var int8Value: Int8 { get }
+//
+//            open var uint8Value: UInt8 { get }
+//
+//            open var int16Value: Int16 { get }
+//
+//            open var uint16Value: UInt16 { get }
+//
+//            open var int32Value: Int32 { get }
+//
+//            open var uint32Value: UInt32 { get }
+//
+//
+//            open var int64Value: Int64 { get }
+//
+//            open var uint64Value: UInt64 { get }
+//
+//            open var floatValue: Float { get }
+//
+//            open var doubleValue: Double { get }
+//
+//            open var boolValue: Bool { get }
+//
+//            @available(iOS 2.0, *)
+//            open var intValue: Int { get }
+//
+//            @available(iOS 2.0, *)
+//            open var uintValue: UInt { get }
+//
+//
+//            open var stringValue: String { get }
+//
+//
+//            open func compare(_ otherNumber: NSNumber) -> ComparisonResult
+//
+//
+//            open func isEqual(to number: NSNumber) -> Bool
+//
+//
+//            open func description(withLocale locale: Any?) -> String
+//        }
+
+        let number = NSNumber.init(value: 10)
+        print("number.stringValue is \(number.stringValue)")
         
         //MARK:**************************** NSValue *****************************
         
-        //MARK:**************************** NSMeasurement ***********************
+        /**
+         一个NSValue对象是用来存储一个C或者Objective－C数据的简单容器。它可以保存任意类型的数据，比如int，float，char，当然也可以是指pointers, structures, and object ids。NSValue类的目标就是允许以上数据类型的数据结构能够被添加到集合里，例如那些需要其元素是对象的数据结构，如NSArray或者NSSet的实例。需要注意的是NSValue对象一直是不可枚举的。
+         我们可以使用NSValue来辅助我们实现一些简单数据结构的封装。比如我们定义了一个简单的结构体类型
+         
+         相关的API:
+         #imageLiteral(resourceName: "NSValue1.png")
+         
+         #imageLiteral(resourceName: "NSValue2.png")
+         */
         
-        //MARK:**************************** Unit ********************************
+        let rangeValue = NSRange.init(location: 0, length: 5)
+        let nsvalue = NSValue.init(range: rangeValue)
+        print("nsvalue is \(nsvalue)")
+        
+        struct Strudent {
+            var name: String = ""
+            var age: Int = 0
+            
+            init(name: String, age: Int = 27) {
+                self.name = name
+            }
+        }
+        
+        var stu = Strudent.init(name: "fanyunfei")
+        
+        let studentValue = NSValue.init(pointer: &stu)
+        print("studentValue is \(studentValue)")//NSRange: {0, 5}
+        
+        var student = UnsafeMutablePointer<Strudent>.allocate(capacity: 10)
+        studentValue.getValue(&student)
+        print("student.pointee is \(student.pointee)")//Strudent #1(name: "fanyunfei", age: 0)
+   
     }
 
     override func didReceiveMemoryWarning() {
