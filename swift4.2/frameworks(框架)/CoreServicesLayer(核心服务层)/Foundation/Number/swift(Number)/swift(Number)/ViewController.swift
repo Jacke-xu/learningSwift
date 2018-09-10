@@ -1232,7 +1232,251 @@ class ViewController: UIViewController {
         var student = UnsafeMutablePointer<Strudent>.allocate(capacity: 10)
         studentValue.getValue(&student)
         print("student.pointee is \(student.pointee)")//Strudent #1(name: "fanyunfei", age: 0)
-   
+        
+        //MARK:**************************** Unit **************************************
+        /**
+         表示度量单位的抽象类
+         */
+        
+        //MARK: ----- 1. UnitConverter
+        /**
+         NSUnitConverter 描述如何将单位转换为其维度的基单元。 使用 NSUnitConverter 协议来实现转换单元的新方法
+         */
+        
+        //MARK: ----- 2. UnitConverterLinear: UnitConverter
+        /**
+         
+         1. 线性方程转换单位：
+         
+         // 访问线性参数
+         var coefficient: Double 线性单位转换计算中使用的系数。
+         var constant: Double 线性单位转换计算中使用的常数。
+         
+         // 创建单位转换器
+         init(coefficient: Double) 使用指定的系数初始化单位转换器。
+         
+         // 初始化器
+         init(coefficient: Double, constant: Double)
+         
+         
+         一个线性等式为单位转换采取形式 y = mx + b, 这样:
+         
+         y 是维度的基本单位的值。
+         
+         m 是用于该单元转换的已知系数
+         
+         x 是按此方法调用的单位的值。
+         
+         b 是用于此单元转换的已知常量。
+         
+         baseUnitValueFromValue: 方法以 y = mx + b 的形式执行转换, 其中 x 表示传入的值, y 表示返回的值。valueFromBaseUnitValue: 方法以 x = (y b)/m 的形式执行反向转换, 其中 y 表示传入的值, x 表示返回的值。
+         
+         
+         
+         
+         例如, 考虑由 UnitTemperature 定义的华氏单位: baseUnitValueFromValue: 方法计算基单元中的值, 开尔文使用公式 K = (0.55555555555556) x °F + 255.37222222222427, valueFromBaseUnitValue: 方法使用公式°F = (K-255.37222222222427)/(0.55555555555556) 计算华氏值, 其中系数为 (0.55555555555556), 常数为255.37222222222427。
+         
+         let kelvinToFahrenheit = UnitConverterLinear(coefficient: 0.55555555555556, constant: 255.37222222222427)
+
+         */
+        
+        let kelvinToFahrenheit = UnitConverterLinear(coefficient: 0.55555555555556, constant: 255.37222222222427)
+        print("kelvinToFahrenheit is \(kelvinToFahrenheit)")
+        
+        //MARK: ----- 3. UnitConverterReciprocal: UnitConverter
+        
+        //MARK: ----- 4. Unit
+        /**
+         NSUnit 是所有单位类型 (尺寸和无量纲) 的基类
+         
+         Unit子类的每个实例都包含一个symbol，可用于创建NSMeasurement具有该类的对象的字符串表示
+         */
+        
+        //MARK:var symbol: String { get } // 单位的象征性表示
+        /**
+         单位的符号是一个字符串，可用于将数字指定为用户可读表示中特定单位的数量。单元通常具有缩写和标准化的符号，以便容易且明确地传达。例如，milePerHour单位具有符号mph。如果单元没有标准化或易于理解的符号，则可以使用单元的小写名称。例如，metricCup单元具有符号metric cup。
+         
+         单元符号可以包含度量前缀以指示现有单元符号的多个或一部分。例如，千克单元具有符号kg，其使用SI前缀k代表千-指示为10的幅度3为克单元和微克单元具有符号µg，其使用SI前缀μ为微以指示为10的幅度-6为克单位。
+         */
+        
+        //MARK:init(symbol: String) // 使用指定的符号初始化新单元
+        /**
+         带有指定符号的新单元。
+         */
+        
+        //MARK: ----- 5. Dimension : Unit
+        /**
+         表示尺寸测量单位的抽象类
+         
+         单位子类的每个实例由一个symbol组成, 可用于使用 MeasurementFormatter 类创建 NSMeasurement 对象的字符串表示形式。
+         
+         dimension子类是一个抽象类, 表示维度单位, 可将其转换为同一类型的不同单位。基础框架提供了几个具体的dimension子类来表示最常见的物理量, 包括质量、长度、持续时间和速度。
+
+         */
+        
+        //MARK: ----- 6. UnitAcceleration : Dimension
+        /**
+         加速度量单位: 米每秒平方（m /s²）
+         */
+        
+        //MARK: ----- 7. UnitAngle : Dimension
+        /**
+         平面角度和旋转的测量单位: 度（°）
+         */
+        
+        //MARK: ----- 8. UnitArea : Dimension
+        /**
+         面积的计量单位: 平方米（m²）
+         */
+        
+        //MARK: ----- 9. UnitConcentrationMass : Dimension
+        /**
+         质量浓度的测量单位: 毫克/分升（mg / dL）
+         */
+        
+        //MARK: ----- 10. UnitDispersion : Dimension
+        /**
+         分散的测量单位: 百万分率（ppm）
+         */
+        
+        //MARK: ----- 11. UnitDuration : Dimension
+        /**
+         持续时间的计量单位: 秒（秒）
+         */
+        
+        //MARK: ----- 12. UnitElectricCharge : Dimension
+        /**
+         电荷计量单位: 库仑（C）
+         */
+        
+        //MARK: ----- 13. UnitElectricCurrent : Dimension
+        /**
+         电流测量单位: 安培（A）
+         */
+        
+        //MARK: ----- 14. UnitElectricPotentialDifference : Dimension
+        /**
+         电位差的测量单位: 伏特（V）
+         */
+        
+        //MARK: ----- 15. UnitElectricResistance: Dimension
+        /**
+         电阻测量单位: 欧姆（Ω）
+         */
+        
+        //MARK: ----- 16. UnitEnergy: Dimension
+        /**
+         能量计量单位: 焦耳（J）
+         */
+        
+        //MARK: ----- 17. UnitFrequency: Dimension
+        /**
+         频率的度量单位: 赫兹（赫兹）
+         */
+        
+        //MARK: ----- 18. UnitFuelEfficiency: Dimension
+        /**
+         燃料消耗量的计量单位: 每百公里升（L / 100km）
+         */
+        
+        //MARK: ----- 19. UnitIlluminance: Demension
+        /**
+         照度的度量单位: 勒克斯（lx）
+         */
+        
+        //MARK: ----- 20. UnitLength: Dimension
+        /**
+         长度的度量单位: 米（m）
+         */
+        
+        //MARK: ----- 21. UnitMass: Dimension
+        /**
+         质量单位: 千克（kg）
+         */
+        
+        //MARK: ----- 22. UnitPower: Dimension
+        /**
+         电力计量单位: 瓦特（W）
+         */
+        
+        //MARK: ----- 23. UnitPressure: Dimension
+        /**
+         压力测量单位: 牛顿每平方米（N /m²）
+         */
+        
+        //MARK: ----- 24. UnitSpeed: Dimension
+        /**
+         速度的度量单位: 米/秒（m / s）
+         */
+        
+        //MARK:----- 25. UnitTemperature: Dimension
+        /**
+         温度测量单位: 开尔文（K）
+         */
+        
+        //MARK: ----- 26. UnitVolume: Dimension
+        /**
+         量的计量单位: 升（升）
+         */
+        
+        
+         //MARK:**************************** NSMeasurement *****************************
+        /**
+         NSMeasurement 对象表示数量和度量单位。NSMeasurement 类提供了一个编程接口, 用于将度量值转换为不同的单元, 以及计算两个测量之间的总和或差异。
+         
+         NSMeasurement 对象用单位对象和双值进行初始化。NSMeasurement 对象是不可变的, 在创建后不能更改。
+         
+         可以使用 MeasurementFormatter 类创建 NSMeasurement 对象的本地化字符串表示形式。
+         */
+        
+        //MARK:----- 1. 创建测量
+        //MARK:init(doubleValue: Double, unit: Unit)
+        /**
+         使用指定双精度浮点值和单位初始化新测量
+         */
+        
+        let unit = Unit.init(symbol: "km")
+        var measurement = NSMeasurement.init(doubleValue: 2.0, unit: unit)
+        print("measurement is \(String(describing: measurement))")
+        
+        //MARK:----- 2. 访问单位和价值
+        //MARK: @NSCopying var unit: Unit { get } // 测量单位
+        //MARK: var doubleValue: Double { get } // 测量值，表示为双进度浮点数
+        
+        print("measurement.unit is \(measurement.unit)")
+        print("measurement.doubleValue is \(measurement.doubleValue)")
+        
+        
+        //MARK:----- 3. 转换为其他单位
+        //MARK:func canBeConverted(to unit: Unit) -> Bool // 返回Boolean, 判断是否可以将测量值转换为给定单位
+        let cmUnit = Unit.init(symbol: "cm")
+        print("measurement.canBeConverted(to: cmUnit) is \(measurement.canBeConverted(to: cmUnit))")
+        
+        //MARK:func converting(to unit: Unit) -> Measurement<Unit>
+        /**
+         返回通过将接收器转换为指定单元而创建的度量
+         */
+        let anotherMeaturement = measurement.converting(to: Unit.init(symbol: "km"))
+        print("anotherMeaturement is \(anotherMeaturement)")
+        
+        //MARK:----- 4. 测量操作
+        //MARK:func adding(_ measurement: Measurement<Unit>) -> Measurement<Unit>
+        /**
+         通过将接收器添加到指定的测量值来返回新的测量值。
+         */
+        let newMeasturement = Measurement.init(value: 5.0, unit: Unit.init(symbol: "km"))
+        print("measurement.adding(newMeasturement as Measurement<Unit>) is \(measurement.adding(newMeasturement as Measurement<Unit>))")
+        //FIXME:Cannot add differing units that are non-dimensional! lhs: NSUnit rhs: NSUnit'(无法添加非维度的不同单位)
+        
+        
+        //MARK:func subtracting(_ measurement: Measurement<Unit>) -> Measurement<Unit>
+        /**
+         通过从接收器中减去指定的测量值来返回新的测量值。
+         */
+        print("measurement.subtracting(anotherMeaturement) is \(measurement.subtracting(anotherMeaturement))")
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
