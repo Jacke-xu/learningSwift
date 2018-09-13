@@ -456,7 +456,215 @@ class ViewController: UIViewController {
         
         
      
-        //MARK:***************************** NSIndexSet *********************************
+        //MARK:***************************** NSIndexSet/NSMutableIndexSet *********************************
+        /**
+         NSIndexSet (以及它的可修改子类, NSMutableIndexSet) 是一个排好序的，无重复元素的整数集合
+         */
+        
+        //MARK:---- 1. Creating Index Sets (创建索引集)
+        //MARK:convenience init(index value: Int) //使用索引初始化已分配的对象
+        let intIndexSet = NSIndexSet.init(index: 1)
+        print("intIndexSet is \(intIndexSet)")
+        
+        //MARK:init(indexesIn range: NSRange) //使用索引范围初始化已分配的对象
+        let range = NSRange(location: 0, length: 10)
+        let rangeIndexSet = NSIndexSet.init(indexesIn: range)
+        print("rangeIndexSet is \(rangeIndexSet)")
+        
+        //MARK:init(indexSet: IndexSet) //使用索引集初始化已分配的对象
+        let idxSet = NSIndexSet.init(indexSet: rangeIndexSet as IndexSet)
+        print("idxSet is \(idxSet)")
+        
+        
+        
+        //MARK:---- 2. Querying Index Sets (查询索引集)
+        //MARK:func contains(_ value: Int) -> Bool // 返回Boolean, 指示索引集是否包含特定索引
+        print("idxSet.contains(1) is \(idxSet.contains(1))")
+        
+        //MARK:func contains(_ indexSet: IndexSet) -> Bool // 返回Boolean, 指示索引集是否包含特定索引
+        print("idxSet.contains(rangeIndexSet as IndexSet) is \(idxSet.contains(rangeIndexSet as IndexSet))")
+        
+        //MARK:func contains(in range: NSRange) -> Bool // 返回Boolean, 指示索引集是否包含索引范围表示的索引
+        print("idxSet.contains(in: range) is \(idxSet.contains(in: range))")
+        
+        //MARK:func intersects(in range: NSRange) -> Bool // 返回Boolean, 指示索引集是否包含范围中的任何索引
+        print("idxSet.intersects(in: range) is \(idxSet.intersects(in: range))")
+        
+        //MARK:var count: Int { get } // 获取索引集中的索引数
+        print("idxSet.count is \(idxSet.count)")
+        
+        //MARK:func countOfIndexes(in range: NSRange) -> Int // 返回索引集中作为给定范围成员的索引数
+        print("idxSet.countOfIndexes(in: range) is \(idxSet.countOfIndexes(in: range))")
+        
+        //MARK:func index(passingTest predicate: (Int, UnsafeMutablePointer<ObjCBool>) -> Bool) -> Int
+        /**
+         返回传递谓词块测试的第一个对象的索引
+         */
+        
+        let predicateIndex = idxSet.index(passingTest: { (idx, stop) -> Bool in
+            if idx == 8 {
+                return true
+            } else {
+                return false
+            }
+        })
+        print("predicateIndex is \(predicateIndex)")
+
+        
+        //MARK:func indexes(passingTest predicate: (Int, UnsafeMutablePointer<ObjCBool>) -> Bool) -> IndexSet
+        /**
+         返回包含通过Block测试的接收索引集的对象
+         */
+        let predicateIndexSet = idxSet.indexes(passingTest: { (idx, stop) -> Bool in
+            if idx == 8 {
+                return true
+            } else {
+                return false
+            }
+        }) as NSIndexSet
+        print("predicateIndexSet is \(predicateIndexSet)")
+        
+        //MARK:func index(options opts: NSEnumerationOptions = [], passingTest predicate: (Int, UnsafeMutablePointer<ObjCBool>) -> Bool) -> Int
+        /**
+         返回使用指定的枚举选项传递谓词块测试的第一个对象的索引
+         */
+        let enumerPredicateIndex = idxSet.index(options: NSEnumerationOptions.concurrent, passingTest: { (idx, stop) -> Bool in
+            if idx == 8 {
+                return true
+            } else {
+                return false
+            }
+        })
+        print("enumerPredicateIndex is \(enumerPredicateIndex)")
+        
+        
+        
+        //MARK:func indexes(options opts: NSEnumerationOptions = [], passingTest predicate: (Int, UnsafeMutablePointer<ObjCBool>) -> Bool) -> IndexSet
+        /**
+         返回包含接收索引集的对象，这些对象使用指定的枚举选项传递Block测试
+         */
+        let enumerPredicateIndexSet = idxSet.indexes(options: NSEnumerationOptions.concurrent, passingTest: { (idx, stop) -> Bool in
+            if idx == 8 {
+                return true
+            } else {
+                return false
+            }
+        }) as NSIndexSet
+        print("enumerPredicateIndexSet is \(enumerPredicateIndexSet)")
+
+        //MARK:func index(in range: NSRange, options opts: NSEnumerationOptions = [], passingTest predicate: (Int, UnsafeMutablePointer<ObjCBool>) -> Bool) -> Int
+        /**
+         返回通过谓词块测试的指定范围内的第一个对象的索引
+         */
+        
+        let rangeEnumIndex = idxSet.index(in: range, options: NSEnumerationOptions.concurrent, passingTest: { (idx, stop) -> Bool in
+            if idx == 8 {
+                return true
+            } else {
+                return false
+            }
+        })
+        print("rangeEnumIndex is \(rangeEnumIndex)")
+        
+        //MARK:func indexes(in range: NSRange, options opts: NSEnumerationOptions = [], passingTest predicate: (Int, UnsafeMutablePointer<ObjCBool>) -> Bool) -> IndexSet
+        
+        let rangeEnumIndexSet = idxSet.indexes(in: range, options: NSEnumerationOptions.concurrent, passingTest: { (idx, stop) -> Bool in
+            if idx == 8 {
+                return true
+            } else {
+                return false
+            }
+        }) as NSIndexSet
+        print("rangeEnumIndexSet is \(rangeEnumIndexSet)")
+        
+        //MARK:---- 3. Enumerating Index Set Content (枚举索引集内容)
+        //MARK:func enumerateRanges(in range: NSRange, options opts: NSEnumerationOptions = [], using block: (NSRange, UnsafeMutablePointer<ObjCBool>) -> Void)
+        
+        idxSet.enumerateRanges(in: range, options: NSEnumerationOptions.concurrent, using: { (rang, stop) -> Void in
+            print(rang)
+        })
+        
+       
+        //MARK:func enumerateRanges(options opts: NSEnumerationOptions = [], using block: (NSRange, UnsafeMutablePointer<ObjCBool>) -> Void)
+        /**
+         使用指定范围内索引集中的每个对象执行给定块
+         */
+        idxSet.enumerateRanges(options: NSEnumerationOptions.concurrent, using: { (rang, stop) -> Void in
+            print(rang)
+        })
+        
+        //MARK:func enumerateRanges(_ block: (NSRange, UnsafeMutablePointer<ObjCBool>) -> Void)
+        /**
+         使用指定范围内索引集中的每个对象执行给定块
+         */
+        idxSet.enumerateRanges({ (rang, stop) -> Void in
+            print(rang)
+        })
+        
+        //MARK:---- 4. Comparing Index Sets (比较索引集)
+        
+        //MARK:func is Equal(to indexSet: IndexSet) -> Bool
+        /**
+         返回Boolean, 指示接收索引集中的索引是否与另一个索引集中包含的索引相同
+         */
+        
+        //MARK:---- 5. Getting Indexes (获取索引)
+        
+        //MARK:var firstIndex: Int { get } // 索引集中的第一个索引。
+        print("idxSet.firstIndex is \(idxSet.firstIndex)")
+        
+        //MARK:var lastIndex: Int { get } // 索引集中的最后一个索引。
+        print("idxSet.lastIndex is \(idxSet.lastIndex)")
+        
+        //MARK:func indexLessThanIndex(_ value: Int) -> Int // 返回索引集中最接近的索引，该索引小于特定索引或未找到的指示符。
+        print("idxSet.indexLessThanIndex(9) is \(idxSet.indexLessThanIndex(9))")
+        
+        //MARK:func indexLessThanOrEqual(to value: Int) -> Int // 返回索引集中最接近的索引，该索引小于或等于特定索引或未找到的指示符。
+        print("idxSet.indexLessThanOrEqual(to: 8) is \(idxSet.indexLessThanOrEqual(to: 8))")
+        
+        //MARK:func indexGreaterThanOrEqual(to value: Int) -> Int // 返回索引集中最接近的索引，该索引大于或等于特定索引或未找到的指示符。
+        print("idxSet.indexGreaterThanOrEqual(to: 9) is \(idxSet.indexGreaterThanOrEqual(to: 9))")
+        
+        //MARK:func indexGreaterThanIndex(_ value: Int) -> Int // 返回索引集中最接近的索引，该索引大于特定索引或未找到的指示符。
+        print("idxSet.indexGreaterThanIndex(6) is \(idxSet.indexGreaterThanIndex(6))")
+        
+        //MARK:func getIndexes(_ indexBuffer: UnsafeMutablePointer<Int>, maxCount bufferSize: Int, inIndexRange range: NSRangePointer?) -> Int
+        /**
+         索引集填充索引缓冲区，索引包含在索引集合和索引范围中，返回复制的索引数
+         */
+        
+        
+        //MARK:---- 6. Enumerating Indexes (枚举索引)
+        //MARK:func enumerate(_ block: (Int, UnsafeMutablePointer<ObjCBool>) -> Void)
+        idxSet.enumerate({ (rang, stop) -> Void in
+            print(rang)
+        })
+        
+        //MARK:func enumerate(options opts: NSEnumerationOptions = [], using block: (Int, UnsafeMutablePointer<ObjCBool>) -> Void)
+        idxSet.enumerate(options: NSEnumerationOptions.concurrent, using: { (rang, stop) -> Void in
+            print(rang)
+        })
+        
+        //MARK:func enumerate(in range: NSRange, options opts: NSEnumerationOptions = [], using block: (Int, UnsafeMutablePointer<ObjCBool>) -> Void)
+        idxSet.enumerate(in: range, options: NSEnumerationOptions.concurrent, using: { (rang, stop) -> Void in
+            print(rang)
+        })
+        
+        //MARK:func makeIterator() -> NSIndexSetIterator
+        print("idxSet.makeIterator() is \(idxSet.makeIterator())")
+        var iterator1 = idxSet.makeIterator()
+        for item in iterator1.next()! {
+            print("item is \(item)")
+        }
+
+        
+        //MARK:---- 7. Instance Methods (实例方法)
+        
+        //MARK:func range(at rangeIndex: Int) -> NSRange
+        print("idxSet.range(at: 0) is \(idxSet.range(at: 0))")
+        
+        //MARK:func rangeCount() -> Int
+        print("idxSet.rangeCount() is \(idxSet.rangeCount()))")
         
         //MARK:***************************** NSCache ************************************
         
@@ -477,5 +685,11 @@ class ViewController: UIViewController {
 
 extension String {
     
+}
+
+extension Int: Sequence {
+    public func makeIterator() -> CountableRange<Int>.Iterator {
+        return (0..<self).makeIterator()
+    }
 }
 
