@@ -8,6 +8,19 @@
 
 import UIKit
 
+public enum comparisonResult : Int {
+    
+    
+    case orderedAscending
+    
+    case orderedSame
+    
+    case orderedDescending
+}
+
+//typealias comparator = (Person, Person) -> comparisonResult
+
+
 class Person: NSObject {
     var firstName: String
     var lastName: String
@@ -667,11 +680,131 @@ class ViewController: UIViewController {
         print("idxSet.rangeCount() is \(idxSet.rangeCount()))")
         
         //MARK:***************************** NSCache ************************************
+        /**
+         * NSCache是一个类似NSMutableDictionary一个可变的集合。
+         * 提供了可设置缓存的数目与内存大小限制的方式。
+         * 保证了处理的数据的线程安全性。
+         * 缓存使用的key不需要是实现NSCopying的类。
+         * 当内存警告时内部自动清理部分缓存数据。
+         */
+        
+        //MARK:----- 1. Managing the Name (管理名称)
+        
+        //MARK:var name: String { get set } // 缓存名称
+
+        
+        //MARK:----- 2. Managing Cache Size (管理缓存大小)
+        //MARK:var countLimit: Int { get set } // 缓存应保留的最大对象数。
+        //MARK:var totalCostLimit: Int { get set } // 缓存在开始逐出对象之前可以保留的最大总成本。
+        
+        //MARK:----- 3. Managing Discardable Content (管理可废弃内容)
+        //MARK:var evictsObjectsWithDiscardedContent: Bool { get set }
+        /**
+         如果true，缓存将在其内容被丢弃后逐出可丢弃内容对象。如果false，它不会。默认值为true。
+         */
+        
+        //MARK: protocol NSDiscardableContent
+        /**
+         当类的对象具有可在不使用时丢弃的子组件时实现此协议，从而为应用程序提供更小的内存占用.
+         */
+        
+        //MARK:----- 4. Managing the Delegate (管理代表)
+        
+        //MARK:unowned(unsafe) var delegate: NSCacheDelegate? { get set } // 缓存的delegate
+        //MARK:protocol NSCacheDelegate
+        /**
+         NSCache
+         当对象即将被逐出或从缓存中移除时，对象的委托实现此协议以执行专门的操作。
+         */
+        
+        //MARK:----- 5. Getting a Cached Value (获得缓存价值)
+        //MARK:func object(forKey key: KeyType) -> ObjectType? // 返回与给定键关联的值
+        
+        
+        //MARK:----- 6. Adding and Removing Cached Values (添加和删除缓存值)
+        //MARK:func setObject(_ obj: ObjectType, forKey key: KeyType) // 设置缓存中指定键的值。
+        
+        //MARK:func setObject(_ obj: ObjectType, forKey key: KeyType, cost g: Int) // 设置缓存中指定键的值，并将键值对与指定的开销相关联。
+        
+        //MARK:func removeObject(forKey key: KeyType) // 删除缓存中指定键的值。
+        
+        //MARK:func removeAllObjects() // 清空缓存。
+        
         
         //MARK:***************************** NSSortDescriptor ***************************
-    }
+        /**
+         关于如何根据所有对象共有的属性对对象集合进行排序的不可变描述。
+         参考：https://nshipster.com/nssortdescriptor/
+         */
+        
+        //MARK:----- 1. 初始化排序描述符
+        //MARK: init(key: String?, ascending: Bool) // 在给定的键路径和排序顺序中初始化排序描述符。
+        
+        //MARK: init(key: String?, ascending: Bool, selector: Selector?) // 使用给定的键路径，排序和比较选择器初始化排序描述符。
+        
+        //MARK: init(key: String?, ascending: Bool, comparator: Comparator) //使用给定的键路径和排序初始化排序描述符，以及比较器块。
+        
+        //MARK:-----2. 获取有关排序描述符的信息
+        //MARK: var ascending: Bool // 一个布尔值，指示接收方是否按升序指定排序。
+        
+        //MARK: var key: String? // 用于指定在排序期间要进行比较的属性的键。
+        
+        //MARK: var keyPath: AnyKeyPath? // 指定在排序期间要进行比较的属性的关键路径。
+        
+        //MARK: var selector: Selector? // 比较对象时使用的选择器。
+        
+        //MARK: var comparator: Comparator // 排序描述符的比较器。
+        
+        //MARK:----- 3. 使用排序描述符
+        //MARK: func compare(Any, to: Any) -> ComparisonResult // 返回一个比较结果值，指示两个对象的排序顺序。
+        
+        //MARK: var reversedSortDescriptor: Any // 返回排序顺序颠倒的排序描述符。
+        
+        //MARK: func allowEvaluation() // 强制安全解码的排序描述符以允许评估。
+        
+        //MARK:-----4. 初始化器
+        //MARK: init?(coder: NSCoder)
+        //MARK: init<Root, Value>(keyPath: KeyPath<Root, Value>, ascending: Bool)
+        //MARK: init<Root, Value>(keyPath: KeyPath<Root, Value>, ascending: Bool, comparator: Comparator)
+        
+        
+        
+        /**
+         NSSortDescriptor 使用以下参数构造对象：
+           * key：对于给定集合，要为集合中的每个对象排序相应值的键。
+           * ascending：一个布尔值，指定是否应按升序（YES）或降序（NO）顺序对集合进行排序。
+         
+         
+         
+         有一个可选的第三个参数，它与排序值如何相互比较有关。默认情况下，这是一个简单的相等检查，但可以通过传递selector（SEL）或comparator（NSComparator）来更改此行为:
+           * 每当您对面向用户的字符串进行排序时，请务必传递选择器localizedStandardCompare:，该选择器将根据当前语言环境的语言规则进行排序（语言环境可能因情况排序，变音符号等而有所不同）。
+         */
+        /**
+         下面是常用的两个例子
+         */
+        let dataSource:NSMutableArray = [
+            ["id":1,"published":"2016-12-02 10:00:00"],
+            ["id":2,"published":"2016-12-01 12:00:00"],
+            ["id":3,"published":"2016-12-02 11:00:00"]
+        ]
+        
+        let sortDecscriptor = NSSortDescriptor(key:"published", ascending:false, selector: #selector(NSString.localizedStandardCompare(_:)))
+        let sortedResult = dataSource.sortedArray(using: [sortDecscriptor]) as NSArray
+        print("sortedResult is \(sortedResult)")
 
-    @objc func localizedStandardCompare(_ compare: Any) {
+        
+        let firstNameSortDescriptor1 = NSSortDescriptor(key: "firstName", ascending: false) {(obj1, obj2) -> ComparisonResult in
+            if (obj1 as! String) > (obj1 as! String) {
+                return .orderedDescending
+            }
+            if (obj1 as! String) < (obj1 as! String) {
+                return .orderedAscending
+            }
+            return .orderedSame
+        }
+        
+        let sortedByFirstName1 = (people as NSArray).sortedArray(using: [firstNameSortDescriptor1])
+        print("sortedByFirstName1 is \(sortedByFirstName1)")
 
     }
 
