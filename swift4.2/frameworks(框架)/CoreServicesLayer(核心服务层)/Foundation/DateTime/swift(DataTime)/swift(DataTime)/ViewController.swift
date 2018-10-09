@@ -459,13 +459,162 @@ class ViewController: UIViewController {
         //MARK: func nextWeekendStart(_ datep: AutoreleasingUnsafeMutablePointer<NSDate?>?, interval tip: UnsafeMutablePointer<TimeInterval>?, options: NSCalendar.Options = [], after date: Date) -> Bool
         
         
+        
         //MARK:----- 7. Comparing Dates (比较日期)
+        //MARK:func compare(_ date1: Date, to date2: Date, toUnitGranularity unit: NSCalendar.Unit) -> ComparisonResult
+        /**
+         返回两个给定日期的排序，基于它们的组件，直到给定的单位粒度
+         */
+        let date1 = Date.init(timeInterval: TimeInterval.init(3600 * 8), since: date)
+        let date2 = Date.init(timeInterval: TimeInterval.init(3600 * 8 + 3600), since: date)
+        if let comparionsonResult = calendar2?.compare(date1, to: date2, toUnitGranularity: NSCalendar.Unit.second) {
+            print("----------comparionsonResult is \(comparionsonResult.rawValue)")
+        }
+        
+        //MARK:func isDate(_ date1: Date, equalTO date2: Date, toUnitGranularity unit: NSCalendar.Unit) -> Bool
+        /**
+         判断两个日期是否等于给定的粒度单位
+         */
+        if let isDate = calendar2?.isDate(date1, equalTo: date2, toUnitGranularity: NSCalendar.Unit.second) {
+            print("----------isDate is \(isDate)")
+        }
+        
+        //MARK:func isDate(_ date1: Date, isSameDayAs date2: Date) -> Bool
+        /**
+         判断两个日期是否在同一天
+         */
+        if let isSameDay = calendar2?.isDate(date1, inSameDayAs: date2) {
+            print("----------isSameDay is \(isSameDay)")
+        }
+        
+        
+        //MARK:func isDateInToday(_ date: Date) -> Bool
+        //指示给定日期是否在“今天”。
+        
+        //MARK:func isDateInTomorrow(_ date: Date) -> Bool
+        //指示给定日期是否在“明天”。
+        
+        //MARK:func isDateInWeekend(_ date: Date) -> Bool
+        //指示给定日期是否在日历和日历的区域设置定义的周末时段内。
+        
+        //MARK:func isDateInYesterday(_ date: Date) -> Bool
+        //指示给定日期是否在“昨天”。
+        
         //MARK:----- 8. Getting AM and PM Symbols (获得AM和PM符号)
+        //MARK:var amSymbol: String { get }
+        if let amSymbol = calendar2?.amSymbol {
+            print("----------calendar2?.amSymbol is \(amSymbol)")
+        }
+        //MARK:var pmSymbol: String { get }
+        if let pmSymbol = calendar2?.pmSymbol {
+            print("----------calendar2?.pmSymbol is \(pmSymbol)")
+        }
+        
+        
         //MARK:----- 9. Getting Weekday Symbols (获得平日符号)
+        
+        //MARK:var weekdaySymbols: [String] { get } //此日历中的工作日列表
+        if let weekdaySymbols = calendar2?.weekdaySymbols {
+            print("----------calendar2?.weekdaySymbols is \(weekdaySymbols)")
+        }
+        
+        //MARK:var shortWeekdaySymbols: [String] { get } //此日历中名称较短的工作日列表。
+        if let shortWeekdaySymbols = calendar2?.shortWeekdaySymbols {
+            print("---------calendar2?.shortWeekdaySymbols is \(shortWeekdaySymbols)")
+        }
+        
+        //MARK:var veryShortWeekdaySymbols: [String] { get } //此日历中很快命名的工作日列表。
+        if let veryShortWeekdaySymbols = calendar2?.veryShortWeekdaySymbols {
+            print("---------alendar2?.veryShortWeekdaySymbols is \(veryShortWeekdaySymbols)")
+        }
+        
+        //MARK:var standaloneWeekdaySymbols: [String] { get } //此日历的独立工作日符号列表。
+        if let standaloneWeekdaySymbols = calendar2?.standaloneWeekdaySymbols {
+            print("-----------calendar2?.standaloneWeekdaySymbols is \(standaloneWeekdaySymbols)")
+        }
+        
+        //MARK:var shortStandaloneWeekdaySymbols: [String] { get } //此日历的短独立工作日符号列表。
+        if let shortStandaloneWeekdaySymbols = calendar2?.shortStandaloneWeekdaySymbols {
+            print("-----------calendar2?.shortStandaloneWeekdaySymbols is \(shortStandaloneWeekdaySymbols)")
+        }
+        
+        //MARK:var veryShortStandaloneWeekdaySymbols: [String] { get } //此日历的非常短的独立工作日符号列表。
+        if let veryShortStandaloneWeekdaySymbols = calendar2?.veryShortStandaloneWeekdaySymbols {
+            print("-----------calendar2?.veryShortStandaloneWeekdaySymbols is \(veryShortStandaloneWeekdaySymbols)")
+        }
+
+        
+        
         //MARK:----- 10. Getting Month Symbols (获得月份符号)
+        
+        
+        //MARK:var monthSymbols: [String] { get } //此日历的月份符号列表。
+        if let monthSymbols = calendar2?.monthSymbols {
+            print("----------calendar2?.monthSymbols is \(monthSymbols)")
+        }
+        
+        //MARK:var shortMonthSymbols: [String] { get } //此日历的短月份符号列表。
+        if let shortMonthSymbols = calendar2?.shortMonthSymbols {
+            print("----------calendar2?.shortMonthSymbols is \(shortMonthSymbols)")
+        }
+        
+        //MARK:var veryShortMonthSymbols: [String] { get } //此日历的非常短的月份符号列表。
+        if let veryShortMonthSymbols = calendar2?.veryShortMonthSymbols {
+            print("----------calendar2?.veryShortMonthSymbols is \(veryShortMonthSymbols)")
+        }
+        
+        //MARK:var standaloneMonthSymbols: [String] { get } //此日历的独立月份符号列表。
+        if let standaloneMonthSymbols = calendar2?.standaloneMonthSymbols {
+            print("----------calendar2?.standaloneMonthSymbols is \(standaloneMonthSymbols)")
+        }
+        
+        //MARK:var shortStandaloneMonthSymbols: [String] { get } //此日历的短独立月份符号列表。
+        if let shortStandaloneMonthSymbols = calendar2?.shortStandaloneMonthSymbols {
+            print("----------calendar2?.shortStandaloneMonthSymbols is \(shortStandaloneMonthSymbols)")
+        }
+        
+        //MARK:var veryShortStandaloneMonthSymbols: [String] { get } //此日历的非常短的月份符号列表。
+        if let veryShortStandaloneMonthSymbols = calendar2?.veryShortStandaloneMonthSymbols {
+            print("----------calendar2?.veryShortStandaloneMonthSymbols is \(veryShortStandaloneMonthSymbols)")
+        }
+
+        
+
         //MARK:----- 11. Getting Quarter Symbols (获的Quarter符号)
+        //MARK:var quarterSymbols: [String] { get } //此日历的四分之一符号列表。
+        if let quarterSymbols = calendar2?.quarterSymbols {
+            print("----------calendar2?.quarterSymbols is \(quarterSymbols)")
+        }
+        
+        //MARK:var shortQuarterSymbols: [String] { get } //此日历的短四分之一符号列表。
+        if let shortQuarterSymbols = calendar2?.shortQuarterSymbols {
+            print("----------calendar2?.shortQuarterSymbols is \(shortQuarterSymbols)")
+        }
+        
+        //MARK:var standaloneQuarterSymbols: [String] { get } //此日历的独立四分之一符号列表。
+        if let standaloneQuarterSymbols = calendar2?.standaloneQuarterSymbols {
+            print("----------calendar2?.standaloneQuarterSymbols is \(standaloneQuarterSymbols)")
+        }
+        
+        //MARK:var shortStandaloneQuarterSymbols: [String] { get } //此日历的短独立季度符号列表。
+        if let shortStandaloneQuarterSymbols = calendar2?.shortStandaloneQuarterSymbols {
+            print("----------calendar2?.shortStandaloneQuarterSymbols is \(shortStandaloneQuarterSymbols)")
+        }
+
+        
         //MARK:----- 12. Getting Era Symbols (获得时代符号)
+        //MARK:var eraSymbols: [String] { get } //此日历的时代符号列表。
+        if let eraSymbols = calendar2?.eraSymbols {
+            print("----------calendar2?.eraSymbols is \(eraSymbols)")
+        }
+        
+        //MARK:var longEraSymbols: [String] { get } //此日历的长时代符号列表。
+        if let longEraSymbols = calendar2?.longEraSymbols {
+            print("----------calendar2?.longEraSymbols is \(longEraSymbols)")
+        }
+
         //MARK:----- 13. Recognizing Notifications (识别通知)
+        //MARK:static let NSCalendarDayChanged: NSNotification.Name // 每当系统日历日发生更改时发布的通知，由系统日历，区域设置和时区决定。
         
         //MARK:************************** NSDateComponents/DateComponents *********************
         //MARK:************************** NSDate/Date *******************************
