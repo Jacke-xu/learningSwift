@@ -617,6 +617,174 @@ class ViewController: UIViewController {
         //MARK:static let NSCalendarDayChanged: NSNotification.Name // 每当系统日历日发生更改时发布的通知，由系统日历，区域设置和时区决定。
         
         //MARK:************************** NSDateComponents/DateComponents *********************
+        
+        //        //创建一个DateComponents对象
+        //        var components1 = DateComponents.init()
+        //        //设置各个时间成分
+        //        components1.year = 2018
+        //        components1.month = 10
+        //        components1.day = 17
+        //        components1.hour = 15
+        //        components1.minute = 23
+        //        components1.second = 0
+        //        components1.timeZone = TimeZone.init(secondsFromGMT: 0 * 3600)
+        //        //创建一个转换桥梁
+        //        let cal0 = Calendar.current
+        //        //进行转换
+        //        var newDate0 = cal0.date(from: components1)
+        //        //输出转换结果
+        //        print("\(newDate0!)")
+        //
+        //
+                let newDate01 = Date.init()
+                let cal01 = Calendar.current
+                let comp = cal01.dateComponents(in: TimeZone.init(secondsFromGMT: 8 * 3600)!, from: newDate01)
+                print("\(comp)")
+        
+        
+        //MARK:----- 1. Setting a Calendar and Time Zone (设置日历和时区)
+        
+        //MARK:var calendar: Calendar? { get set } //用于解释日期组件的日历
+        let dateComp = comp
+//        dateComp.era = 1
+//        dateComp.year = 2018
+//        dateComp.month = 10
+//        dateComp.weekday = 7
+//        dateComp.weekOfYear = comp
+//        dateComp.day = 17
+//        dateComp.hour = 16
+//        dateComp.timeZone = TimeZone.init(secondsFromGMT: 0 * 3600)
+//        dateComp.calendar = Calendar.current
+//        dateComp.yearForWeekOfYear = 2018
+//
+        if let cal = dateComp.calendar {
+            print("---------- dateComp.calendar is \(cal)")
+        }
+        
+        
+        //MARK:var timeZone: TimeZone? { get set } // 用于解释日期组件的时区
+        if let timezone = dateComp.timeZone {
+            print("---------- dateComp.timeZone is \(timezone)")
+        }
+
+        //MARK:----- 2. Validating a Date (验证日期)
+        
+        //MARK:var isValidDate: Bool { get }
+        /**
+         一个Boolean值, 指示当前属性组合是否表示当前日历中存在的日期
+         */
+        print("----------- dateComp.isValidDate is \(dateComp.isValidDate)")
+        
+        
+        //MARK:func isValidDate(in calendar: Calendar) -> Bool
+        /**
+         返回Boolean值， 指示当前属性组合是否表示指定日历中存在的日期
+         */
+        let isValidDate = dateComp.isValidDate(in: Calendar.current)
+        print("----------- dateComp.isValidDate(in: Calendar.current) is \(isValidDate)")
+        
+        //MARK:var date: Date? { get } // 使用存储的日历从当前组件计算的日期
+        if let date = dateComp.date {
+            print("--------- dateComp.date is \(date)")
+        }
+        
+        
+        //MARK:----- 3. Accessing Years and Months (访问年限和月份)
+        
+        //MARK: var era: Int { get set } //时代的数量。
+        if let era = dateComp.era {
+            print("---------dateComp.era is \(era)")
+        }
+        
+        //MARK: var year: Int { get set } //年数。
+        if let year = dateComp.year {
+            print("---------dateComp.year is \(year)")
+        }
+        
+        //MARK: var yearForWeekOfYear: Int { get set } //ISO 8601周编号年份。
+        if let yearForWeekOfYear = dateComp.yearForWeekOfYear {
+            print("--------dateComp.yearForWeekOfYear is \(yearForWeekOfYear)")
+        }
+        
+        //MARK: var quarter: Int { get set } //宿舍数量。
+        if let quarter = dateComp.quarter {
+            print("----------dateComp.quarter is \(quarter)")
+        }
+        
+        //MARK: var month: Int { get set } //月数。
+        if let month = dateComp.month {
+            print("----------dateComp.month is \(month)")
+        }
+        
+        //MARK: var isLeapMonth: Bool { get set } //一个布尔值，指示月份是否为闰月。
+        if let isLeapMonth = dateComp.isLeapMonth {
+            print("--------- dateComp.isLeapMonth is \(isLeapMonth)")
+        }
+
+        
+        //MARK:----- 4. Accessing Weeks and Days (访问周和日)
+        
+        //MARK: var weekday: Int { get set } //工作日的数量。
+        if let weekday = dateComp.weekday {
+            print("--------- dateComp.weekday is \(weekday)")
+        }
+        
+        //MARK: var weekdayOrdinal: Int { get set } //工作日的序数。
+        if let weekdayOrdinal = dateComp.weekdayOrdinal {
+            print("---------- dateComp.weekdayOrdinal is \(weekdayOrdinal)")
+        }
+        
+        //MARK: var weekOfMonth: Int { get set } //这个月的周数。
+        if let weekOfMonth = dateComp.weekOfMonth {
+            print("----------- dateComp.weekOfMonth is \(weekOfMonth)")
+        }
+        
+        
+        //MARK: var weekOfYear: Int { get set } //一年中的ISO 8601周日期。
+        if let weekOfYear = dateComp.weekOfYear {
+            print("---------- dateComp.weekOfYear is \(weekOfYear)")
+        }
+        
+        //MARK: var day: Int { get set } //天数。
+        if let day = dateComp.day {
+            print("---------dateComp.day is \(day)")
+        }
+        
+        //MARK:----- 5. Accessing Hours and Seconds (访问小时和秒)
+        //MARK: var hour: Int { get set} //接收器的小时数。
+        if let hour = dateComp.hour {
+            print("---------- dateComp.hour is \(hour)")
+        }
+        
+        //MARK: var minute: Int { get set} //接收器的分钟数。
+        if let minute = dateComp.minute {
+            print("--------- dateComp.minute is \(minute)")
+        }
+        
+        //MARK: var second: Int { get set} //接收器的第二个单元数。
+        if let second = dateComp.second {
+            print("---------- dateComp.second is \(second)")
+        }
+        
+        //MARK: var nanosecond: Int { get set} //接收器的纳秒单位数。
+        if let nanosecond = dateComp.nanosecond {
+            print("---------- dateComp.nanosecond is \(nanosecond)")
+        }
+        
+
+        
+        //MARK:----- 6. Accessing Components as Calendrical Units (将组件作为日历单元访问)
+        
+        //MARK: func value(forComponent unit: NSCalendar.Unit) -> Int //返回给定日历单位的值。
+        if let value = dateComp.value(for: Calendar.Component.day){
+            print("----------- dateComp.value(for: Calendar.Component.day) is \(value)")
+        }
+        
+        
+        //MARK: func setValue(_ value: Int, forComponent unit: NSCalendar.Unit) //设置给定日历单位的值。
+        
+        //MARK: struct NSCalendar.Unit // 日历单位，如年，月，日和小时。
+        
         //MARK:************************** NSDate/Date *******************************
         //MARK:************************** NSDateInterval/DateInterva *************************
         //MARK:************************** NSTimeZone/TimeZone ***************************
