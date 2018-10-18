@@ -16,11 +16,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //MARK:************************** NSCalendar/Calendar ***************************
         /**
-         参考资料： https://developer.apple.com/documentation/foundation/nscalendar
-                  https://blog.csdn.net/shenjie_xsj/article/details/79033861
+         参考资料： https://blog.csdn.net/shenjie_xsj/article/details/79033861
          */
+        
+        //MARK:************************** NSCalendar/Calendar ***************************
         
         //MARK:----- 1. Creating and Initializing Calendars (创建和初始化日历)
         //MARK:init?(identifier calendarIdentifierConstant: NSCalendar.Identifier) // 创建由给定标识符指定的新日历
@@ -981,6 +981,126 @@ class ViewController: UIViewController {
         
         
         //MARK:************************** NSTimeZone/TimeZone ***************************
+        //MARK:----- 1. Working with System Time Zones (使用系统时区)
+        //MARK:class var local: TimeZone { get } //跟踪当前系统时区的对象
+        print("---------- \(NSTimeZone.local)")
+        
+        //MARK:class var system: TimeZone { get } //系统当前使用的时区
+        print("---------- \(NSTimeZone.system)")
+        
+        //MARK:class func resetSystemTimeZone() // 清除为该system属性环迅的所有时区值
+        NSTimeZone.resetSystemTimeZone()
+        
+        //MARK:class var `default`: TimeZone { get set } // 使用当前应用的默认时区
+        print("---------- \(NSTimeZone.default)")
+        
+        
+        //MARK:----- 2. Creating Time Zones (创建时区)
+        //MARK:init?(name tzName: String) // 返回使用给定标志符初始化的时区
+        if let timeZone = NSTimeZone.init(name: "Asia/Shanghai") {
+            print("---------- NSTimeZone.init(name: Asia/Shangha) is \(timeZone)")
+        }
+        
+        //MARK:init?(name tzName: String, data aData: Data?) // 使用给定标识符和时区数据初始化时区
+        if let timeZone = NSTimeZone.init(name: "Asia/Shanghai", data: nil) {
+            print("---------- NSTimeZone.init(name: Asia/Shanghai, data: nil) is \(timeZone)")
+        }
+        
+        //MARK:convenience init?(abbreviation: String) // 返回由给定缩写标识的时区对象
+        if let timeZone = NSTimeZone.init(abbreviation: "GMT") {
+            print("---------- NSTimeZone.init(abbreviation: GMT) is \(timeZone)")
+        }
+        
+        
+        //MARK:convenience init(forSecondsFromGMT seconds: Int) // 返回格林威治时间偏移给定秒数的时区对象
+        let timeZone = NSTimeZone.init(forSecondsFromGMT: 8 * 3600)
+        print("---------- NSTimeZone.init(forSecondsFromGMT: 8 * 3600) is \(timeZone)")
+        
+        
+        //MARK:class var knownTimeZoneNames: [String] { get } // 返回一个字符串数组，列出系统已知的所有时区的ID
+        print("---------- NSTimeZone.knownTimeZoneNames is \(NSTimeZone.knownTimeZoneNames)")
+        
+        //MARK:class var abbreviationDictionary: [String : String] { get set }
+        /**
+         返回一个字典，其中包含时区缩写到时区名称的映射
+         */
+        print("--------- NSTimeZone.abbreviationDictionary is \(NSTimeZone.abbreviationDictionary)")
+        
+        //MARK:----- 3. Getting Time Zone Information (获取时区信息)
+        
+        //MARK:var name: String { get } //标识接受者的地缘政治区域ID
+        print("---------- timeZone.name is \(timeZone.name)")
+        
+        
+        
+        //MARK:var abbreviation: String? { get } // 接收器的缩写
+        if let abbreviation = timeZone.abbreviation {
+            print("---------- timeZone.abbreviation is \(abbreviation)")
+        }
+        
+        
+        //MARK:func abbreviation(for aDate: Date) -> String ?
+        if let string = timeZone.abbreviation(for: Date.init(timeInterval: TimeInterval.init(0 * 3600), since: date)) {
+            print("---------- timeZone.abbreviation(for: Date.init(timeInterval: TimeInterval.init(0 * 3600), since: date)) is \(string)")
+        }
+        
+        
+        //MARK:var secondsFromGMT: Int { get } //接收器与格林威治标准时间之间的当前秒差
+        print("---------- timeZone.secondsFromGMT is \(timeZone.secondsFromGMT)")
+        
+        //MARK:func secondsFromGMT(for aDate: Date) -> Int // 返回给定日期接收器与格林威治标准时间之间的秒数差异
+        print("---------- timeZone.secondsFromGMT(nsdate01 as Date) is \(timeZone.secondsFromGMT(for: nsdate01 as Date))")
+        
+        //MARK:var date: Data { get } // 存储接收器使用的信息的数据
+        print("---------- timeZone.data is \(timeZone.data)")
+        
+        //MARK:class var timeZoneDataVersion: String { get } //返回时区数据版本
+        print("---------- NSTimeZone.timeZoneDataVersion is \(NSTimeZone.timeZoneDataVersion)")
+        
+        //MARK:enum NSTimeZone.NameStyle // 用于在显示时区名称时指定样式的常量。
+        print("---------- NSTimeZone.NameStyle.self is \(NSTimeZone.NameStyle.self)")
+        
+        //MARK:----- 4. Working with Daylight Savings (使用夏令时)
+        //MARK:var isDaylightSavingTime: Bool { get } // Boolean, 指示接收器当前是否正在使用夏令时
+        print("---------- timeZone.isDaylightSavingTime is \(timeZone.isDaylightSavingTime)")
+        
+        //MARK:func isDaylightSavingTime(for aDate : Date) -> Bool //指示接收器是否在给定日期使用夏令时
+        print("---------- timeZone.isDaylightSavingTime(nsdate01 as Date) is \(timeZone.isDaylightSavingTime(for: nsdate01 as Date))")
+        
+        //MARK:var daylightSavingTimeOffset: TimeInterval { get }// 接收器当前夏令时偏移量
+        print("---------- timeZone.daylightSavingTimeOffset is \(timeZone.daylightSavingTimeOffset)")
+        
+        //MARK:func daylightSavingTimeOffset(for aDate: Date) -> TimeInterval //返回给定日期的夏令时偏移量
+        print("---------- timeZone.daylightSavingTimeOffset(nsdate01 as Date) is \(timeZone.daylightSavingTimeOffset(for: nsdate01 as Date))")
+        
+        //MARK: var nextDaylightSavingTimeTransition: Date? //接收器的下一个夏令时转换的日期
+        if let nextDaylightSavingTimeTransition = timeZone.nextDaylightSavingTimeTransition {
+            print("---------- timeZone.nextDaylightSavingTimeTransition is \(nextDaylightSavingTimeTransition)")
+        }
+        
+        //MARK:func nextDaylightSavingTimeTransition(after aDate: Date) -> Date? // 返回给定日期之后的下一个夏令时转换
+        if let date = timeZone.nextDaylightSavingTimeTransition(after: nsdate01 as Date) {
+            print("---------- timeZone.nextDaylightSavingTimeTransition(after: nsdate01 as Date) is \(date)")
+        }
+        
+        //MARK:----- 5. Comparing Time Zones (比较时区)
+        //MARK:func isEqual(to aTimeZone: TimeZone) -> Bool //指示接收方是否具有与指定时区相同的名称和数据
+        print("------------ timeZone.isEqual(to: TimeZone.init(secondsFromGMT: 0)!) is \(timeZone.isEqual(to: TimeZone.init(secondsFromGMT: 8 * 3600)!))")
+        
+        //MARK:----- 6. Describing Time Zones (描述时区)
+        //MARK:func localizedName(_ style: NSTimeZone.NameStyle, locale: Locale?) -> String?
+        if let localizedName = timeZone.localizedName(NSTimeZone.NameStyle.generic, locale: Locale.current) {
+            print("---------- timeZone.localizedName(NSTimeZone.NameStyle.generic, locale: Locale.current) is \(localizedName)")
+        }
+        
+        //MARK:var description: String { get } //时区的文字说明，包括名称，缩写，与GMT的偏移，以及夏令时是否当前有效。
+        print("---------- timeZone.description is \(timeZone.description)")
+        
+        //MARK:----- 7. Recognizing Notifications (识别通知)
+        //MARK:static let NSSystemTimeZoneDidChange: NSNotification.Name //时区更改时发布的通知
+        
+        
+        
         //MARK:************************** NSDataFormatter/DataFormatter ************************
     }
 
