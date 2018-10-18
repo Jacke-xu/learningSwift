@@ -913,6 +913,73 @@ class ViewController: UIViewController {
 
         
         //MARK:************************** NSDateInterval/DateInterva *************************
+        /**
+         表示桥接到的两个日期之间的时间跨度的对象
+         */
+        
+        //MARK:----- 1. Creating Date Intervals (创建日期间隔)
+        //MARK:init() //通过将开始和结束日期设置为当前日期来初始化日期间隔
+        let dateInterval = NSDateInterval.init()
+        print("---------- dateInterval is \(dateInterval)")
+        
+        //MARK:init(start startDate: Date, duration: TimeInterval)
+        /**
+         使用给定的开始日期和持续时间初始化日期间隔
+         */
+        let dateInterval01 = NSDateInterval.init(start: nsdate01 as Date, duration: TimeInterval.init(3600))
+        print("---------- dateInterval01 is \(dateInterval01)")
+        
+        //MARK:init(start startDate: Date, end endDate: Date) //从给定的开始日期和结束日期初始化日期间隔
+        print("---------- \(DateInterval.init(start: nsdate01 as Date, end: nsdate02))")
+        
+        //MARK:init(coder: NSCoder) //返回从给定的unarchiver中的数据初始化的日期间隔
+        
+        
+        //MARK:----- 2. Accessing Start Date, End Date, and Duration (访问开始日期，结束日期和持续时间)
+        
+        //MARK:var startDate: Date { get } //日期间隔的开始日期
+        print("---------- \(dateInterval01.startDate)")
+        
+        //MARK:var endDate: Date { get } //日期间隔的结束日期
+        print("---------- \(dateInterval01.endDate)")
+        
+        //MARK:var duration: TimeInterval { get } //日期间隔的持续时间
+        print("---------- \(dateInterval01.duration)")
+        
+        
+        //MARK:----- 3. Comparing Date Intervals (比较日期间隔)
+        //MARK:func compare(_ dateInterval: DateInterval) -> ComparisonResult //将接收器与指定的日期间隔进行比较
+        let dateInterval02 = NSDateInterval.init(start: nsdate01 as Date, duration: TimeInterval.init( 2 * 3600))
+        print("---------- \(dateInterval01.compare(dateInterval02 as DateInterval))")
+
+        //MARK:func isEqual(to dateInterval: DateInterval) -> Bool
+        /**
+         指示接收方是否等于指定的日期间隔
+         */
+        print("----------- \(dateInterval01.isEqual(to: dateInterval02 as DateInterval))")
+        
+        //MARK:----- 4. Determining Intersections (确定交叉点)
+        //MARK:func intersects(_ dateInterval: DateInterval) -> Bool
+        /**
+         指示接收器是否与指定的日期间隔相交
+         */
+        print("---------- \(dateInterval01.intersects(dateInterval02 as DateInterval))")
+        
+        //MARK:func intersection(with dateInterval: DateInterval) -> DateInterval?
+        /**
+         返回接收器与指定日期间隔之间的交集
+         */
+        print("---------- \(String(describing: dateInterval01.intersection(with: dateInterval02 as DateInterval)))")
+        
+        
+        //MARK:----- 5. Determining Wheter a Date Occurs Within a Date Interval (确定日期是否在日期间隔内发生)
+        //MARK:func contains(_ date: Date) -> Bool
+        /**
+         指示接收方是否包含指定日期
+         */
+        print("---------- \(dateInterval01.contains(nsdate01 as Date))")
+        
+        
         //MARK:************************** NSTimeZone/TimeZone ***************************
         //MARK:************************** NSDataFormatter/DataFormatter ************************
     }
