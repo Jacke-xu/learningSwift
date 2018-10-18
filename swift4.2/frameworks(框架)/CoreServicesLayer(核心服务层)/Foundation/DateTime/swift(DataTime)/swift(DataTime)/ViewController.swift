@@ -786,6 +786,132 @@ class ViewController: UIViewController {
         //MARK: struct NSCalendar.Unit // 日历单位，如年，月，日和小时。
         
         //MARK:************************** NSDate/Date *******************************
+        //MARK:----- 1. Initializing a Date (初始化日期)
+        //MARK:init() //返回初始化为当前日期和时间日期对象
+        let nsdate = Date.init()
+        print("---------- nsdate is \(nsdate)")
+        
+        //MARK:convenience init(timeIntervalSinceNow secs: TimeInterval)
+        /**
+         返回相对于当前日期和时间初始化的日期对象，给定的秒数
+         */
+        let timeIntervalSinceNow = Date.init(timeIntervalSinceNow: TimeInterval.init(9 * 3600))
+        print("---------- timeIntervalSinceNow is \(timeIntervalSinceNow)")
+        
+        
+        //MARK:convenience init(timeInterval secsToBeAdded: TimeInterval, since date: Date)
+        /**
+         返回相对于另一个给定日期初始化的日期对象，给定秒数
+         */
+        
+        let secsToBeAdd = Date.init(timeInterval: TimeInterval.init(8 * 3600), since: date)
+        print("---------- secsToBeAdd is \(secsToBeAdd)")
+        
+        
+        //MARK:init(timeIntervalSinceReferenceDate ti: TimeInterval)
+        /**
+         返回相对于2001年1月1日00：00：00 UTC初始化的日期对象，给定秒数
+         */
+        let timeIntervalSinceReferenceDate = Date.init(timeIntervalSinceReferenceDate: TimeInterval.init(3600))
+        print("---------- timeIntervalSinceReferenceDate is \(timeIntervalSinceReferenceDate)")
+        
+        //MARK:convenience init(timeIntervalSince1970 secs: TimeInterval)
+        /**
+         返回相对于1970年1月1日00：00：00 UTC初始化的日期对象，给定秒数
+         */
+        let timeIntervalSince1970 = Date.init(timeIntervalSince1970: TimeInterval.init(3600))
+        print("---------- timeIntervalSince1970 is \(timeIntervalSince1970)")
+        
+        //MARK:init?(coder aDecoder: NSCoder)
+        /**
+         返回从给定unarchiver中的数据初始化的日期对象
+         */
+        
+        //MARK:----- 2. Getting Temporal Boundaries (初始化时间边界)
+        //MARK:class var distantFuture: Date { get } // 表示遥远未来日期的日期对象
+        print("---------- Date.distantFuture is \(Date.distantFuture)")
+        
+        //MARK:class var distantPast: Date { get } //表示遥远过去日期的日期对象
+        print("---------- Date.dictantPast is \(Date.distantPast)")
+        
+        //MARK:----- 3. Comparing Dates (比较日期)
+        //MARK:func isEqual(to otherDate: Date) -> Bool
+        /**
+         返回一个Boolean, 指示给定对象是否与接收器完全相等的日期
+         */
+        let nsdate01 = NSDate.init(timeInterval: TimeInterval.init(8 * 3600), since: date)
+        let isEqual = nsdate01.isEqual(to: Date.init(timeInterval: TimeInterval.init(8 * 3600), since: date))
+        print("---------- isEqual is \(isEqual)")
+        
+        
+        //MARK:func earlierDate(_ anotherDate: Date) -> Date
+        /**
+         返回接收器的早期和另一个给定日期
+         */
+        print("---------- \(nsdate01.earlierDate(Date.init(timeInterval: TimeInterval.init(9 * 3600), since: date)))")
+        
+        
+        //MARK:func laterDate(_ antoherDate: Date) -> Date
+        /**
+         返回接收器的后一个和另一个给定日期
+         */
+        print("---------- \(nsdate01.laterDate(Date.init(timeInterval: TimeInterval.init(9 * 3600), since: date)))")
+        
+        //MARK:func compare(_ other: Date) -> ComparisonResult
+        /**
+         指示接收器的时间顺序和另一个给定日期
+         */
+        print("---------- \(nsdate01.compare(Date.init(timeInterval: TimeInterval.init(9 * 3600), since: date)).rawValue)")
+        
+        //MARK:----- 4. Getting Time Intervals (获得时间间隔)
+        //MARK:func timeIntervalSince(_ anotherDate: Date) -> TimeInterval
+        /**
+         返回接受者与另一个给定日期之间的间隔
+         */
+        print("---------- \(nsdate01.timeIntervalSince(Date.init(timeInterval: TimeInterval.init(9 * 3600), since: date)))")
+        
+        
+        //MARK:var timeIntervalSinceNow: TimeInterval { get } // 日期对象与当前日期和时间之间的间隔
+        let nsdate02 = Date.init(timeInterval: TimeInterval.init(9 * 3600), since: date)
+        print("---------- \(nsdate02.timeIntervalSinceNow)")// 如果日期对象早于当前日期和时间，则此属性的值为负
+        
+        
+        //MARK:var timeIntervalSinceReferenceDate: TimeInterval { get } //日期对象与2001年1月1日00:00:00 UTC之间的间隔。
+        print("---------- \(nsdate01.timeIntervalSinceReferenceDate)")
+        
+        //MARK:var timeIntervalSince1970: TimeInterval { get } //日期对象与1970年1月1日00:00:00 UTC之间的间隔。
+        print("---------- \(nsdate01.timeIntervalSince1970)")
+        
+        //MARK:class var timeIntervalSinceReferenceDate: TimeInterval { get } //2001年1月1日世界贸易组织00:00:00与当前日期和时间之间的间隔。
+        print("---------- \(NSDate.timeIntervalSinceReferenceDate)")
+        
+        //MARK:var NSTimeIntervalSince1970: Double { get } //从1970年1月1日至参考日期2001年1月1日的秒数。
+        print("---------- \(nsdate01.timeIntervalSince1970)")
+        
+
+        
+        
+        
+        //MARK:----- 5. Adding Time Intervals (添加时间间隔)
+        //MARK:func addingTimeInterval(_ ti: TimeInterval) -> Self
+        /**
+         返回一个新的日期对象，该对象设置为相对于接受者的给定秒数
+         */
+        let date01 = NSDate.init(timeInterval: TimeInterval.init(8 * 3600), since: date)
+        let newDate = date01.addingTimeInterval(TimeInterval.init(3600))
+        print("---------- \(newDate)")
+        
+        //MARK:----- 6. Describing Dates (描述日期)
+        //MARK:var description: String { get } //日期对象的字符串表示形式
+        print("---------- \(nsdate01.description)")
+        
+        //MARK: func description(with locale: Any?) -> String //使用给定的语言环境返回日期的字符串表示形式
+        print("---------- \(nsdate01.description(with: NSLocale.current))")
+        
+        
+        //MARK:----- 7. Recognizing Notifications (识别通知)
+
+        
         //MARK:************************** NSDateInterval/DateInterva *************************
         //MARK:************************** NSTimeZone/TimeZone ***************************
         //MARK:************************** NSDataFormatter/DataFormatter ************************
