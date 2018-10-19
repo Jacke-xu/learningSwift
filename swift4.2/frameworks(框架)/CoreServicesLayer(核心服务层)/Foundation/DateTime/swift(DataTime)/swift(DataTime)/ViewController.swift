@@ -22,6 +22,10 @@ class ViewController: UIViewController {
         
         //MARK:************************** NSCalendar/Calendar ***************************
         
+        /**
+         日历信息的封装和桥接的计算Calendar; 使用NSCalendar时需要参考的语义或其他特定基金的行为
+         */
+        
         //MARK:----- 1. Creating and Initializing Calendars (创建和初始化日历)
         //MARK:init?(identifier calendarIdentifierConstant: NSCalendar.Identifier) // 创建由给定标识符指定的新日历
         let calendar = NSCalendar.init(identifier: NSCalendar.Identifier.republicOfChina)
@@ -618,6 +622,10 @@ class ViewController: UIViewController {
         
         //MARK:************************** NSDateComponents/DateComponents *********************
         
+        /**
+         一个对象，用于指定桥接到的日历单元的日期或时间; 使用时需要参考的语义或其他特定基金的行为。DateComponents，NSDateComponents
+         */
+        
         //        //创建一个DateComponents对象
         //        var components1 = DateComponents.init()
         //        //设置各个时间成分
@@ -785,7 +793,12 @@ class ViewController: UIViewController {
         
         //MARK: struct NSCalendar.Unit // 日历单位，如年，月，日和小时。
         
+        
         //MARK:************************** NSDate/Date *******************************
+        /**
+         表示特定时间点的桥接Date; 使用NSDate时需要参考的语义或其他特定基金的行为
+         */
+        
         //MARK:----- 1. Initializing a Date (初始化日期)
         //MARK:init() //返回初始化为当前日期和时间日期对象
         let nsdate = Date.init()
@@ -1101,7 +1114,207 @@ class ViewController: UIViewController {
         
         
         
-        //MARK:************************** NSDataFormatter/DataFormatter ************************
+        //MARK:************************** NSDateFormatter/DateFormatter ************************
+        
+        /**
+         格式化程序，用于在日期及其文本表示之间进行转换
+         */
+        
+        //MARK:----- 1. Converting Objects (转换对象)
+        
+        //MARK:func date(from string: String) -> Date? // 返回使用接收器你的当前设置解释的给定字符串的日期表示
+        let dateFormatter = DateFormatter.init()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if let convertObject = dateFormatter.date(from: "2018-10-19 09:18:52"){
+            print("---------- dateFormatter.date(from: 2018-10-19 09:18:52) is \(Date.init(timeInterval: TimeInterval.init(exactly: 8 * 3600)!, since: convertObject as Date))")
+        }
+        
+        //MARK:func string(from date: Date) -> String
+        /**
+         返回使用接收器的当前设置格式化的给定日期的字符串表示形式
+         */
+        let stringFromDate = dateFormatter.string(from: date)
+        print("---------- stringFromDate is \(stringFromDate)")
+        
+        
+        //MARK:class func localizedString(from date: Date, dateStyle dstyle:DateFormatter.Style, timeStyle tstyle: DateFormatter.Style) -> String
+        /**
+         返回给定日期的字符串表示形式，使用指定的日期和时间样式为当前语言环境设置格式
+         */
+        let localizedString = DateFormatter.localizedString(from: date, dateStyle: DateFormatter.Style.full, timeStyle: DateFormatter.Style.full)
+        print("---------- localizedString is \(localizedString)")
+        
+        
+        //MARK:func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string : String, range rangep: UnsafeMutablePointer<NSRange>?) throws
+        /**
+         通过引用返回给定字符串的日期表示和所用字符串的范围，并返回一个Boolean, 指示是否可以解析该字符串
+         */
+
+        let unsafeMutalbePointerAnyObject = UnsafeMutablePointer<AnyObject?>.allocate(capacity: 1)
+        let autoreleasing = AutoreleasingUnsafeMutablePointer<AnyObject?>(unsafeMutalbePointerAnyObject)
+        let rangep = UnsafeMutablePointer<NSRange>?.init(nilLiteral: ())
+        
+        
+        try! dateFormatter.getObjectValue(autoreleasing, for: "2018-10-19 09:18:52", range: rangep)
+        print("------------ autoreleasing is \(String(describing: autoreleasing.pointee)) rangep is \(String(describing: rangep))")
+        
+        
+        //MARK:----- 2. Managing Formats and Styles
+        
+        //MARK:var dateStyle: DateFormatter.Style { get set } // 接收器的日期样式
+        print("---------- dateFormatter.dateStyle is \(dateFormatter.dateStyle)")
+        
+        
+        //MARK:var timeStyle: DateFormatter.Style { get set } // 接收器的时间风格
+        print("---------- dateFormatter.timeStyle is \(dateFormatter.timeStyle)")
+        
+        
+        //MARK:var dateFormat: String! { get set } // 接收方使用的日期格式字符串
+        print("---------- dateFormatter.dateFormat is \(String(describing: dateFormatter.dateFormat))")
+        
+        //MARK:func setLocalizedDateFormatFromTemplate(_ dateFormatTemplate: String)
+        /**
+         使用指定的接收器区域设置从模板设置日期格式
+         */
+        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd")
+        
+        //MARK:class func dateFormat(fromTemplate tmplate: String, options opts: Int, locale: Locale?) -> String?
+        /**
+         返回一个本地化的日子格式字符串，表示为指定的语言环境适当排列的给定日期格式组件
+         */
+        let dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyy-MM-dd", options: 1, locale: Locale.current)
+        print("---------- dateFormat is \(String(describing: dateFormat))")
+        
+        //MARK:var formattingContext: Formatter.Context { get set } // 格式化日期是使用的大写格式上下文
+        print("---------- dateFormatter.formattingContext is \(dateFormatter.formattingContext)")
+        
+        //MARK:----- 3. Managing Attributes
+        
+        //MARK:var calendar: Calendar! { get set} //接收器的日历。
+        print("---------- dateFormatter.calendar is \(String(describing: dateFormatter.calendar))")
+        
+        //MARK:var defaultDate: Date? { get set} //接收方的默认日期。
+        print("---------- dateFormatter.defaultDate is \(String(describing: dateFormatter.defaultDate))")
+        
+        //MARK:var locale: Locale! { get set} //接收器的区域设置。
+        print("---------- dateFormatter.locale is \(String(describing: dateFormatter.locale))")
+        
+        //MARK:var timeZone: TimeZone! { get set} //接收器的时区。
+        print("---------- dateFormatter.timeZone is \(String(describing: dateFormatter.timeZone))")
+        
+        //MARK:var twoDigitStartDate: Date? { get set} //可以用两位数年份说明符表示的最早日期。
+        print("---------- dateFormatter.twoDigitStartDate is \(String(describing: dateFormatter.twoDigitStartDate))")
+        
+        //MARK:var gregorianStartDate: Date? { get set} //接收者公历的开始日期。
+        print("---------- dateFormatter.gregorianStartDate is \(String(describing: dateFormatter.gregorianStartDate))")
+        
+
+        
+        //MARK:----- 4. Managing Behavior Version
+        
+        //MARK:var formatterBehavior: DateFormatter.Behavior { get set } // 接收器的格式化程序行为
+        print("---------- dateFormatter.formatterBehavior is \(dateFormatter.formatterBehavior)")
+        
+        //MARK:class var defaultFormatterBehavior: DateFormatter.Behavior { get set } // 返回类实例的默认格式化行为
+        print("---------- DateFormatter.defaultFormatterBehavior is \(DateFormatter.defaultFormatterBehavior)")
+        
+        //MARK:----- 5. Managing Natural Language Support
+        //MARK:var isLenient: Bool { get set } // 一个布尔值，指示接收器在解析字符串时是否使用启发式算法。
+        print("---------- dateFormatter.isLenient is \(dateFormatter.isLenient)")
+        
+        //MARK:var doesRelativeDateFormatting: Bool { get set } // 一个布尔值，指示接收方是否对日期组件使用诸如“今天”和“明天”之类的短语。
+        print("---------- dateFormatter.doesRelativeDateFormatting is \(dateFormatter.doesRelativeDateFormatting)")
+
+        
+        
+        //MARK:----- 6. Managing AM and PM Symbols
+        //MARK:var amSymbol: String! { get set } //接收器的AM符号。
+        print("---------- dateFormatter.amSymbol is \(String(describing: dateFormatter.amSymbol))")
+        
+        //MARK:var pmSymbol: String! { get set } //接收器的PM符号。
+        print("---------- dateFormatter.pmSymbol is \(String(describing: dateFormatter.pmSymbol))")
+        
+
+        
+        //MARK:----- 7. Managing Weekday Symbols
+        //MARK:var weekdaySymbols: [String]! { get set } // 接收器的工作日符号数组。
+        print("---------- dateFormatter.weekdaySymbols is \(String(describing: dateFormatter.weekdaySymbols))")
+        
+        //MARK:var shortWeekdaySymbols: [String]! { get set } // 接收器的短工作日符号数组。
+        print("---------- dateFormatter.shortWeekdaySymbols is \(String(describing: dateFormatter.shortWeekdaySymbols))")
+        
+        //MARK:var veryShortWeekdaySymbols: [String]! { get set } // 接收器的非常短的工作日符号数组。
+        print("---------- dateFormatter.veryShortWeekdaySymbols is \(String(describing: dateFormatter.veryShortWeekdaySymbols))")
+        
+        //MARK:var standaloneWeekdaySymbols: [String]! { get set } // 接收器的独立工作日符号数组。
+        print("---------- dateFormatter.standaloneWeekdaySymbols is \(String(describing: dateFormatter.standaloneWeekdaySymbols))")
+        
+        //MARK:var shortStandaloneWeekdaySymbols: [String]! { get set } // 接收器的短独立工作日符号数组。
+        print("---------- dateFormatter.shortStandaloneWeekdaySymbols is \(String(describing: dateFormatter.shortStandaloneWeekdaySymbols))")
+        
+        //MARK:var veryShortStandaloneWeekdaySymbols: [String]! { get set } // 接收器的非常短的独立工作日符号数组。
+        print("---------- dateFormatter.veryShortStandaloneWeekdaySymbols is \(String(describing: dateFormatter.veryShortStandaloneWeekdaySymbols))")
+        
+        
+        //MARK:----- 8. Managing Month Symbols
+        
+        //MARK:var monthSymbols: [String]! { get set } //接收器的月份符号。
+        
+        //MARK:var shortMonthSymbols: [String]! { get set } //接收器的短月份符号数组。
+        
+        //MARK:var veryShortMonthSymbols: [String]! { get set } //接收器的非常短的月份符号。
+        
+        //MARK:var standaloneMonthSymbols: [String]! { get set } //接收器的独立月份符号。
+        
+        //MARK:var shortStandaloneMonthSymbols: [String]! { get set } //接收器的短独立月份符号。
+        
+        //MARK:var veryShortStandaloneMonthSymbols: [String]! { get set } //接收器的非常短的月份符号。
+        
+        //MARK:----- 9. Managing Quarter Symbols
+        //MARK:var quarterSymbols: [String]! { get set } //接收器的四分之一符号。
+        
+        //MARK:var shortQuarterSymbols: [String]! { get set } //接收器的短四分之一符号。
+        
+        //MARK:var standaloneQuarterSymbols: [String]! { get set } //接收器的独立四分之一符号。
+        
+        //MARK:var shortStandaloneQuarterSymbols: [String]! { get set } //接收器的短独立四分之一符号。
+        
+
+        
+        
+        //MARK:----- 10. Managing Era Symbols
+        
+        
+        //MARK:var eraSymbols: [String]! { get set } //接收器的时代符号。
+        
+        //MARK:var longEraSymbols: [String]! { get set } //接收器的长时代符号
+        
+
+        
+        
+        //MARK:----- 11. Deprecated
+        
+        //MARK:----- 12. Constants
+        //MARK:enum DateFormatter.Style  // 以下常量指定日期和时间的预定义格式样式。
+        
+//        extension DateFormatter {
+//            public enum Style : UInt {
+//                case none
+//                case short
+//                case medium
+//                case long
+//                case full
+//            }
+//        }
+        
+       //MARK: enum DateFormatter.Behavior // 指定行为的常量应该显示。NSDateFormatter
+        
+
+        //MARK:----- 13. Instance Properties (实例属性)
+        
+        
+        //MARK: var generatesCalendarDates: Bool // 指示格式化程序是否生成已弃用的日历日期类型。
+        
     }
 
     override func didReceiveMemoryWarning() {
