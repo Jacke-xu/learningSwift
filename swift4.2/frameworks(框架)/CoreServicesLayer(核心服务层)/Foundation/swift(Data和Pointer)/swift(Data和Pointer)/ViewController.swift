@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         /**
          参考资料：http://www.swiftyper.com/2017/01/15/unsafe-swift/
                  https://academy.realm.io/cn/posts/nate-cook-tryswift-tokyo-unsafe-swift-and-pointer-types/
+                 https://onevcat.com/2015/01/swift-pointer/
          */
         
         //MARK:<------ MemoryLayout ------>
